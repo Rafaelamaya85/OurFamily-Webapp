@@ -1,0 +1,347 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>HomeFlow - Family Planner</title>
+  <style>
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      font-family: Arial, sans-serif;
+      background: #f4f7fb;
+      color: #1f2937;
+      max-width: 480px;
+      margin: 0 auto;
+      min-height: 100vh;
+      padding-bottom: 90px;
+    }
+
+    .app {
+      padding: 18px 16px 24px;
+    }
+
+    .topbar {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 18px;
+    }
+
+    .brand h1 {
+      font-size: 1.8rem;
+      color: #1d4ed8;
+      margin-bottom: 4px;
+    }
+
+    .brand p {
+      color: #6b7280;
+      font-size: 0.95rem;
+    }
+
+    .avatar {
+      width: 42px;
+      height: 42px;
+      border-radius: 50%;
+      background: #dbeafe;
+      color: #1d4ed8;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-weight: bold;
+      font-size: 1rem;
+    }
+
+    .hero-card {
+      background: linear-gradient(135deg, #1d4ed8, #60a5fa);
+      color: white;
+      border-radius: 20px;
+      padding: 20px;
+      margin-bottom: 18px;
+      box-shadow: 0 10px 24px rgba(29, 78, 216, 0.18);
+    }
+
+    .hero-card h2 {
+      font-size: 1.35rem;
+      margin-bottom: 8px;
+    }
+
+    .hero-card p {
+      line-height: 1.4;
+      font-size: 0.95rem;
+    }
+
+    .section-title {
+      font-size: 1.15rem;
+      font-weight: bold;
+      margin: 18px 0 12px;
+    }
+
+    .quick-actions {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 12px;
+    }
+
+    .action-card {
+      background: white;
+      border-radius: 18px;
+      padding: 16px;
+      box-shadow: 0 6px 16px rgba(15, 23, 42, 0.08);
+      text-align: center;
+    }
+
+    .action-card .icon {
+      font-size: 1.7rem;
+      margin-bottom: 8px;
+    }
+
+    .action-card h3 {
+      font-size: 1rem;
+      margin-bottom: 4px;
+    }
+
+    .action-card p {
+      font-size: 0.85rem;
+      color: #6b7280;
+    }
+
+    .list-card {
+      background: white;
+      border-radius: 18px;
+      padding: 16px;
+      box-shadow: 0 6px 16px rgba(15, 23, 42, 0.08);
+      margin-bottom: 12px;
+    }
+
+    .list-card h3 {
+      margin-bottom: 12px;
+      font-size: 1rem;
+      color: #111827;
+    }
+
+    .item-row {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 10px 0;
+      border-bottom: 1px solid #e5e7eb;
+      gap: 12px;
+    }
+
+    .item-row:last-child {
+      border-bottom: none;
+      padding-bottom: 0;
+    }
+
+    .item-left {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .badge {
+      min-width: 64px;
+      text-align: center;
+      background: #dbeafe;
+      color: #1d4ed8;
+      padding: 6px 10px;
+      border-radius: 999px;
+      font-size: 0.78rem;
+      font-weight: bold;
+    }
+
+    .item-text strong {
+      display: block;
+      font-size: 0.95rem;
+      margin-bottom: 2px;
+    }
+
+    .item-text span {
+      color: #6b7280;
+      font-size: 0.84rem;
+    }
+
+    .checkbox {
+      width: 20px;
+      height: 20px;
+      accent-color: #2563eb;
+    }
+
+    .bottom-nav {
+      position: fixed;
+      left: 50%;
+      transform: translateX(-50%);
+      bottom: 0;
+      width: 100%;
+      max-width: 480px;
+      display: flex;
+      justify-content: space-around;
+      background: white;
+      border-top: 1px solid #e5e7eb;
+      padding: 10px 8px 12px;
+    }
+
+    .nav-item {
+      text-align: center;
+      color: #6b7280;
+      font-size: 0.8rem;
+    }
+
+    .nav-item.active {
+      color: #1d4ed8;
+      font-weight: bold;
+    }
+
+    .nav-icon {
+      display: block;
+      font-size: 1.2rem;
+      margin-bottom: 4px;
+    }
+
+    .add-btn {
+      display: inline-block;
+      width: 100%;
+      margin-top: 10px;
+      background: #1d4ed8;
+      color: white;
+      border: none;
+      border-radius: 14px;
+      padding: 12px;
+      font-size: 0.95rem;
+      font-weight: bold;
+      cursor: pointer;
+    }
+
+    .muted {
+      color: #6b7280;
+      font-size: 0.84rem;
+    }
+  </style>
+</head>
+<body>
+  <div class="app">
+    <div class="topbar">
+      <div class="brand">
+        <h1>HomeFlow</h1>
+        <p>Your family’s daily planner</p>
+      </div>
+      <div class="avatar">RA</div>
+    </div>
+
+    <section class="hero-card">
+      <h2>Stay on top of family life</h2>
+      <p>Track events, chores, homework, and daily tasks all in one mobile-friendly place.</p>
+    </section>
+
+    <h2 class="section-title">Quick Access</h2>
+    <section class="quick-actions">
+      <div class="action-card">
+        <div class="icon">📅</div>
+        <h3>Events</h3>
+        <p>View family plans</p>
+      </div>
+      <div class="action-card">
+        <div class="icon">✅</div>
+        <h3>Chores</h3>
+        <p>Assign and track</p>
+      </div>
+      <div class="action-card">
+        <div class="icon">📚</div>
+        <h3>Homework</h3>
+        <p>Keep up with school</p>
+      </div>
+      <div class="action-card">
+        <div class="icon">📝</div>
+        <h3>Tasks</h3>
+        <p>Manage the day</p>
+      </div>
+    </section>
+
+    <h2 class="section-title">Today’s Events</h2>
+    <section class="list-card">
+      <h3>Family Schedule</h3>
+      <div class="item-row">
+        <div class="item-left">
+          <div class="badge">4:30 PM</div>
+          <div class="item-text">
+            <strong>Soccer Practice</strong>
+            <span>Ethan at Central Field</span>
+          </div>
+        </div>
+      </div>
+      <div class="item-row">
+        <div class="item-left">
+          <div class="badge">6:00 PM</div>
+          <div class="item-text">
+            <strong>Family Dinner</strong>
+            <span>Taco night at home</span>
+          </div>
+        </div>
+      </div>
+      <button class="add-btn">+ Add Event</button>
+    </section>
+
+    <h2 class="section-title">Chores</h2>
+    <section class="list-card">
+      <h3>Assigned for Today</h3>
+      <div class="item-row">
+        <div class="item-left">
+          <input class="checkbox" type="checkbox" />
+          <div class="item-text">
+            <strong>Take out trash</strong>
+            <span>Assigned to Dad</span>
+          </div>
+        </div>
+        <span class="muted">Today</span>
+      </div>
+      <div class="item-row">
+        <div class="item-left">
+          <input class="checkbox" type="checkbox" />
+          <div class="item-text">
+            <strong>Feed the dog</strong>
+            <span>Assigned to Mia</span>
+          </div>
+        </div>
+        <span class="muted">Today</span>
+      </div>
+      <button class="add-btn">+ Assign Chore</button>
+    </section>
+
+    <h2 class="section-title">Homework</h2>
+    <section class="list-card">
+      <h3>School Tasks</h3>
+      <div class="item-row">
+        <div class="item-left">
+          <input class="checkbox" type="checkbox" />
+          <div class="item-text">
+            <strong>Math worksheet</strong>
+            <span>Due tomorrow</span>
+          </div>
+        </div>
+      </div>
+      <div class="item-row">
+        <div class="item-left">
+          <input class="checkbox" type="checkbox" />
+          <div class="item-text">
+            <strong>Science reading</strong>
+            <span>Read pages 18–24</span>
+          </div>
+        </div>
+      </div>
+      <button class="add-btn">+ Add Homework</button>
+    </section>
+  </div>
+
+  <nav class="bottom-nav">
+    <div class="nav-item active"><span class="nav-icon">🏠</span>Home</div>
+    <div class="nav-item"><span class="nav-icon">📅</span>Calendar</div>
+    <div class="nav-item"><span class="nav-icon">✅</span>Chores</div>
+    <div class="nav-item"><span class="nav-icon">⚙️</span>Settings</div>
+  </nav>
+</body>
+</html>
