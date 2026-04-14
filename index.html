@@ -384,17 +384,6 @@
       border-color: var(--primary);
     }
 
-    .mini-button {
-      border: none;
-      background: #eef2ff;
-      color: var(--primary);
-      padding: 8px 12px;
-      border-radius: 12px;
-      font-weight: bold;
-      cursor: pointer;
-      font-size: 0.85rem;
-    }
-
     .delete-btn {
       border: none;
       background: #ffe7e7;
@@ -425,19 +414,6 @@
 
     .ai-results {
       margin-top: 14px;
-    }
-
-    .suggestion-item {
-      display: flex;
-      justify-content: space-between;
-      gap: 10px;
-      align-items: center;
-      padding: 10px 0;
-      border-bottom: 1px solid #eef2f7;
-    }
-
-    .suggestion-item:last-child {
-      border-bottom: none;
     }
 
     .empty-text {
@@ -692,30 +668,6 @@
     </section>
 
     <div class="section-header">
-      <h3>Smart Helper</h3>
-      <a href="#">AI Ideas</a>
-    </div>
-
-    <section class="card">
-      <h4 class="card-title">AI Chore Generator</h4>
-      <p class="empty-text">
-        Type a short prompt like “chores for kids”, “busy school night”, or “weekend cleaning”.
-      </p>
-
-      <div class="ai-box">
-        <textarea id="aiPrompt" rows="3" placeholder="Example: Give me chores for a busy school night with two kids"></textarea>
-      </div>
-
-      <div class="ai-actions">
-        <button class="main-button" id="generateAiBtn" style="margin-top:0;">Generate Ideas</button>
-      </div>
-
-      <div class="ai-results" id="aiResults">
-        <p class="empty-text">Your chore suggestions will show here.</p>
-      </div>
-    </section>
-
-    <div class="section-header">
       <h3>Ask ChatGPT</h3>
       <a href="#">Handoff</a>
     </div>
@@ -827,9 +779,6 @@
     const choreNameInput = document.getElementById("choreName");
     const chorePersonInput = document.getElementById("chorePerson");
     const choreTimeInput = document.getElementById("choreTime");
-    const aiPrompt = document.getElementById("aiPrompt");
-    const generateAiBtn = document.getElementById("generateAiBtn");
-    const aiResults = document.getElementById("aiResults");
 
     const chatgptPrompt = document.getElementById("chatgptPrompt");
     const openChatgptBtn = document.getElementById("openChatgptBtn");
@@ -940,82 +889,6 @@
       choreTimeInput.value = "Today";
 
       updateCounts();
-    });
-
-    function getAiSuggestions(promptText) {
-      const text = promptText.toLowerCase();
-
-      if (text.includes("school") || text.includes("busy night")) {
-        return [
-          { name: "Pack lunches", person: "Mom", time: "Tonight" },
-          { name: "Lay out school clothes", person: "William", time: "Tonight" },
-          { name: "Check backpacks", person: "Dad", time: "Tonight" }
-        ];
-      }
-
-      if (text.includes("kids") || text.includes("children")) {
-        return [
-          { name: "Make bed", person: "William", time: "Morning" },
-          { name: "Put toys away", person: "Hailey", time: "Today" },
-          { name: "Feed the dog", person: "Hailey", time: "Today" }
-        ];
-      }
-
-      if (text.includes("weekend") || text.includes("cleaning")) {
-        return [
-          { name: "Vacuum living room", person: "Dad", time: "Today" },
-          { name: "Wipe kitchen counters", person: "Mom", time: "Today" },
-          { name: "Organize shoes by the door", person: "William", time: "Today" }
-        ];
-      }
-
-      return [
-        { name: "Take out recycling", person: "Dad", time: "Tonight" },
-        { name: "Put dishes away", person: "William", time: "Today" },
-        { name: "Tidy the family room", person: "Hailey", time: "Today" }
-      ];
-    }
-
-    generateAiBtn.addEventListener("click", function () {
-      const promptText = aiPrompt.value.trim();
-
-      if (!promptText) {
-        alert("Please type a short prompt for the AI chore generator.");
-        return;
-      }
-
-      const suggestions = getAiSuggestions(promptText);
-
-      aiResults.innerHTML = "";
-
-      suggestions.forEach((suggestion) => {
-        const row = document.createElement("div");
-        row.className = "suggestion-item";
-
-        row.innerHTML = `
-          <div class="item-text">
-            <strong>${suggestion.name}</strong>
-            <span>Assign to ${suggestion.person} • ${suggestion.time}</span>
-          </div>
-          <button class="mini-button">Add</button>
-        `;
-
-        const addBtn = row.querySelector(".mini-button");
-        addBtn.addEventListener("click", function () {
-          const newChore = createChoreElement(
-            suggestion.name,
-            suggestion.person,
-            suggestion.time,
-            false
-          );
-          choresList.appendChild(newChore);
-          updateCounts();
-          addBtn.textContent = "Added";
-          addBtn.disabled = true;
-        });
-
-        aiResults.appendChild(row);
-      });
     });
 
     openChatgptBtn.addEventListener("click", function () {
