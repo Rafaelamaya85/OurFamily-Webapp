@@ -318,7 +318,8 @@
 
     .schedule-item,
     .todo-item,
-    .goal-item {
+    .goal-item,
+    .homework-item {
       display: flex;
       align-items: center;
       justify-content: space-between;
@@ -329,7 +330,8 @@
 
     .schedule-item:last-child,
     .todo-item:last-child,
-    .goal-item:last-child {
+    .goal-item:last-child,
+    .homework-item:last-child {
       border-bottom: none;
       padding-bottom: 0;
     }
@@ -929,34 +931,72 @@
       <a href="#">School</a>
     </div>
 
-    <section class="card" id="homeworkSection">
+    <section class="card">
       <h4 class="card-title">Due Soon</h4>
 
-      <div class="todo-item" data-completed="false">
-        <div class="left-group">
-          <input class="check homework-check" type="checkbox" />
-          <div class="person-avatar william">W</div>
-          <div class="item-text">
-            <strong>Math worksheet</strong>
-            <span>Assigned to William</span>
+      <div id="homeworkList">
+        <div class="homework-item" data-completed="false">
+          <div class="left-group">
+            <input class="check homework-check" type="checkbox" />
+            <div class="person-avatar william">W</div>
+            <div class="item-text">
+              <strong>Math worksheet</strong>
+              <span>Assigned to William</span>
+            </div>
+          </div>
+          <div style="display:flex; gap:8px; align-items:center;">
+            <div class="tag">Math • Monday</div>
+            <button class="delete-btn">Delete</button>
           </div>
         </div>
-        <div class="tag">Math</div>
-      </div>
 
-      <div class="todo-item" data-completed="false">
-        <div class="left-group">
-          <input class="check homework-check" type="checkbox" />
-          <div class="person-avatar william">W</div>
-          <div class="item-text">
-            <strong>Science reading</strong>
-            <span>Assigned to William</span>
+        <div class="homework-item" data-completed="false">
+          <div class="left-group">
+            <input class="check homework-check" type="checkbox" />
+            <div class="person-avatar william">W</div>
+            <div class="item-text">
+              <strong>Science reading</strong>
+              <span>Assigned to William</span>
+            </div>
+          </div>
+          <div style="display:flex; gap:8px; align-items:center;">
+            <div class="tag">Science • Tuesday</div>
+            <button class="delete-btn">Delete</button>
           </div>
         </div>
-        <div class="tag">Science</div>
       </div>
 
-      <button class="main-button">+ Add Homework</button>
+      <div class="input-row">
+        <input type="text" id="homeworkName" placeholder="Enter a homework task" />
+        <select id="homeworkPerson">
+          <option value="">Assign to family member</option>
+          <option>William</option>
+          <option>Hailey</option>
+          <option>Mom</option>
+          <option>Dad</option>
+        </select>
+        <select id="homeworkSubject">
+          <option value="">Choose a subject</option>
+          <option>Math</option>
+          <option>Science</option>
+          <option>Reading</option>
+          <option>History</option>
+          <option>English</option>
+          <option>Homework</option>
+        </select>
+        <select id="homeworkDay">
+          <option value="">Choose a due day</option>
+          <option>Monday</option>
+          <option>Tuesday</option>
+          <option>Wednesday</option>
+          <option>Thursday</option>
+          <option>Friday</option>
+          <option>Saturday</option>
+          <option>Sunday</option>
+        </select>
+      </div>
+
+      <button class="main-button" id="addHomeworkBtn">+ Add Homework</button>
     </section>
 
   </div>
@@ -982,6 +1022,13 @@
     const choreNameInput = document.getElementById("choreName");
     const chorePersonInput = document.getElementById("chorePerson");
     const choreTimeInput = document.getElementById("choreTime");
+
+    const homeworkList = document.getElementById("homeworkList");
+    const addHomeworkBtn = document.getElementById("addHomeworkBtn");
+    const homeworkNameInput = document.getElementById("homeworkName");
+    const homeworkPersonInput = document.getElementById("homeworkPerson");
+    const homeworkSubjectInput = document.getElementById("homeworkSubject");
+    const homeworkDayInput = document.getElementById("homeworkDay");
 
     const chatgptPrompt = document.getElementById("chatgptPrompt");
     const openChatgptBtn = document.getElementById("openChatgptBtn");
@@ -1088,20 +1135,52 @@
       });
     }
 
-    function updateHomeworkEvents() {
-      const homeworkChecks = document.querySelectorAll(".homework-check");
-      homeworkChecks.forEach((checkbox) => {
-        checkbox.addEventListener("change", function () {
-          const item = checkbox.closest(".todo-item");
-          if (checkbox.checked) {
-            item.classList.add("completed");
-            item.dataset.completed = "true";
-          } else {
-            item.classList.remove("completed");
-            item.dataset.completed = "false";
-          }
-          updateCounts();
-        });
+    function createHomeworkElement(name, person, subject, day, completed = false) {
+      const avatarClass = getAvatarClass(person);
+      const avatarInitial = getAvatarInitial(person);
+
+      const homeworkItem = document.createElement("div");
+      homeworkItem.className = "homework-item";
+      homeworkItem.dataset.completed = completed ? "true" : "false";
+      if (completed) homeworkItem.classList.add("completed");
+
+      homeworkItem.innerHTML = `
+        <div class="left-group">
+          <input class="check homework-check" type="checkbox" ${completed ? "checked" : ""} />
+          <div class="person-avatar ${avatarClass}">${avatarInitial}</div>
+          <div class="item-text">
+            <strong>${name}</strong>
+            <span>Assigned to ${person}</span>
+          </div>
+        </div>
+        <div style="display:flex; gap:8px; align-items:center;">
+          <div class="tag">${subject} • ${day}</div>
+          <button class="delete-btn">Delete</button>
+        </div>
+      `;
+
+      attachHomeworkItemEvents(homeworkItem);
+      return homeworkItem;
+    }
+
+    function attachHomeworkItemEvents(homeworkItem) {
+      const checkbox = homeworkItem.querySelector(".homework-check");
+      const deleteBtn = homeworkItem.querySelector(".delete-btn");
+
+      checkbox.addEventListener("change", function () {
+        if (checkbox.checked) {
+          homeworkItem.classList.add("completed");
+          homeworkItem.dataset.completed = "true";
+        } else {
+          homeworkItem.classList.remove("completed");
+          homeworkItem.dataset.completed = "false";
+        }
+        updateCounts();
+      });
+
+      deleteBtn.addEventListener("click", function () {
+        homeworkItem.remove();
+        updateCounts();
       });
     }
 
@@ -1114,8 +1193,8 @@
         item => item.dataset.completed !== "true"
       ).length;
 
-      const homeworkItems = document.querySelectorAll("#homeworkSection .todo-item");
-      const unfinishedHomework = Array.from(homeworkItems).filter(
+      const allHomework = document.querySelectorAll("#homeworkList .homework-item");
+      const unfinishedHomework = Array.from(allHomework).filter(
         item => item.dataset.completed !== "true"
       ).length;
 
@@ -1167,6 +1246,28 @@
       updateCounts();
     });
 
+    addHomeworkBtn.addEventListener("click", function () {
+      const homeworkName = homeworkNameInput.value.trim();
+      const person = homeworkPersonInput.value;
+      const subject = homeworkSubjectInput.value;
+      const day = homeworkDayInput.value;
+
+      if (!homeworkName || !person || !subject || !day) {
+        alert("Please enter a homework task, choose a family member, subject, and due day.");
+        return;
+      }
+
+      const newHomework = createHomeworkElement(homeworkName, person, subject, day, false);
+      homeworkList.appendChild(newHomework);
+
+      homeworkNameInput.value = "";
+      homeworkPersonInput.value = "";
+      homeworkSubjectInput.value = "";
+      homeworkDayInput.value = "";
+
+      updateCounts();
+    });
+
     openChatgptBtn.addEventListener("click", function () {
       const promptText = chatgptPrompt.value.trim();
 
@@ -1185,7 +1286,7 @@
 
     document.querySelectorAll("#eventsList .schedule-item").forEach(attachEventEvents);
     document.querySelectorAll("#choresList .todo-item").forEach(attachChoreEvents);
-    updateHomeworkEvents();
+    document.querySelectorAll("#homeworkList .homework-item").forEach(attachHomeworkItemEvents);
     updateCounts();
   </script>
 </body>
