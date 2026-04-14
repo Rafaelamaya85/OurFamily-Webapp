@@ -703,43 +703,87 @@
     <section class="card">
       <h4 class="card-title">Family Schedule</h4>
 
-      <div class="schedule-item">
-        <div class="left-group">
-          <div class="time-pill">8:00 AM</div>
-          <div class="person-avatar william">W</div>
-          <div class="item-text">
-            <strong>William to Arlington Jr High</strong>
-            <span>Morning school drop-off</span>
+      <div id="eventsList">
+        <div class="schedule-item">
+          <div class="left-group">
+            <div class="time-pill">8:00 AM</div>
+            <div class="person-avatar william">W</div>
+            <div class="item-text">
+              <strong>William to Arlington Jr High</strong>
+              <span>Morning school drop-off</span>
+            </div>
+          </div>
+          <div style="display:flex; gap:8px; align-items:center;">
+            <div class="tag">Monday</div>
+            <button class="delete-btn">Delete</button>
           </div>
         </div>
-        <div class="tag">Morning</div>
-      </div>
 
-      <div class="schedule-item">
-        <div class="left-group">
-          <div class="time-pill">4:30 PM</div>
-          <div class="person-avatar william">W</div>
-          <div class="item-text">
-            <strong>Violin Practice</strong>
-            <span>William</span>
+        <div class="schedule-item">
+          <div class="left-group">
+            <div class="time-pill">4:30 PM</div>
+            <div class="person-avatar william">W</div>
+            <div class="item-text">
+              <strong>Violin Practice</strong>
+              <span>Assigned to William</span>
+            </div>
+          </div>
+          <div style="display:flex; gap:8px; align-items:center;">
+            <div class="tag">Monday</div>
+            <button class="delete-btn">Delete</button>
           </div>
         </div>
-        <div class="tag">After School</div>
-      </div>
 
-      <div class="schedule-item">
-        <div class="left-group">
-          <div class="time-pill">6:30 PM</div>
-          <div class="person-avatar mom">M</div>
-          <div class="item-text">
-            <strong>Family Dinner</strong>
-            <span>Taco night at home</span>
+        <div class="schedule-item">
+          <div class="left-group">
+            <div class="time-pill">6:30 PM</div>
+            <div class="person-avatar mom">M</div>
+            <div class="item-text">
+              <strong>Family Dinner</strong>
+              <span>Assigned to Mom</span>
+            </div>
+          </div>
+          <div style="display:flex; gap:8px; align-items:center;">
+            <div class="tag">Monday</div>
+            <button class="delete-btn">Delete</button>
           </div>
         </div>
-        <div class="tag">Evening</div>
       </div>
 
-      <button class="main-button">+ Add New Event</button>
+      <div class="input-row">
+        <input type="text" id="eventName" placeholder="Enter a new event" />
+        <select id="eventPerson">
+          <option value="">Assign to family member</option>
+          <option>William</option>
+          <option>Hailey</option>
+          <option>Mom</option>
+          <option>Dad</option>
+        </select>
+        <select id="eventTime">
+          <option value="">Choose a time</option>
+          <option>7:00 AM</option>
+          <option>8:00 AM</option>
+          <option>9:00 AM</option>
+          <option>12:00 PM</option>
+          <option>3:00 PM</option>
+          <option>4:30 PM</option>
+          <option>5:00 PM</option>
+          <option>6:30 PM</option>
+          <option>7:00 PM</option>
+        </select>
+        <select id="eventDay">
+          <option value="">Choose a day</option>
+          <option>Monday</option>
+          <option>Tuesday</option>
+          <option>Wednesday</option>
+          <option>Thursday</option>
+          <option>Friday</option>
+          <option>Saturday</option>
+          <option>Sunday</option>
+        </select>
+      </div>
+
+      <button class="main-button" id="addEventBtn">+ Add New Event</button>
     </section>
 
     <div class="section-header">
@@ -926,6 +970,13 @@
   </nav>
 
   <script>
+    const eventsList = document.getElementById("eventsList");
+    const addEventBtn = document.getElementById("addEventBtn");
+    const eventNameInput = document.getElementById("eventName");
+    const eventPersonInput = document.getElementById("eventPerson");
+    const eventTimeInput = document.getElementById("eventTime");
+    const eventDayInput = document.getElementById("eventDay");
+
     const choresList = document.getElementById("choresList");
     const addChoreBtn = document.getElementById("addChoreBtn");
     const choreNameInput = document.getElementById("choreName");
@@ -952,6 +1003,40 @@
 
     function getAvatarInitial(person) {
       return person.charAt(0).toUpperCase();
+    }
+
+    function createEventElement(name, person, time, day) {
+      const avatarClass = getAvatarClass(person);
+      const avatarInitial = getAvatarInitial(person);
+
+      const eventItem = document.createElement("div");
+      eventItem.className = "schedule-item";
+
+      eventItem.innerHTML = `
+        <div class="left-group">
+          <div class="time-pill">${time}</div>
+          <div class="person-avatar ${avatarClass}">${avatarInitial}</div>
+          <div class="item-text">
+            <strong>${name}</strong>
+            <span>Assigned to ${person}</span>
+          </div>
+        </div>
+        <div style="display:flex; gap:8px; align-items:center;">
+          <div class="tag">${day}</div>
+          <button class="delete-btn">Delete</button>
+        </div>
+      `;
+
+      attachEventEvents(eventItem);
+      return eventItem;
+    }
+
+    function attachEventEvents(eventItem) {
+      const deleteBtn = eventItem.querySelector(".delete-btn");
+      deleteBtn.addEventListener("click", function () {
+        eventItem.remove();
+        updateCounts();
+      });
     }
 
     function createChoreElement(name, person, time, completed = false) {
@@ -1021,7 +1106,7 @@
     }
 
     function updateCounts() {
-      const eventItems = document.querySelectorAll(".schedule-item").length;
+      const eventItems = document.querySelectorAll("#eventsList .schedule-item").length;
       const goalItems = document.querySelectorAll(".goal-item").length;
 
       const allChores = document.querySelectorAll("#choresList .todo-item");
@@ -1039,6 +1124,28 @@
       goalsCount.textContent = goalItems;
       homeworkCount.textContent = unfinishedHomework;
     }
+
+    addEventBtn.addEventListener("click", function () {
+      const eventName = eventNameInput.value.trim();
+      const person = eventPersonInput.value;
+      const time = eventTimeInput.value;
+      const day = eventDayInput.value;
+
+      if (!eventName || !person || !time || !day) {
+        alert("Please enter an event name, choose a family member, time, and day.");
+        return;
+      }
+
+      const newEvent = createEventElement(eventName, person, time, day);
+      eventsList.appendChild(newEvent);
+
+      eventNameInput.value = "";
+      eventPersonInput.value = "";
+      eventTimeInput.value = "";
+      eventDayInput.value = "";
+
+      updateCounts();
+    });
 
     addChoreBtn.addEventListener("click", function () {
       const choreName = choreNameInput.value.trim();
@@ -1076,6 +1183,7 @@
       window.open("https://chatgpt.com", "_blank");
     });
 
+    document.querySelectorAll("#eventsList .schedule-item").forEach(attachEventEvents);
     document.querySelectorAll("#choresList .todo-item").forEach(attachChoreEvents);
     updateHomeworkEvents();
     updateCounts();
