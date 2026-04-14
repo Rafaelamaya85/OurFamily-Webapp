@@ -83,6 +83,10 @@
       margin-bottom: 20px;
       position: relative;
       overflow: hidden;
+      display: flex;
+      justify-content: space-between;
+      gap: 14px;
+      align-items: center;
     }
 
     .hero::after {
@@ -91,9 +95,15 @@
       width: 130px;
       height: 130px;
       border-radius: 50%;
-      background: rgba(255, 255, 255, 0.12);
+      background: rgba(255, 255, 255, 0.10);
       top: -35px;
       right: -35px;
+    }
+
+    .hero-text {
+      flex: 1;
+      position: relative;
+      z-index: 2;
     }
 
     .hero small {
@@ -106,16 +116,16 @@
     }
 
     .hero h2 {
-      font-size: 1.4rem;
+      font-size: 1.35rem;
       margin-bottom: 8px;
       line-height: 1.2;
     }
 
     .hero p {
-      font-size: 0.95rem;
+      font-size: 0.92rem;
       line-height: 1.45;
-      max-width: 290px;
       margin-bottom: 16px;
+      max-width: 220px;
     }
 
     .hero-actions {
@@ -130,7 +140,7 @@
       padding: 10px 14px;
       font-weight: bold;
       cursor: pointer;
-      font-size: 0.9rem;
+      font-size: 0.88rem;
     }
 
     .hero-btn.primary {
@@ -141,6 +151,97 @@
     .hero-btn.secondary {
       background: rgba(255, 255, 255, 0.18);
       color: white;
+    }
+
+    .hero-illustration {
+      width: 112px;
+      height: 112px;
+      border-radius: 24px;
+      background: rgba(255, 255, 255, 0.14);
+      position: relative;
+      flex-shrink: 0;
+      z-index: 2;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .hero-graphic {
+      position: relative;
+      width: 82px;
+      height: 82px;
+    }
+
+    .hero-house {
+      position: absolute;
+      bottom: 8px;
+      left: 19px;
+      width: 44px;
+      height: 32px;
+      background: white;
+      border-radius: 8px;
+    }
+
+    .hero-roof {
+      position: absolute;
+      top: 18px;
+      left: 14px;
+      width: 0;
+      height: 0;
+      border-left: 27px solid transparent;
+      border-right: 27px solid transparent;
+      border-bottom: 24px solid #ffd7e2;
+    }
+
+    .hero-door {
+      position: absolute;
+      bottom: 8px;
+      left: 35px;
+      width: 12px;
+      height: 18px;
+      background: #8e88ff;
+      border-radius: 6px 6px 0 0;
+    }
+
+    .hero-window {
+      position: absolute;
+      bottom: 23px;
+      left: 25px;
+      width: 8px;
+      height: 8px;
+      background: #eeecff;
+      border-radius: 2px;
+    }
+
+    .hero-window.right {
+      left: 49px;
+    }
+
+    .hero-sun {
+      position: absolute;
+      top: 6px;
+      right: 3px;
+      width: 16px;
+      height: 16px;
+      background: #ffe59a;
+      border-radius: 50%;
+    }
+
+    .hero-check {
+      position: absolute;
+      top: 10px;
+      left: 2px;
+      width: 24px;
+      height: 24px;
+      background: white;
+      border-radius: 8px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: var(--primary);
+      font-size: 0.9rem;
+      font-weight: bold;
+      box-shadow: 0 8px 18px rgba(0, 0, 0, 0.08);
     }
 
     .section-header {
@@ -262,6 +363,25 @@
       font-size: 1rem;
       flex-shrink: 0;
     }
+
+    .person-avatar {
+      width: 34px;
+      height: 34px;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 0.78rem;
+      font-weight: bold;
+      color: white;
+      flex-shrink: 0;
+      box-shadow: var(--shadow);
+    }
+
+    .william { background: linear-gradient(135deg, #5b8def, #7aa6ff); }
+    .hailey { background: linear-gradient(135deg, #ff8fb1, #ffb3ca); }
+    .mom { background: linear-gradient(135deg, #8f7cff, #b4a8ff); }
+    .dad { background: linear-gradient(135deg, #4fc3a1, #7be0c2); }
 
     .item-text {
       min-width: 0;
@@ -482,6 +602,16 @@
       .summary-grid {
         grid-template-columns: 1fr;
       }
+
+      .hero {
+        flex-direction: column;
+        align-items: flex-start;
+      }
+
+      .hero-illustration {
+        width: 92px;
+        height: 92px;
+      }
     }
   </style>
 </head>
@@ -497,15 +627,29 @@
     </header>
 
     <section class="hero">
-      <small>Organize your home life</small>
-      <h2>Keep chores, events, and goals in one place</h2>
-      <p>
-        Stay on top of the family schedule with a simple dashboard built for busy days,
-        shared responsibilities, and better routines.
-      </p>
-      <div class="hero-actions">
-        <button class="hero-btn primary">+ Add Event</button>
-        <button class="hero-btn secondary">+ Add Chore</button>
+      <div class="hero-text">
+        <small>Organize your home life</small>
+        <h2>Keep chores, events, and goals in one place</h2>
+        <p>
+          Stay on top of the family schedule with a simple dashboard built for busy days,
+          shared responsibilities, and better routines.
+        </p>
+        <div class="hero-actions">
+          <button class="hero-btn primary">+ Add Event</button>
+          <button class="hero-btn secondary">+ Add Chore</button>
+        </div>
+      </div>
+
+      <div class="hero-illustration">
+        <div class="hero-graphic">
+          <div class="hero-check">✓</div>
+          <div class="hero-sun"></div>
+          <div class="hero-roof"></div>
+          <div class="hero-house"></div>
+          <div class="hero-window"></div>
+          <div class="hero-window right"></div>
+          <div class="hero-door"></div>
+        </div>
       </div>
     </section>
 
@@ -562,6 +706,7 @@
       <div class="schedule-item">
         <div class="left-group">
           <div class="time-pill">8:00 AM</div>
+          <div class="person-avatar william">W</div>
           <div class="item-text">
             <strong>William to Arlington Jr High</strong>
             <span>Morning school drop-off</span>
@@ -573,6 +718,7 @@
       <div class="schedule-item">
         <div class="left-group">
           <div class="time-pill">4:30 PM</div>
+          <div class="person-avatar william">W</div>
           <div class="item-text">
             <strong>Violin Practice</strong>
             <span>William</span>
@@ -584,6 +730,7 @@
       <div class="schedule-item">
         <div class="left-group">
           <div class="time-pill">6:30 PM</div>
+          <div class="person-avatar mom">M</div>
           <div class="item-text">
             <strong>Family Dinner</strong>
             <span>Taco night at home</span>
@@ -607,6 +754,7 @@
         <div class="todo-item" data-completed="false">
           <div class="left-group">
             <input class="check" type="checkbox" />
+            <div class="person-avatar dad">D</div>
             <div class="item-text">
               <strong>Take out trash</strong>
               <span>Assigned to Dad</span>
@@ -621,6 +769,7 @@
         <div class="todo-item" data-completed="false">
           <div class="left-group">
             <input class="check" type="checkbox" />
+            <div class="person-avatar hailey">H</div>
             <div class="item-text">
               <strong>Feed the dog</strong>
               <span>Assigned to Hailey</span>
@@ -635,6 +784,7 @@
         <div class="todo-item" data-completed="false">
           <div class="left-group">
             <input class="check" type="checkbox" />
+            <div class="person-avatar mom">M</div>
             <div class="item-text">
               <strong>Unload dishwasher</strong>
               <span>Assigned to Mom</span>
@@ -741,6 +891,7 @@
       <div class="todo-item" data-completed="false">
         <div class="left-group">
           <input class="check homework-check" type="checkbox" />
+          <div class="person-avatar william">W</div>
           <div class="item-text">
             <strong>Math worksheet</strong>
             <span>Assigned to William</span>
@@ -752,6 +903,7 @@
       <div class="todo-item" data-completed="false">
         <div class="left-group">
           <input class="check homework-check" type="checkbox" />
+          <div class="person-avatar william">W</div>
           <div class="item-text">
             <strong>Science reading</strong>
             <span>Assigned to William</span>
@@ -789,7 +941,23 @@
     const goalsCount = document.getElementById("goalsCount");
     const homeworkCount = document.getElementById("homeworkCount");
 
+    function getAvatarClass(person) {
+      const name = person.toLowerCase();
+      if (name === "william") return "william";
+      if (name === "hailey") return "hailey";
+      if (name === "mom") return "mom";
+      if (name === "dad") return "dad";
+      return "mom";
+    }
+
+    function getAvatarInitial(person) {
+      return person.charAt(0).toUpperCase();
+    }
+
     function createChoreElement(name, person, time, completed = false) {
+      const avatarClass = getAvatarClass(person);
+      const avatarInitial = getAvatarInitial(person);
+
       const choreItem = document.createElement("div");
       choreItem.className = "todo-item";
       choreItem.dataset.completed = completed ? "true" : "false";
@@ -798,6 +966,7 @@
       choreItem.innerHTML = `
         <div class="left-group">
           <input class="check" type="checkbox" ${completed ? "checked" : ""} />
+          <div class="person-avatar ${avatarClass}">${avatarInitial}</div>
           <div class="item-text">
             <strong>${name}</strong>
             <span>Assigned to ${person}</span>
