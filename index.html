@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>OurFamily - Family Planner</title>
+  <title>familyHUB - Family Planner</title>
 
   <style>
     * { box-sizing: border-box; margin: 0; padding: 0; }
@@ -14,8 +14,6 @@
       --text: #1f2937;
       --muted: #6b7280;
       --primary: #6c63ff;
-      --primary-dark: #564ee8;
-      --primary-light: #eeecff;
       --shadow: 0 10px 24px rgba(31, 41, 55, 0.08);
     }
 
@@ -97,6 +95,19 @@
       height: 18px;
     }
 
+    .progress {
+      height: 8px;
+      background: #eee;
+      border-radius: 10px;
+      margin-top: 5px;
+      overflow: hidden;
+    }
+
+    .progress-fill {
+      height: 100%;
+      background: var(--primary);
+    }
+
     .add-btn {
       width: 100%;
       margin-top: 10px;
@@ -135,15 +146,15 @@
 
     <div class="topbar">
       <div class="brand">
-        <h1>OurFamily</h1>
+        <h1>familyHUB</h1>
         <p>Your family planner</p>
       </div>
-      <div class="avatar">OF</div>
+      <div class="avatar">FH</div>
     </div>
 
     <div class="hero">
       <h2>Stay organized together</h2>
-      <p>Track chores, events, and homework all in one place.</p>
+      <p>Track chores, events, homework, and goals all in one place.</p>
     </div>
 
     <!-- EVENTS -->
@@ -208,6 +219,33 @@
       <button class="add-btn">+ Add Chore</button>
     </div>
 
+    <!-- GOALS -->
+    <h2 class="section-title">Goals</h2>
+    <div class="card">
+
+      <div class="item">
+        <div style="width:100%">
+          <strong>Finish chores before weekend</strong>
+          <div style="font-size:12px;color:gray;">3 of 5 completed</div>
+          <div class="progress">
+            <div class="progress-fill" style="width:60%"></div>
+          </div>
+        </div>
+      </div>
+
+      <div class="item">
+        <div style="width:100%">
+          <strong>Family movie night</strong>
+          <div style="font-size:12px;color:gray;">Planned for Friday</div>
+          <div class="progress">
+            <div class="progress-fill" style="width:30%"></div>
+          </div>
+        </div>
+      </div>
+
+      <button class="add-btn">+ Add Goal</button>
+    </div>
+
     <!-- HOMEWORK -->
     <h2 class="section-title">Homework</h2>
     <div class="card">
@@ -241,6 +279,7 @@
     <div class="nav-item active">🏠 Home</div>
     <div class="nav-item">📅 Calendar</div>
     <div class="nav-item">✅ Chores</div>
+    <div class="nav-item">🎯 Goals</div>
     <div class="nav-item">⚙️ Settings</div>
   </div>
 
