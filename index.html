@@ -384,6 +384,7 @@
     .hailey { background: linear-gradient(135deg, #ff8fb1, #ffb3ca); }
     .mom { background: linear-gradient(135deg, #8f7cff, #b4a8ff); }
     .dad { background: linear-gradient(135deg, #4fc3a1, #7be0c2); }
+    .default-avatar { background: linear-gradient(135deg, #7f8c8d, #b2bec3); }
 
     .item-text {
       min-width: 0;
@@ -563,6 +564,51 @@
       display: block;
     }
 
+    .family-grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 12px;
+    }
+
+    .family-member-card {
+      background: #f8f9ff;
+      border: 1px solid #eef2f7;
+      border-radius: 18px;
+      padding: 14px;
+      text-align: center;
+    }
+
+    .family-member-card .person-avatar {
+      margin: 0 auto 10px;
+      width: 42px;
+      height: 42px;
+      font-size: 0.9rem;
+    }
+
+    .family-member-card strong {
+      display: block;
+      font-size: 0.95rem;
+      margin-bottom: 4px;
+    }
+
+    .family-member-card span {
+      display: block;
+      color: var(--muted);
+      font-size: 0.82rem;
+      margin-bottom: 10px;
+    }
+
+    .remove-member-btn {
+      border: none;
+      background: #ffe7e7;
+      color: #c0392b;
+      padding: 8px 10px;
+      border-radius: 10px;
+      cursor: pointer;
+      font-size: 0.8rem;
+      width: 100%;
+    }
+
     .bottom-nav {
       position: fixed;
       bottom: 0;
@@ -597,7 +643,8 @@
     }
 
     @media (max-width: 380px) {
-      .quick-buttons {
+      .quick-buttons,
+      .family-grid {
         grid-template-columns: repeat(2, 1fr);
       }
 
@@ -684,6 +731,51 @@
         <h4 id="homeworkCount">0</h4>
         <p>Homework items due soon</p>
       </div>
+    </section>
+
+    <div class="section-header">
+      <h3>Family Members</h3>
+      <a href="#">Household</a>
+    </div>
+
+    <section class="card">
+      <h4 class="card-title">Your Family Unit</h4>
+
+      <div id="familyMembersList" class="family-grid">
+        <div class="family-member-card" data-name="William">
+          <div class="person-avatar william">W</div>
+          <strong>William</strong>
+          <span>Family Member</span>
+          <button class="remove-member-btn">Remove</button>
+        </div>
+
+        <div class="family-member-card" data-name="Hailey">
+          <div class="person-avatar hailey">H</div>
+          <strong>Hailey</strong>
+          <span>Family Member</span>
+          <button class="remove-member-btn">Remove</button>
+        </div>
+
+        <div class="family-member-card" data-name="Mom">
+          <div class="person-avatar mom">M</div>
+          <strong>Mom</strong>
+          <span>Family Member</span>
+          <button class="remove-member-btn">Remove</button>
+        </div>
+
+        <div class="family-member-card" data-name="Dad">
+          <div class="person-avatar dad">D</div>
+          <strong>Dad</strong>
+          <span>Family Member</span>
+          <button class="remove-member-btn">Remove</button>
+        </div>
+      </div>
+
+      <div class="input-row">
+        <input type="text" id="familyMemberName" placeholder="Enter a family member name" />
+      </div>
+
+      <button class="main-button" id="addFamilyMemberBtn">+ Add Family Member</button>
     </section>
 
     <div class="section-header">
@@ -1010,6 +1102,10 @@
   </nav>
 
   <script>
+    const familyMembersList = document.getElementById("familyMembersList");
+    const addFamilyMemberBtn = document.getElementById("addFamilyMemberBtn");
+    const familyMemberNameInput = document.getElementById("familyMemberName");
+
     const eventsList = document.getElementById("eventsList");
     const addEventBtn = document.getElementById("addEventBtn");
     const eventNameInput = document.getElementById("eventName");
@@ -1045,11 +1141,37 @@
       if (name === "hailey") return "hailey";
       if (name === "mom") return "mom";
       if (name === "dad") return "dad";
-      return "mom";
+      return "default-avatar";
     }
 
     function getAvatarInitial(person) {
       return person.charAt(0).toUpperCase();
+    }
+
+    function createFamilyMemberCard(name) {
+      const avatarClass = getAvatarClass(name);
+      const avatarInitial = getAvatarInitial(name);
+
+      const memberCard = document.createElement("div");
+      memberCard.className = "family-member-card";
+      memberCard.dataset.name = name;
+
+      memberCard.innerHTML = `
+        <div class="person-avatar ${avatarClass}">${avatarInitial}</div>
+        <strong>${name}</strong>
+        <span>Family Member</span>
+        <button class="remove-member-btn">Remove</button>
+      `;
+
+      attachFamilyMemberEvents(memberCard);
+      return memberCard;
+    }
+
+    function attachFamilyMemberEvents(memberCard) {
+      const removeBtn = memberCard.querySelector(".remove-member-btn");
+      removeBtn.addEventListener("click", function () {
+        memberCard.remove();
+      });
     }
 
     function createEventElement(name, person, time, day) {
@@ -1204,6 +1326,18 @@
       homeworkCount.textContent = unfinishedHomework;
     }
 
+    addFamilyMemberBtn.addEventListener("click", function () {
+      const memberName = familyMemberNameInput.value.trim();
+      if (!memberName) {
+        alert("Please enter a family member name.");
+        return;
+      }
+
+      const newMember = createFamilyMemberCard(memberName);
+      familyMembersList.appendChild(newMember);
+      familyMemberNameInput.value = "";
+    });
+
     addEventBtn.addEventListener("click", function () {
       const eventName = eventNameInput.value.trim();
       const person = eventPersonInput.value;
@@ -1284,6 +1418,7 @@
       window.open("https://chatgpt.com", "_blank");
     });
 
+    document.querySelectorAll(".family-member-card").forEach(attachFamilyMemberEvents);
     document.querySelectorAll("#eventsList .schedule-item").forEach(attachEventEvents);
     document.querySelectorAll("#choresList .todo-item").forEach(attachChoreEvents);
     document.querySelectorAll("#homeworkList .homework-item").forEach(attachHomeworkItemEvents);
