@@ -20,15 +20,11 @@
       --primary: #6c63ff;
       --primary-dark: #564ee8;
       --primary-light: #eeecff;
-      --accent: #ff8a65;
-      --green: #34c759;
-      --yellow: #ffcc66;
       --blue-soft: #dfe7ff;
       --pink-soft: #ffe6ef;
       --shadow: 0 10px 24px rgba(31, 41, 55, 0.08);
       --radius-xl: 24px;
       --radius-lg: 18px;
-      --radius-md: 14px;
     }
 
     body {
@@ -242,6 +238,7 @@
       align-items: center;
       gap: 12px;
       min-width: 0;
+      flex: 1;
     }
 
     .time-pill {
@@ -268,6 +265,7 @@
 
     .item-text {
       min-width: 0;
+      flex: 1;
     }
 
     .item-text strong {
@@ -287,6 +285,7 @@
       height: 20px;
       accent-color: var(--primary);
       flex-shrink: 0;
+      cursor: pointer;
     }
 
     .tag {
@@ -361,6 +360,92 @@
       background: var(--primary-dark);
     }
 
+    .input-row {
+      display: grid;
+      gap: 10px;
+      margin-top: 12px;
+    }
+
+    .input-row input,
+    .input-row select,
+    .ai-box textarea {
+      width: 100%;
+      border: 1px solid #dde3ef;
+      border-radius: 14px;
+      padding: 12px;
+      font-size: 0.92rem;
+      outline: none;
+      background: #fff;
+    }
+
+    .input-row input:focus,
+    .input-row select:focus,
+    .ai-box textarea:focus {
+      border-color: var(--primary);
+    }
+
+    .mini-button {
+      border: none;
+      background: #eef2ff;
+      color: var(--primary);
+      padding: 8px 12px;
+      border-radius: 12px;
+      font-weight: bold;
+      cursor: pointer;
+      font-size: 0.85rem;
+    }
+
+    .delete-btn {
+      border: none;
+      background: #ffe7e7;
+      color: #c0392b;
+      padding: 8px 10px;
+      border-radius: 10px;
+      cursor: pointer;
+      font-size: 0.8rem;
+      flex-shrink: 0;
+    }
+
+    .completed .item-text strong,
+    .completed .item-text span {
+      text-decoration: line-through;
+      opacity: 0.6;
+    }
+
+    .ai-box {
+      margin-top: 10px;
+    }
+
+    .ai-actions {
+      display: flex;
+      gap: 10px;
+      margin-top: 10px;
+      flex-wrap: wrap;
+    }
+
+    .ai-results {
+      margin-top: 14px;
+    }
+
+    .suggestion-item {
+      display: flex;
+      justify-content: space-between;
+      gap: 10px;
+      align-items: center;
+      padding: 10px 0;
+      border-bottom: 1px solid #eef2f7;
+    }
+
+    .suggestion-item:last-child {
+      border-bottom: none;
+    }
+
+    .empty-text {
+      color: var(--muted);
+      font-size: 0.9rem;
+      line-height: 1.4;
+    }
+
     .bottom-nav {
       position: fixed;
       bottom: 0;
@@ -431,31 +516,31 @@
 
     <div class="section-header">
       <h3>Today at a glance</h3>
-      <a href="#">View All</a>
+      <a href="#">Live Counts</a>
     </div>
 
     <section class="summary-grid">
       <div class="summary-card lavender">
         <div class="icon">📅</div>
-        <h4>3</h4>
+        <h4 id="eventsCount">0</h4>
         <p>Upcoming events today</p>
       </div>
 
       <div class="summary-card peach">
         <div class="icon">✅</div>
-        <h4>5</h4>
+        <h4 id="choresCount">0</h4>
         <p>Chores still to finish</p>
       </div>
 
       <div class="summary-card blue">
         <div class="icon">🎯</div>
-        <h4>2</h4>
+        <h4 id="goalsCount">0</h4>
         <p>Family goals in progress</p>
       </div>
 
       <div class="summary-card pink">
         <div class="icon">📚</div>
-        <h4>4</h4>
+        <h4 id="homeworkCount">0</h4>
         <p>Homework items due soon</p>
       </div>
     </section>
@@ -517,46 +602,98 @@
 
     <div class="section-header">
       <h3>Chores</h3>
-      <a href="#">See All</a>
+      <a href="#">Interactive</a>
     </div>
 
     <section class="card">
       <h4 class="card-title">Assigned for Today</h4>
 
-      <div class="todo-item">
-        <div class="left-group">
-          <input class="check" type="checkbox" />
-          <div class="item-text">
-            <strong>Take out trash</strong>
-            <span>Assigned to Dad</span>
+      <div id="choresList">
+        <div class="todo-item" data-completed="false">
+          <div class="left-group">
+            <input class="check" type="checkbox" />
+            <div class="item-text">
+              <strong>Take out trash</strong>
+              <span>Assigned to Dad</span>
+            </div>
+          </div>
+          <div style="display:flex; gap:8px; align-items:center;">
+            <div class="tag">Today</div>
+            <button class="delete-btn">Delete</button>
           </div>
         </div>
-        <div class="tag">Today</div>
-      </div>
 
-      <div class="todo-item">
-        <div class="left-group">
-          <input class="check" type="checkbox" />
-          <div class="item-text">
-            <strong>Feed the dog</strong>
-            <span>Assigned to Hailey</span>
+        <div class="todo-item" data-completed="false">
+          <div class="left-group">
+            <input class="check" type="checkbox" />
+            <div class="item-text">
+              <strong>Feed the dog</strong>
+              <span>Assigned to Hailey</span>
+            </div>
+          </div>
+          <div style="display:flex; gap:8px; align-items:center;">
+            <div class="tag">Today</div>
+            <button class="delete-btn">Delete</button>
           </div>
         </div>
-        <div class="tag">Today</div>
-      </div>
 
-      <div class="todo-item">
-        <div class="left-group">
-          <input class="check" type="checkbox" />
-          <div class="item-text">
-            <strong>Unload dishwasher</strong>
-            <span>Assigned to Mom</span>
+        <div class="todo-item" data-completed="false">
+          <div class="left-group">
+            <input class="check" type="checkbox" />
+            <div class="item-text">
+              <strong>Unload dishwasher</strong>
+              <span>Assigned to Mom</span>
+            </div>
+          </div>
+          <div style="display:flex; gap:8px; align-items:center;">
+            <div class="tag">Tonight</div>
+            <button class="delete-btn">Delete</button>
           </div>
         </div>
-        <div class="tag">Tonight</div>
       </div>
 
-      <button class="main-button">+ Assign Chore</button>
+      <div class="input-row">
+        <input type="text" id="choreName" placeholder="Enter a new chore" />
+        <select id="chorePerson">
+          <option value="">Assign to family member</option>
+          <option>William</option>
+          <option>Hailey</option>
+          <option>Mom</option>
+          <option>Dad</option>
+        </select>
+        <select id="choreTime">
+          <option value="Today">Today</option>
+          <option value="Morning">Morning</option>
+          <option value="After School">After School</option>
+          <option value="Tonight">Tonight</option>
+        </select>
+      </div>
+
+      <button class="main-button" id="addChoreBtn">+ Assign Chore</button>
+    </section>
+
+    <div class="section-header">
+      <h3>Smart Helper</h3>
+      <a href="#">AI Ideas</a>
+    </div>
+
+    <section class="card">
+      <h4 class="card-title">AI Chore Generator</h4>
+      <p class="empty-text">
+        Type a short prompt like “chores for kids”, “busy school night”, or “weekend cleaning”.
+      </p>
+
+      <div class="ai-box">
+        <textarea id="aiPrompt" rows="3" placeholder="Example: Give me chores for a busy school night with two kids"></textarea>
+      </div>
+
+      <div class="ai-actions">
+        <button class="main-button" id="generateAiBtn" style="margin-top:0;">Generate Ideas</button>
+      </div>
+
+      <div class="ai-results" id="aiResults">
+        <p class="empty-text">Your chore suggestions will show here.</p>
+      </div>
     </section>
 
     <div class="section-header">
@@ -603,12 +740,12 @@
       <a href="#">School</a>
     </div>
 
-    <section class="card">
+    <section class="card" id="homeworkSection">
       <h4 class="card-title">Due Soon</h4>
 
-      <div class="todo-item">
+      <div class="todo-item" data-completed="false">
         <div class="left-group">
-          <input class="check" type="checkbox" />
+          <input class="check homework-check" type="checkbox" />
           <div class="item-text">
             <strong>Math worksheet</strong>
             <span>Assigned to William</span>
@@ -617,9 +754,9 @@
         <div class="tag">Math</div>
       </div>
 
-      <div class="todo-item">
+      <div class="todo-item" data-completed="false">
         <div class="left-group">
-          <input class="check" type="checkbox" />
+          <input class="check homework-check" type="checkbox" />
           <div class="item-text">
             <strong>Science reading</strong>
             <span>Assigned to William</span>
@@ -641,5 +778,202 @@
     <a href="#" class="nav-item"><span>⚙️</span>Settings</a>
   </nav>
 
+  <script>
+    const choresList = document.getElementById("choresList");
+    const addChoreBtn = document.getElementById("addChoreBtn");
+    const choreNameInput = document.getElementById("choreName");
+    const chorePersonInput = document.getElementById("chorePerson");
+    const choreTimeInput = document.getElementById("choreTime");
+    const aiPrompt = document.getElementById("aiPrompt");
+    const generateAiBtn = document.getElementById("generateAiBtn");
+    const aiResults = document.getElementById("aiResults");
+
+    const eventsCount = document.getElementById("eventsCount");
+    const choresCount = document.getElementById("choresCount");
+    const goalsCount = document.getElementById("goalsCount");
+    const homeworkCount = document.getElementById("homeworkCount");
+
+    function createChoreElement(name, person, time, completed = false) {
+      const choreItem = document.createElement("div");
+      choreItem.className = "todo-item";
+      choreItem.dataset.completed = completed ? "true" : "false";
+      if (completed) choreItem.classList.add("completed");
+
+      choreItem.innerHTML = `
+        <div class="left-group">
+          <input class="check" type="checkbox" ${completed ? "checked" : ""} />
+          <div class="item-text">
+            <strong>${name}</strong>
+            <span>Assigned to ${person}</span>
+          </div>
+        </div>
+        <div style="display:flex; gap:8px; align-items:center;">
+          <div class="tag">${time}</div>
+          <button class="delete-btn">Delete</button>
+        </div>
+      `;
+
+      attachChoreEvents(choreItem);
+      return choreItem;
+    }
+
+    function attachChoreEvents(choreItem) {
+      const checkbox = choreItem.querySelector(".check");
+      const deleteBtn = choreItem.querySelector(".delete-btn");
+
+      checkbox.addEventListener("change", function () {
+        if (checkbox.checked) {
+          choreItem.classList.add("completed");
+          choreItem.dataset.completed = "true";
+        } else {
+          choreItem.classList.remove("completed");
+          choreItem.dataset.completed = "false";
+        }
+        updateCounts();
+      });
+
+      deleteBtn.addEventListener("click", function () {
+        choreItem.remove();
+        updateCounts();
+      });
+    }
+
+    function updateHomeworkEvents() {
+      const homeworkChecks = document.querySelectorAll(".homework-check");
+      homeworkChecks.forEach((checkbox) => {
+        checkbox.addEventListener("change", function () {
+          const item = checkbox.closest(".todo-item");
+          if (checkbox.checked) {
+            item.classList.add("completed");
+            item.dataset.completed = "true";
+          } else {
+            item.classList.remove("completed");
+            item.dataset.completed = "false";
+          }
+          updateCounts();
+        });
+      });
+    }
+
+    function updateCounts() {
+      const eventItems = document.querySelectorAll(".schedule-item").length;
+      const goalItems = document.querySelectorAll(".goal-item").length;
+
+      const allChores = document.querySelectorAll("#choresList .todo-item");
+      const unfinishedChores = Array.from(allChores).filter(
+        item => item.dataset.completed !== "true"
+      ).length;
+
+      const homeworkItems = document.querySelectorAll("#homeworkSection .todo-item");
+      const unfinishedHomework = Array.from(homeworkItems).filter(
+        item => item.dataset.completed !== "true"
+      ).length;
+
+      eventsCount.textContent = eventItems;
+      choresCount.textContent = unfinishedChores;
+      goalsCount.textContent = goalItems;
+      homeworkCount.textContent = unfinishedHomework;
+    }
+
+    addChoreBtn.addEventListener("click", function () {
+      const choreName = choreNameInput.value.trim();
+      const person = chorePersonInput.value;
+      const time = choreTimeInput.value;
+
+      if (!choreName || !person) {
+        alert("Please enter a chore name and choose a family member.");
+        return;
+      }
+
+      const newChore = createChoreElement(choreName, person, time, false);
+      choresList.appendChild(newChore);
+
+      choreNameInput.value = "";
+      chorePersonInput.value = "";
+      choreTimeInput.value = "Today";
+
+      updateCounts();
+    });
+
+    function getAiSuggestions(promptText) {
+      const text = promptText.toLowerCase();
+
+      if (text.includes("school") || text.includes("busy night")) {
+        return [
+          { name: "Pack lunches", person: "Mom", time: "Tonight" },
+          { name: "Lay out school clothes", person: "William", time: "Tonight" },
+          { name: "Check backpacks", person: "Dad", time: "Tonight" }
+        ];
+      }
+
+      if (text.includes("kids") || text.includes("children")) {
+        return [
+          { name: "Make bed", person: "William", time: "Morning" },
+          { name: "Put toys away", person: "Hailey", time: "Today" },
+          { name: "Feed the dog", person: "Hailey", time: "Today" }
+        ];
+      }
+
+      if (text.includes("weekend") || text.includes("cleaning")) {
+        return [
+          { name: "Vacuum living room", person: "Dad", time: "Today" },
+          { name: "Wipe kitchen counters", person: "Mom", time: "Today" },
+          { name: "Organize shoes by the door", person: "William", time: "Today" }
+        ];
+      }
+
+      return [
+        { name: "Take out recycling", person: "Dad", time: "Tonight" },
+        { name: "Put dishes away", person: "William", time: "Today" },
+        { name: "Tidy the family room", person: "Hailey", time: "Today" }
+      ];
+    }
+
+    generateAiBtn.addEventListener("click", function () {
+      const promptText = aiPrompt.value.trim();
+
+      if (!promptText) {
+        alert("Please type a short prompt for the AI chore generator.");
+        return;
+      }
+
+      const suggestions = getAiSuggestions(promptText);
+
+      aiResults.innerHTML = "";
+
+      suggestions.forEach((suggestion) => {
+        const row = document.createElement("div");
+        row.className = "suggestion-item";
+
+        row.innerHTML = `
+          <div class="item-text">
+            <strong>${suggestion.name}</strong>
+            <span>Assign to ${suggestion.person} • ${suggestion.time}</span>
+          </div>
+          <button class="mini-button">Add</button>
+        `;
+
+        const addBtn = row.querySelector(".mini-button");
+        addBtn.addEventListener("click", function () {
+          const newChore = createChoreElement(
+            suggestion.name,
+            suggestion.person,
+            suggestion.time,
+            false
+          );
+          choresList.appendChild(newChore);
+          updateCounts();
+          addBtn.textContent = "Added";
+          addBtn.disabled = true;
+        });
+
+        aiResults.appendChild(row);
+      });
+    });
+
+    document.querySelectorAll("#choresList .todo-item").forEach(attachChoreEvents);
+    updateHomeworkEvents();
+    updateCounts();
+  </script>
 </body>
 </html>
