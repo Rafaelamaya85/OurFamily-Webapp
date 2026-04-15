@@ -8,11 +8,11 @@ As someone balancing work, school, and family life, I have experienced how diffi
 
 ## Tools and Technologies
 
-**HTML** - I used HTML to build the structure of the application, including the homepage, calendar page, and navigation system.
+**HTML** - I used HTML to build the structure of the app, including the homepage, calendar page, and navigation system.
 
-**CSS** - I used CSS to design the layout, create a clean and modern interface, and ensure the app is responsive and easy to use on mobile devices.
+**CSS** - I used CSS to design the layout, create a clean interface, and ensure the app is responsive and easy to use on mobile devices.
 
-**JavaScript** - I used JavaScript to add interactivity, including creating and deleting events and dynamically updating the interface.
+**JavaScript** - I used JavaScript to add interactivity, including creating and deleting events and updating the interface.
 
 **Visual Studio Code** - I used Visual Studio Code as my primary code editor to write, organize, and manage all project files efficiently.
 
@@ -20,4 +20,4 @@ As someone balancing work, school, and family life, I have experienced how diffi
 
 **GitHub Pages** - I used GitHub Pages to deploy the application and make it accessible through a live URL.
 
-**ChatGPT** - I used ChatGPT to assist with troubleshooting, improving code functionality, and refining written content for clarity and structure.
+**ChatGPT** - I used ChatGPT to assist with troubleshooting code and refining written grammar for clarity and structure.
