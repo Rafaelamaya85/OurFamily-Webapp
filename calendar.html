@@ -23,13 +23,16 @@
       --primary-light: #eeecff;
       --shadow: 0 10px 24px rgba(31, 41, 55, 0.08);
       --radius-xl: 24px;
+      --radius-lg: 18px;
     }
 
     body {
       font-family: Arial, sans-serif;
       background: var(--bg);
+      color: var(--text);
       max-width: 430px;
       margin: 0 auto;
+      min-height: 100vh;
       padding-bottom: 100px;
     }
 
@@ -40,87 +43,277 @@
     .topbar {
       display: flex;
       justify-content: space-between;
+      align-items: center;
       margin-bottom: 20px;
     }
 
+    .brand small {
+      display: block;
+      color: var(--muted);
+      font-size: 0.85rem;
+      margin-bottom: 4px;
+    }
+
     .brand h1 {
+      font-size: 1.9rem;
       color: var(--primary);
-      font-size: 1.8rem;
+      letter-spacing: -0.5px;
     }
 
     .avatar {
       width: 46px;
       height: 46px;
       border-radius: 50%;
-      background: var(--primary);
+      background: linear-gradient(135deg, var(--primary), #8d86ff);
       color: white;
       display: flex;
       align-items: center;
       justify-content: center;
       font-weight: bold;
+      box-shadow: var(--shadow);
     }
 
     .hero {
       background: linear-gradient(135deg, var(--primary), #8e88ff);
       color: white;
-      border-radius: 24px;
-      padding: 20px;
+      border-radius: 28px;
+      padding: 22px 20px;
+      box-shadow: 0 14px 30px rgba(108, 99, 255, 0.25);
       margin-bottom: 20px;
     }
 
+    .hero small {
+      display: inline-block;
+      background: rgba(255, 255, 255, 0.18);
+      padding: 6px 10px;
+      border-radius: 999px;
+      font-size: 0.8rem;
+      margin-bottom: 12px;
+    }
+
+    .hero h2 {
+      font-size: 1.35rem;
+      margin-bottom: 8px;
+      line-height: 1.2;
+    }
+
+    .hero p {
+      font-size: 0.92rem;
+      line-height: 1.45;
+      margin-bottom: 16px;
+    }
+
+    .hero-actions {
+      display: flex;
+      gap: 10px;
+      flex-wrap: wrap;
+    }
+
     .hero-btn {
+      border: none;
+      border-radius: 999px;
+      padding: 10px 14px;
+      font-weight: bold;
+      cursor: pointer;
+      font-size: 0.88rem;
+      text-decoration: none;
+      display: inline-block;
+    }
+
+    .hero-btn.primary {
       background: white;
       color: var(--primary);
-      padding: 10px 14px;
-      border-radius: 999px;
+    }
+
+    .hero-btn.secondary {
+      background: rgba(255, 255, 255, 0.18);
+      color: white;
+    }
+
+    .section-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin: 18px 0 12px;
+    }
+
+    .section-header h3 {
+      font-size: 1.08rem;
+    }
+
+    .section-header a {
       text-decoration: none;
+      color: var(--primary);
+      font-size: 0.88rem;
       font-weight: bold;
-      display: inline-block;
-      margin-top: 10px;
     }
 
     .card {
-      background: white;
+      background: var(--card);
       border-radius: var(--radius-xl);
       padding: 16px;
       box-shadow: var(--shadow);
-      margin-bottom: 16px;
+      margin-bottom: 14px;
+    }
+
+    .card-title {
+      font-size: 1rem;
+      margin-bottom: 14px;
     }
 
     .calendar-grid {
       display: grid;
       grid-template-columns: repeat(7, 1fr);
-      gap: 6px;
+      gap: 8px;
+      margin-top: 12px;
+    }
+
+    .day-name,
+    .calendar-day {
+      text-align: center;
+      padding: 10px 6px;
+      border-radius: 14px;
+      font-size: 0.85rem;
     }
 
     .day-name {
-      text-align: center;
-      font-size: 0.75rem;
       color: var(--muted);
       font-weight: bold;
+      background: #f3f4f8;
     }
 
     .calendar-day {
-      text-align: center;
-      padding: 10px;
-      border-radius: 10px;
-      background: #f9fafc;
-      font-size: 0.85rem;
+      background: #fafbff;
+      border: 1px solid #eef2f7;
+      position: relative;
+      min-height: 42px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
     }
 
     .calendar-day:empty {
       background: transparent;
+      border: none;
     }
 
-    .active {
+    .calendar-day.active {
       background: var(--primary);
       color: white;
       font-weight: bold;
     }
 
-    .event-day {
-      border: 2px solid var(--primary);
+    .calendar-day.event-day {
+      border: 2px solid var(--primary-light);
       font-weight: bold;
+    }
+
+    .calendar-day.multi-event {
+      border: 2px solid var(--primary);
+    }
+
+    .event-dot {
+      position: absolute;
+      bottom: 5px;
+      width: 6px;
+      height: 6px;
+      background: var(--primary);
+      border-radius: 50%;
+    }
+
+    .calendar-day.active .event-dot {
+      background: white;
+    }
+
+    .schedule-item {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 12px;
+      padding: 12px 0;
+      border-bottom: 1px solid #eef2f7;
+    }
+
+    .schedule-item:last-child {
+      border-bottom: none;
+      padding-bottom: 0;
+    }
+
+    .left-group {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      min-width: 0;
+      flex: 1;
+    }
+
+    .time-pill {
+      min-width: 68px;
+      text-align: center;
+      background: var(--primary-light);
+      color: var(--primary);
+      padding: 8px 10px;
+      border-radius: 999px;
+      font-size: 0.8rem;
+      font-weight: bold;
+    }
+
+    .person-avatar {
+      width: 34px;
+      height: 34px;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 0.78rem;
+      font-weight: bold;
+      color: white;
+      flex-shrink: 0;
+      box-shadow: var(--shadow);
+    }
+
+    .william { background: linear-gradient(135deg, #5b8def, #7aa6ff); }
+    .hailey { background: linear-gradient(135deg, #ff8fb1, #ffb3ca); }
+    .mom { background: linear-gradient(135deg, #8f7cff, #b4a8ff); }
+    .dad { background: linear-gradient(135deg, #4fc3a1, #7be0c2); }
+    .default-avatar { background: linear-gradient(135deg, #7f8c8d, #b2bec3); }
+
+    .item-text {
+      min-width: 0;
+      flex: 1;
+    }
+
+    .item-text strong {
+      display: block;
+      font-size: 0.95rem;
+      margin-bottom: 3px;
+    }
+
+    .item-text span {
+      color: var(--muted);
+      font-size: 0.84rem;
+      line-height: 1.3;
+    }
+
+    .tag {
+      font-size: 0.78rem;
+      padding: 6px 10px;
+      border-radius: 999px;
+      background: #eef2ff;
+      color: var(--primary);
+      font-weight: bold;
+      white-space: nowrap;
+    }
+
+    .delete-btn {
+      border: none;
+      background: #ffe7e7;
+      color: #c0392b;
+      padding: 8px 10px;
+      border-radius: 10px;
+      cursor: pointer;
+      font-size: 0.8rem;
+      flex-shrink: 0;
     }
 
     .input-row {
@@ -131,39 +324,63 @@
 
     .input-row input,
     .input-row select {
+      width: 100%;
+      border: 1px solid #dde3ef;
+      border-radius: 14px;
       padding: 12px;
-      border-radius: 12px;
-      border: 1px solid #ddd;
+      font-size: 0.92rem;
+      outline: none;
+      background: #fff;
+    }
+
+    .input-row input:focus,
+    .input-row select:focus {
+      border-color: var(--primary);
     }
 
     .main-button {
-      margin-top: 12px;
-      padding: 12px;
+      width: 100%;
+      border: none;
       background: var(--primary);
       color: white;
-      border: none;
-      border-radius: 12px;
+      padding: 13px;
+      border-radius: 16px;
+      font-size: 0.95rem;
       font-weight: bold;
       cursor: pointer;
+      margin-top: 12px;
+    }
+
+    .main-button:hover {
+      background: var(--primary-dark);
     }
 
     .bottom-nav {
       position: fixed;
       bottom: 0;
+      left: 50%;
+      transform: translateX(-50%);
       width: 100%;
       max-width: 430px;
+      background: rgba(255, 255, 255, 0.96);
+      border-top: 1px solid #e5e7eb;
       display: flex;
       justify-content: space-around;
-      background: white;
-      border-top: 1px solid #ddd;
-      padding: 10px;
+      padding: 10px 8px 14px;
+      backdrop-filter: blur(8px);
     }
 
     .nav-item {
       text-align: center;
+      color: var(--muted);
       font-size: 0.75rem;
       text-decoration: none;
-      color: gray;
+    }
+
+    .nav-item span {
+      display: block;
+      font-size: 1.2rem;
+      margin-bottom: 4px;
     }
 
     .nav-item.active {
@@ -172,31 +389,36 @@
     }
   </style>
 </head>
-
 <body>
   <div class="app">
 
-    <!-- HEADER -->
     <header class="topbar">
       <div class="brand">
+        <small>Family Planner</small>
         <h1>FamilyHub</h1>
       </div>
       <div class="avatar">FH</div>
     </header>
 
-    <!-- HERO -->
     <section class="hero">
-      <h2>Family Calendar</h2>
-      <p>View and manage all events in one place.</p>
-      <a href="#add-event-section" class="hero-btn">+ Add Event</a>
+      <small>Calendar View</small>
+      <h2>Keep track of family events</h2>
+      <p>View upcoming plans and quickly add new events for the whole household.</p>
+      <div class="hero-actions">
+        <a href="#add-event-section" class="hero-btn primary">+ Add Event</a>
+        <a href="index.html" class="hero-btn secondary">Back Home</a>
+      </div>
     </section>
 
-    <!-- CALENDAR -->
+    <div class="section-header">
+      <h3>Monthly Calendar</h3>
+      <a href="#add-event-section">Jump to Add Event</a>
+    </div>
+
     <section class="card">
-      <h3>April 2026</h3>
+      <h4 class="card-title">April 2026</h4>
 
       <div class="calendar-grid">
-        <!-- Days -->
         <div class="day-name">Sun</div>
         <div class="day-name">Mon</div>
         <div class="day-name">Tue</div>
@@ -205,12 +427,10 @@
         <div class="day-name">Fri</div>
         <div class="day-name">Sat</div>
 
-        <!-- Empty slots -->
         <div class="calendar-day"></div>
         <div class="calendar-day"></div>
         <div class="calendar-day"></div>
 
-        <!-- Full Month -->
         <div class="calendar-day">1</div>
         <div class="calendar-day">2</div>
         <div class="calendar-day">3</div>
@@ -223,11 +443,11 @@
         <div class="calendar-day">10</div>
         <div class="calendar-day">11</div>
         <div class="calendar-day">12</div>
-        <div class="calendar-day event-day">13</div>
+        <div class="calendar-day multi-event">13<div class="event-dot"></div></div>
         <div class="calendar-day">14</div>
         <div class="calendar-day active">15</div>
         <div class="calendar-day">16</div>
-        <div class="calendar-day event-day">17</div>
+        <div class="calendar-day">17</div>
         <div class="calendar-day">18</div>
         <div class="calendar-day">19</div>
         <div class="calendar-day">20</div>
@@ -244,40 +464,191 @@
       </div>
     </section>
 
-    <!-- ADD EVENT -->
-    <section class="card" id="add-event-section">
+    <div class="section-header">
+      <h3>Homepage Events</h3>
+      <a href="#add-event-section">Add New</a>
+    </div>
+
+    <section class="card">
+      <h4 class="card-title">Events from Home Page</h4>
+
+      <div id="eventsList">
+        <div class="schedule-item">
+          <div class="left-group">
+            <div class="time-pill">8:00 AM</div>
+            <div class="person-avatar dad">D</div>
+            <div class="item-text">
+              <strong>Morning school drop off for William</strong>
+              <span>Assigned to Dad</span>
+            </div>
+          </div>
+          <div style="display:flex; gap:8px; align-items:center;">
+            <div class="tag">Monday</div>
+            <button class="delete-btn">Delete</button>
+          </div>
+        </div>
+
+        <div class="schedule-item">
+          <div class="left-group">
+            <div class="time-pill">4:30 PM</div>
+            <div class="person-avatar william">W</div>
+            <div class="item-text">
+              <strong>Violin Practice</strong>
+              <span>Assigned to William</span>
+            </div>
+          </div>
+          <div style="display:flex; gap:8px; align-items:center;">
+            <div class="tag">Monday</div>
+            <button class="delete-btn">Delete</button>
+          </div>
+        </div>
+
+        <div class="schedule-item">
+          <div class="left-group">
+            <div class="time-pill">6:30 PM</div>
+            <div class="person-avatar mom">M</div>
+            <div class="item-text">
+              <strong>Family Dinner</strong>
+              <span>Assigned to Mom</span>
+            </div>
+          </div>
+          <div style="display:flex; gap:8px; align-items:center;">
+            <div class="tag">Monday</div>
+            <button class="delete-btn">Delete</button>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <div class="section-header">
       <h3>Add Event</h3>
+      <a href="#">Calendar Form</a>
+    </div>
+
+    <section class="card" id="add-event-section">
+      <h4 class="card-title">Create a New Family Event</h4>
 
       <div class="input-row">
-        <input type="text" placeholder="Event name" />
-        <select>
-          <option>Assign to</option>
-          <option>Mom</option>
-          <option>Dad</option>
+        <input type="text" id="eventName" placeholder="Enter a new event" />
+        <select id="eventPerson">
+          <option value="">Assign to family member</option>
           <option>William</option>
           <option>Hailey</option>
+          <option>Mom</option>
+          <option>Dad</option>
         </select>
-        <select>
-          <option>Time</option>
+        <select id="eventTime">
+          <option value="">Choose a time</option>
+          <option>7:00 AM</option>
           <option>8:00 AM</option>
+          <option>9:00 AM</option>
+          <option>12:00 PM</option>
+          <option>3:00 PM</option>
           <option>4:30 PM</option>
+          <option>5:00 PM</option>
           <option>6:30 PM</option>
+          <option>7:00 PM</option>
+        </select>
+        <select id="eventDay">
+          <option value="">Choose a day</option>
+          <option>Monday</option>
+          <option>Tuesday</option>
+          <option>Wednesday</option>
+          <option>Thursday</option>
+          <option>Friday</option>
+          <option>Saturday</option>
+          <option>Sunday</option>
         </select>
       </div>
 
-      <button class="main-button">+ Add Event</button>
+      <button class="main-button" id="addEventBtn">+ Add New Event</button>
     </section>
 
   </div>
 
-  <!-- NAV -->
   <nav class="bottom-nav">
-    <a href="index.html" class="nav-item">🏠 Home</a>
-    <a href="calendar.html" class="nav-item active">📅 Calendar</a>
-    <a href="index.html#add-chore-section" class="nav-item">✅ Chores</a>
-    <a href="#" class="nav-item">🎯 Goals</a>
-    <a href="#" class="nav-item">⚙️ Settings</a>
+    <a href="index.html" class="nav-item"><span>🏠</span>Home</a>
+    <a href="calendar.html" class="nav-item active"><span>📅</span>Calendar</a>
+    <a href="index.html#add-chore-section" class="nav-item"><span>✅</span>Chores</a>
+    <a href="#" class="nav-item"><span>🎯</span>Goals</a>
+    <a href="#" class="nav-item"><span>⚙️</span>Settings</a>
   </nav>
 
+  <script>
+    const eventsList = document.getElementById("eventsList");
+    const addEventBtn = document.getElementById("addEventBtn");
+    const eventNameInput = document.getElementById("eventName");
+    const eventPersonInput = document.getElementById("eventPerson");
+    const eventTimeInput = document.getElementById("eventTime");
+    const eventDayInput = document.getElementById("eventDay");
+
+    function getAvatarClass(person) {
+      const name = person.toLowerCase();
+      if (name === "william") return "william";
+      if (name === "hailey") return "hailey";
+      if (name === "mom") return "mom";
+      if (name === "dad") return "dad";
+      return "default-avatar";
+    }
+
+    function getAvatarInitial(person) {
+      return person.charAt(0).toUpperCase();
+    }
+
+    function createEventElement(name, person, time, day) {
+      const avatarClass = getAvatarClass(person);
+      const avatarInitial = getAvatarInitial(person);
+
+      const eventItem = document.createElement("div");
+      eventItem.className = "schedule-item";
+
+      eventItem.innerHTML = `
+        <div class="left-group">
+          <div class="time-pill">${time}</div>
+          <div class="person-avatar ${avatarClass}">${avatarInitial}</div>
+          <div class="item-text">
+            <strong>${name}</strong>
+            <span>Assigned to ${person}</span>
+          </div>
+        </div>
+        <div style="display:flex; gap:8px; align-items:center;">
+          <div class="tag">${day}</div>
+          <button class="delete-btn">Delete</button>
+        </div>
+      `;
+
+      attachEventEvents(eventItem);
+      return eventItem;
+    }
+
+    function attachEventEvents(eventItem) {
+      const deleteBtn = eventItem.querySelector(".delete-btn");
+      deleteBtn.addEventListener("click", function () {
+        eventItem.remove();
+      });
+    }
+
+    addEventBtn.addEventListener("click", function () {
+      const eventName = eventNameInput.value.trim();
+      const person = eventPersonInput.value;
+      const time = eventTimeInput.value;
+      const day = eventDayInput.value;
+
+      if (!eventName || !person || !time || !day) {
+        alert("Please enter an event name, choose a family member, time, and day.");
+        return;
+      }
+
+      const newEvent = createEventElement(eventName, person, time, day);
+      eventsList.appendChild(newEvent);
+
+      eventNameInput.value = "";
+      eventPersonInput.value = "";
+      eventTimeInput.value = "";
+      eventDayInput.value = "";
+    });
+
+    document.querySelectorAll("#eventsList .schedule-item").forEach(attachEventEvents);
+  </script>
 </body>
 </html>
