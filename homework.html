@@ -1,0 +1,635 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>FamilyHub - Homework</title>
+
+  <style>
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+      scroll-behavior: smooth;
+    }
+
+    :root {
+      --bg: #f5f7fb;
+      --card: #ffffff;
+      --text: #1f2937;
+      --muted: #6b7280;
+      --primary: #6c63ff;
+      --primary-dark: #564ee8;
+      --primary-light: #eeecff;
+      --blue-soft: #dfe7ff;
+      --pink-soft: #ffe6ef;
+      --shadow: 0 10px 24px rgba(31, 41, 55, 0.08);
+      --radius-xl: 24px;
+      --radius-lg: 18px;
+    }
+
+    body {
+      font-family: Arial, sans-serif;
+      background: var(--bg);
+      color: var(--text);
+      max-width: 430px;
+      margin: 0 auto;
+      min-height: 100vh;
+      padding-bottom: 100px;
+    }
+
+    .app {
+      padding: 18px 16px 28px;
+    }
+
+    .topbar {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin-bottom: 20px;
+    }
+
+    .brand small {
+      display: block;
+      color: var(--muted);
+      font-size: 0.85rem;
+      margin-bottom: 4px;
+    }
+
+    .brand h1 {
+      font-size: 1.9rem;
+      color: var(--primary);
+      letter-spacing: -0.5px;
+    }
+
+    .avatar {
+      width: 46px;
+      height: 46px;
+      border-radius: 50%;
+      background: linear-gradient(135deg, var(--primary), #8d86ff);
+      color: white;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-weight: bold;
+      box-shadow: var(--shadow);
+    }
+
+    .hero {
+      background: linear-gradient(135deg, var(--primary), #8e88ff);
+      color: white;
+      border-radius: 28px;
+      padding: 22px 20px;
+      box-shadow: 0 14px 30px rgba(108, 99, 255, 0.25);
+      margin-bottom: 20px;
+    }
+
+    .hero small {
+      display: inline-block;
+      background: rgba(255, 255, 255, 0.18);
+      padding: 6px 10px;
+      border-radius: 999px;
+      font-size: 0.8rem;
+      margin-bottom: 12px;
+    }
+
+    .hero h2 {
+      font-size: 1.35rem;
+      margin-bottom: 8px;
+      line-height: 1.2;
+    }
+
+    .hero p {
+      font-size: 0.92rem;
+      line-height: 1.45;
+      margin-bottom: 16px;
+    }
+
+    .hero-actions {
+      display: flex;
+      gap: 10px;
+      flex-wrap: wrap;
+    }
+
+    .hero-btn {
+      border: none;
+      border-radius: 999px;
+      padding: 10px 14px;
+      font-weight: bold;
+      cursor: pointer;
+      font-size: 0.88rem;
+      text-decoration: none;
+      display: inline-block;
+    }
+
+    .hero-btn.primary {
+      background: white;
+      color: var(--primary);
+    }
+
+    .hero-btn.secondary {
+      background: rgba(255, 255, 255, 0.18);
+      color: white;
+    }
+
+    .section-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin: 18px 0 12px;
+    }
+
+    .section-header h3 {
+      font-size: 1.08rem;
+    }
+
+    .section-header a {
+      text-decoration: none;
+      color: var(--primary);
+      font-size: 0.88rem;
+      font-weight: bold;
+    }
+
+    .summary-grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 12px;
+      margin-bottom: 18px;
+    }
+
+    .summary-card {
+      background: var(--card);
+      border-radius: var(--radius-lg);
+      padding: 16px;
+      box-shadow: var(--shadow);
+    }
+
+    .summary-card .icon {
+      width: 42px;
+      height: 42px;
+      border-radius: 12px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1.2rem;
+      margin-bottom: 12px;
+    }
+
+    .summary-card h4 {
+      font-size: 1.35rem;
+      margin-bottom: 4px;
+    }
+
+    .summary-card p {
+      color: var(--muted);
+      font-size: 0.86rem;
+      line-height: 1.3;
+    }
+
+    .blue .icon { background: var(--blue-soft); }
+    .pink .icon { background: var(--pink-soft); }
+
+    .card {
+      background: var(--card);
+      border-radius: var(--radius-xl);
+      padding: 16px;
+      box-shadow: var(--shadow);
+      margin-bottom: 14px;
+    }
+
+    .card-title {
+      font-size: 1rem;
+      margin-bottom: 14px;
+    }
+
+    .homework-item {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 12px;
+      padding: 12px 0;
+      border-bottom: 1px solid #eef2f7;
+    }
+
+    .homework-item:last-child {
+      border-bottom: none;
+      padding-bottom: 0;
+    }
+
+    .left-group {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      min-width: 0;
+      flex: 1;
+    }
+
+    .person-avatar {
+      width: 34px;
+      height: 34px;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 0.78rem;
+      font-weight: bold;
+      color: white;
+      flex-shrink: 0;
+      box-shadow: var(--shadow);
+    }
+
+    .william { background: linear-gradient(135deg, #5b8def, #7aa6ff); }
+    .hailey { background: linear-gradient(135deg, #ff8fb1, #ffb3ca); }
+    .mom { background: linear-gradient(135deg, #8f7cff, #b4a8ff); }
+    .dad { background: linear-gradient(135deg, #4fc3a1, #7be0c2); }
+    .default-avatar { background: linear-gradient(135deg, #7f8c8d, #b2bec3); }
+
+    .item-text {
+      min-width: 0;
+      flex: 1;
+    }
+
+    .item-text strong {
+      display: block;
+      font-size: 0.95rem;
+      margin-bottom: 3px;
+    }
+
+    .item-text span {
+      color: var(--muted);
+      font-size: 0.84rem;
+      line-height: 1.3;
+    }
+
+    .tag {
+      font-size: 0.78rem;
+      padding: 6px 10px;
+      border-radius: 999px;
+      background: #eef2ff;
+      color: var(--primary);
+      font-weight: bold;
+      white-space: nowrap;
+    }
+
+    .check {
+      width: 20px;
+      height: 20px;
+      accent-color: var(--primary);
+      flex-shrink: 0;
+      cursor: pointer;
+    }
+
+    .delete-btn {
+      border: none;
+      background: #ffe7e7;
+      color: #c0392b;
+      padding: 8px 10px;
+      border-radius: 10px;
+      cursor: pointer;
+      font-size: 0.8rem;
+      flex-shrink: 0;
+    }
+
+    .completed .item-text strong,
+    .completed .item-text span {
+      text-decoration: line-through;
+      opacity: 0.6;
+    }
+
+    .input-row {
+      display: grid;
+      gap: 10px;
+      margin-top: 12px;
+    }
+
+    .input-row input,
+    .input-row select {
+      width: 100%;
+      border: 1px solid #dde3ef;
+      border-radius: 14px;
+      padding: 12px;
+      font-size: 0.92rem;
+      outline: none;
+      background: #fff;
+    }
+
+    .input-row input:focus,
+    .input-row select:focus {
+      border-color: var(--primary);
+    }
+
+    .main-button {
+      width: 100%;
+      border: none;
+      background: var(--primary);
+      color: white;
+      padding: 13px;
+      border-radius: 16px;
+      font-size: 0.95rem;
+      font-weight: bold;
+      cursor: pointer;
+      margin-top: 12px;
+    }
+
+    .main-button:hover {
+      background: var(--primary-dark);
+    }
+
+    .bottom-nav {
+      position: fixed;
+      bottom: 0;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 100%;
+      max-width: 430px;
+      background: rgba(255, 255, 255, 0.96);
+      border-top: 1px solid #e5e7eb;
+      display: flex;
+      justify-content: space-around;
+      padding: 10px 8px 14px;
+      backdrop-filter: blur(8px);
+    }
+
+    .nav-item {
+      text-align: center;
+      color: var(--muted);
+      font-size: 0.75rem;
+      text-decoration: none;
+    }
+
+    .nav-item span {
+      display: block;
+      font-size: 1.2rem;
+      margin-bottom: 4px;
+    }
+
+    .nav-item.active {
+      color: var(--primary);
+      font-weight: bold;
+    }
+
+    @media (max-width: 380px) {
+      .summary-grid {
+        grid-template-columns: 1fr;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="app">
+
+    <header class="topbar">
+      <div class="brand">
+        <small>Family Planner</small>
+        <h1>FamilyHub</h1>
+      </div>
+      <div class="avatar">FH</div>
+    </header>
+
+    <section class="hero">
+      <small>Homework Tracker</small>
+      <h2>Track homework pending and completed</h2>
+      <p>Keep schoolwork organized by seeing what is still due and what has already been finished.</p>
+      <div class="hero-actions">
+        <a href="#add-homework-section" class="hero-btn primary">+ Add Homework</a>
+        <a href="index.html" class="hero-btn secondary">Back Home</a>
+      </div>
+    </section>
+
+    <section class="summary-grid">
+      <div class="summary-card blue">
+        <div class="icon">📚</div>
+        <h4 id="pendingCount">0</h4>
+        <p>Homework items still pending</p>
+      </div>
+
+      <div class="summary-card pink">
+        <div class="icon">✅</div>
+        <h4 id="completedCount">0</h4>
+        <p>Homework items completed</p>
+      </div>
+    </section>
+
+    <div class="section-header">
+      <h3>Homework Tracker</h3>
+      <a href="#add-homework-section">Add Homework</a>
+    </div>
+
+    <section class="card">
+      <h4 class="card-title">Current Homework</h4>
+
+      <div id="homeworkList">
+        <div class="homework-item" data-completed="false">
+          <div class="left-group">
+            <input class="check homework-check" type="checkbox" />
+            <div class="person-avatar william">W</div>
+            <div class="item-text">
+              <strong>Math worksheet</strong>
+              <span>Assigned to William</span>
+            </div>
+          </div>
+          <div style="display:flex; gap:8px; align-items:center;">
+            <div class="tag">Math • Monday</div>
+            <button class="delete-btn">Delete</button>
+          </div>
+        </div>
+
+        <div class="homework-item" data-completed="false">
+          <div class="left-group">
+            <input class="check homework-check" type="checkbox" />
+            <div class="person-avatar william">W</div>
+            <div class="item-text">
+              <strong>Science reading</strong>
+              <span>Assigned to William</span>
+            </div>
+          </div>
+          <div style="display:flex; gap:8px; align-items:center;">
+            <div class="tag">Science • Tuesday</div>
+            <button class="delete-btn">Delete</button>
+          </div>
+        </div>
+
+        <div class="homework-item completed" data-completed="true">
+          <div class="left-group">
+            <input class="check homework-check" type="checkbox" checked />
+            <div class="person-avatar hailey">H</div>
+            <div class="item-text">
+              <strong>Reading log</strong>
+              <span>Assigned to Hailey</span>
+            </div>
+          </div>
+          <div style="display:flex; gap:8px; align-items:center;">
+            <div class="tag">Reading • Sunday</div>
+            <button class="delete-btn">Delete</button>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <div class="section-header">
+      <h3>Add Homework</h3>
+      <a href="#">School</a>
+    </div>
+
+    <section class="card" id="add-homework-section">
+      <h4 class="card-title">Create a New Homework Task</h4>
+
+      <div class="input-row">
+        <input type="text" id="homeworkName" placeholder="Enter a homework task" />
+        <select id="homeworkPerson">
+          <option value="">Assign to family member</option>
+          <option>William</option>
+          <option>Hailey</option>
+          <option>Mom</option>
+          <option>Dad</option>
+        </select>
+        <select id="homeworkSubject">
+          <option value="">Choose a subject</option>
+          <option>Math</option>
+          <option>Science</option>
+          <option>Reading</option>
+          <option>History</option>
+          <option>English</option>
+          <option>Homework</option>
+        </select>
+        <select id="homeworkDay">
+          <option value="">Choose a due day</option>
+          <option>Monday</option>
+          <option>Tuesday</option>
+          <option>Wednesday</option>
+          <option>Thursday</option>
+          <option>Friday</option>
+          <option>Saturday</option>
+          <option>Sunday</option>
+        </select>
+      </div>
+
+      <button class="main-button" id="addHomeworkBtn">+ Add Homework</button>
+    </section>
+
+  </div>
+
+  <nav class="bottom-nav">
+    <a href="index.html" class="nav-item"><span>🏠</span>Home</a>
+    <a href="calendar.html" class="nav-item"><span>📅</span>Calendar</a>
+    <a href="index.html#add-chore-section" class="nav-item"><span>✅</span>Chores</a>
+    <a href="goals.html" class="nav-item"><span>🎯</span>Goals</a>
+    <a href="homework.html" class="nav-item active"><span>📚</span>Homework</a>
+  </nav>
+
+  <script>
+    const homeworkList = document.getElementById("homeworkList");
+    const addHomeworkBtn = document.getElementById("addHomeworkBtn");
+    const homeworkNameInput = document.getElementById("homeworkName");
+    const homeworkPersonInput = document.getElementById("homeworkPerson");
+    const homeworkSubjectInput = document.getElementById("homeworkSubject");
+    const homeworkDayInput = document.getElementById("homeworkDay");
+
+    const pendingCount = document.getElementById("pendingCount");
+    const completedCount = document.getElementById("completedCount");
+
+    function getAvatarClass(person) {
+      const name = person.toLowerCase();
+      if (name === "william") return "william";
+      if (name === "hailey") return "hailey";
+      if (name === "mom") return "mom";
+      if (name === "dad") return "dad";
+      return "default-avatar";
+    }
+
+    function getAvatarInitial(person) {
+      return person.charAt(0).toUpperCase();
+    }
+
+    function createHomeworkElement(name, person, subject, day, completed = false) {
+      const avatarClass = getAvatarClass(person);
+      const avatarInitial = getAvatarInitial(person);
+
+      const homeworkItem = document.createElement("div");
+      homeworkItem.className = "homework-item";
+      homeworkItem.dataset.completed = completed ? "true" : "false";
+
+      if (completed) {
+        homeworkItem.classList.add("completed");
+      }
+
+      homeworkItem.innerHTML = `
+        <div class="left-group">
+          <input class="check homework-check" type="checkbox" ${completed ? "checked" : ""} />
+          <div class="person-avatar ${avatarClass}">${avatarInitial}</div>
+          <div class="item-text">
+            <strong>${name}</strong>
+            <span>Assigned to ${person}</span>
+          </div>
+        </div>
+        <div style="display:flex; gap:8px; align-items:center;">
+          <div class="tag">${subject} • ${day}</div>
+          <button class="delete-btn">Delete</button>
+        </div>
+      `;
+
+      attachHomeworkEvents(homeworkItem);
+      return homeworkItem;
+    }
+
+    function attachHomeworkEvents(homeworkItem) {
+      const checkbox = homeworkItem.querySelector(".homework-check");
+      const deleteBtn = homeworkItem.querySelector(".delete-btn");
+
+      checkbox.addEventListener("change", function () {
+        if (checkbox.checked) {
+          homeworkItem.classList.add("completed");
+          homeworkItem.dataset.completed = "true";
+        } else {
+          homeworkItem.classList.remove("completed");
+          homeworkItem.dataset.completed = "false";
+        }
+        updateHomeworkStats();
+      });
+
+      deleteBtn.addEventListener("click", function () {
+        homeworkItem.remove();
+        updateHomeworkStats();
+      });
+    }
+
+    function updateHomeworkStats() {
+      const allHomework = document.querySelectorAll("#homeworkList .homework-item");
+      const pendingHomework = Array.from(allHomework).filter(
+        item => item.dataset.completed !== "true"
+      ).length;
+      const finishedHomework = Array.from(allHomework).filter(
+        item => item.dataset.completed === "true"
+      ).length;
+
+      pendingCount.textContent = pendingHomework;
+      completedCount.textContent = finishedHomework;
+    }
+
+    addHomeworkBtn.addEventListener("click", function () {
+      const homeworkName = homeworkNameInput.value.trim();
+      const person = homeworkPersonInput.value;
+      const subject = homeworkSubjectInput.value;
+      const day = homeworkDayInput.value;
+
+      if (!homeworkName || !person || !subject || !day) {
+        alert("Please enter a homework task, choose a family member, subject, and due day.");
+        return;
+      }
+
+      const newHomework = createHomeworkElement(homeworkName, person, subject, day, false);
+      homeworkList.appendChild(newHomework);
+
+      homeworkNameInput.value = "";
+      homeworkPersonInput.value = "";
+      homeworkSubjectInput.value = "";
+      homeworkDayInput.value = "";
+
+      updateHomeworkStats();
+    });
+
+    document.querySelectorAll("#homeworkList .homework-item").forEach(attachHomeworkEvents);
+    updateHomeworkStats();
+  </script>
+</body>
+</html>
