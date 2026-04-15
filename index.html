@@ -10,6 +10,7 @@
       box-sizing: border-box;
       margin: 0;
       padding: 0;
+      scroll-behavior: smooth;
     }
 
     :root {
@@ -141,6 +142,8 @@
       font-weight: bold;
       cursor: pointer;
       font-size: 0.88rem;
+      text-decoration: none;
+      display: inline-block;
     }
 
     .hero-btn.primary {
@@ -684,8 +687,8 @@
           shared responsibilities, and better routines.
         </p>
         <div class="hero-actions">
-          <button class="hero-btn primary">+ Add Event</button>
-          <button class="hero-btn secondary">+ Add Chore</button>
+          <a href="calendar.html#add-event-section" class="hero-btn primary">+ Add Event</a>
+          <a href="#add-chore-section" class="hero-btn secondary">+ Add Chore</a>
         </div>
       </div>
 
@@ -794,7 +797,7 @@
       <a href="#">Calendar</a>
     </div>
 
-    <section class="card">
+    <section class="card" id="add-event-section">
       <h4 class="card-title">Family Schedule</h4>
 
       <div id="eventsList">
@@ -885,7 +888,7 @@
       <a href="#">Interactive</a>
     </div>
 
-    <section class="card">
+    <section class="card" id="add-chore-section">
       <h4 class="card-title">Assigned for Today</h4>
 
       <div id="choresList">
@@ -1096,7 +1099,7 @@
   <nav class="bottom-nav">
     <a href="index.html" class="nav-item active"><span>🏠</span>Home</a>
     <a href="calendar.html" class="nav-item"><span>📅</span>Calendar</a>
-    <a href="#" class="nav-item"><span>✅</span>Chores</a>
+    <a href="#add-chore-section" class="nav-item"><span>✅</span>Chores</a>
     <a href="#" class="nav-item"><span>🎯</span>Goals</a>
     <a href="#" class="nav-item"><span>⚙️</span>Settings</a>
   </nav>
