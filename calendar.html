@@ -5,9 +5,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>FamilyHub - Calendar</title>
   <style>
-    * {
-      box-sizing: border-box;
-    }
+    * { box-sizing: border-box; }
 
     body {
       margin: 0;
@@ -16,163 +14,99 @@
       color: #1f2937;
     }
 
-    a {
-      text-decoration: none;
-      color: inherit;
-    }
-
-    .container {
-      max-width: 1200px;
+    .app {
+      max-width: 430px;
       margin: 0 auto;
-      padding: 20px;
+      min-height: 100vh;
+      padding-bottom: 90px;
     }
 
-    .hero {
+    .header {
       background: linear-gradient(135deg, #2563eb, #1d4ed8);
       color: white;
-      border-radius: 18px;
-      padding: 28px 24px;
-      margin-bottom: 22px;
-      box-shadow: 0 10px 25px rgba(0, 0, 0, 0.12);
+      padding: 22px 18px;
+      border-bottom-left-radius: 22px;
+      border-bottom-right-radius: 22px;
     }
 
-    .logo {
-      display: inline-flex;
-      align-items: center;
-      justify-content: center;
-      width: 52px;
-      height: 52px;
-      border-radius: 14px;
-      background: rgba(255, 255, 255, 0.18);
-      font-weight: bold;
-      font-size: 1.1rem;
-    }
-
-    .hero h1 {
-      margin: 14px 0 8px;
-      font-size: 2rem;
-    }
-
-    .hero h2 {
-      margin: 0 0 8px;
-      font-size: 1.15rem;
-      font-weight: 600;
-    }
-
-    .hero p {
+    .header h1 {
       margin: 0;
-      line-height: 1.6;
-      max-width: 760px;
+      font-size: 1.7rem;
     }
 
-    .hero-buttons {
-      display: flex;
-      gap: 10px;
-      flex-wrap: wrap;
-      margin-top: 18px;
-    }
-
-    .btn {
-      border: none;
-      border-radius: 10px;
-      padding: 12px 16px;
+    .header p {
+      margin: 8px 0 0;
       font-size: 0.95rem;
-      cursor: pointer;
-      font-weight: 600;
-      transition: 0.2s ease;
+      line-height: 1.5;
     }
 
-    .btn-primary {
-      background: white;
-      color: #1d4ed8;
-    }
-
-    .btn-outline {
-      background: transparent;
-      color: white;
-      border: 1px solid rgba(255,255,255,0.5);
+    .section {
+      padding: 16px;
     }
 
     .card {
       background: white;
       border-radius: 18px;
-      padding: 20px;
-      box-shadow: 0 8px 24px rgba(15, 23, 42, 0.08);
-      margin-bottom: 20px;
-    }
-
-    .card-label {
-      display: inline-block;
-      font-size: 0.82rem;
-      color: #64748b;
-      font-weight: 700;
-      margin-bottom: 8px;
-      text-transform: uppercase;
-      letter-spacing: 0.04em;
-    }
-
-    .card h3 {
-      margin: 0;
-      font-size: 1.2rem;
-    }
-
-    .subheading {
-      color: #64748b;
-      margin: 6px 0 0;
-      font-size: 0.95rem;
-    }
-
-    .section-header {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      gap: 12px;
-      flex-wrap: wrap;
+      padding: 16px;
       margin-bottom: 16px;
+      box-shadow: 0 6px 18px rgba(15, 23, 42, 0.08);
     }
 
-    .mini-link {
-      color: #2563eb;
+    .section-label {
+      font-size: 0.8rem;
       font-weight: 700;
-      font-size: 0.95rem;
+      color: #64748b;
+      text-transform: uppercase;
+      margin-bottom: 8px;
+      display: block;
+    }
+
+    .card h2, .card h3 {
+      margin: 0;
+      font-size: 1.15rem;
+    }
+
+    .subtext {
+      color: #64748b;
+      font-size: 0.92rem;
+      margin-top: 6px;
     }
 
     .calendar-grid {
       display: grid;
       grid-template-columns: repeat(7, 1fr);
-      gap: 10px;
-      margin-top: 16px;
+      gap: 6px;
+      margin-top: 14px;
     }
 
     .weekday {
       text-align: center;
+      font-size: 0.72rem;
       font-weight: 700;
-      color: #475569;
-      padding-bottom: 6px;
+      color: #64748b;
     }
 
     .calendar-day {
-      min-height: 92px;
-      border: 1px solid #e5e7eb;
-      border-radius: 14px;
       background: #f8fafc;
-      padding: 10px;
-      position: relative;
+      border: 1px solid #e5e7eb;
+      border-radius: 12px;
+      min-height: 62px;
+      padding: 6px;
     }
 
     .calendar-number {
       font-weight: 700;
-      font-size: 0.95rem;
-      margin-bottom: 8px;
+      font-size: 0.82rem;
+      margin-bottom: 4px;
     }
 
     .calendar-tag {
       display: inline-block;
-      font-size: 0.72rem;
+      font-size: 0.62rem;
       font-weight: 700;
-      padding: 4px 7px;
+      padding: 2px 6px;
       border-radius: 999px;
-      margin: 2px 4px 0 0;
+      margin-top: 2px;
       color: white;
     }
 
@@ -181,57 +115,57 @@
     .tag-Mom { background: #8b5cf6; }
     .tag-Dad { background: #10b981; }
 
-    .item-list {
+    .list {
       display: flex;
       flex-direction: column;
       gap: 12px;
+      margin-top: 14px;
     }
 
-    .planner-item {
+    .item {
       border-radius: 16px;
-      border: 2px solid #e5e7eb;
       padding: 14px;
+      border: 2px solid #e5e7eb;
       background: white;
-      transition: 0.2s ease;
     }
 
-    .planner-item.completed {
+    .item.completed {
       opacity: 0.72;
       background: #f8fafc;
     }
 
-    .planner-item.completed .item-title {
+    .item.completed .item-title {
       text-decoration: line-through;
     }
 
-    .planner-item-top {
-      display: flex;
-      justify-content: space-between;
-      align-items: flex-start;
-      gap: 12px;
+    .assigned-William {
+      border-color: #3b82f6;
+      background: linear-gradient(to right, #eff6ff, #ffffff);
     }
 
-    .item-left {
-      display: flex;
-      align-items: flex-start;
-      gap: 12px;
-      min-width: 0;
-      flex: 1;
+    .assigned-Hailey {
+      border-color: #ec4899;
+      background: linear-gradient(to right, #fdf2f8, #ffffff);
     }
 
-    .item-content {
-      min-width: 0;
-      flex: 1;
+    .assigned-Mom {
+      border-color: #8b5cf6;
+      background: linear-gradient(to right, #f5f3ff, #ffffff);
+    }
+
+    .assigned-Dad {
+      border-color: #10b981;
+      background: linear-gradient(to right, #ecfdf5, #ffffff);
     }
 
     .avatar {
       width: 42px;
       height: 42px;
       border-radius: 50%;
-      display: inline-flex;
+      color: white;
+      display: flex;
       align-items: center;
       justify-content: center;
-      color: white;
       font-weight: 700;
       flex-shrink: 0;
     }
@@ -241,43 +175,28 @@
     .avatar-Mom { background: #8b5cf6; }
     .avatar-Dad { background: #10b981; }
 
-    .assigned-William {
-      border-color: #3b82f6;
-      box-shadow: inset 0 0 0 1px rgba(59, 130, 246, 0.12);
-      background: linear-gradient(to right, #eff6ff, #ffffff);
+    .item-top {
+      display: flex;
+      gap: 12px;
+      align-items: flex-start;
     }
 
-    .assigned-Hailey {
-      border-color: #ec4899;
-      box-shadow: inset 0 0 0 1px rgba(236, 72, 153, 0.12);
-      background: linear-gradient(to right, #fdf2f8, #ffffff);
-    }
-
-    .assigned-Mom {
-      border-color: #8b5cf6;
-      box-shadow: inset 0 0 0 1px rgba(139, 92, 246, 0.12);
-      background: linear-gradient(to right, #f5f3ff, #ffffff);
-    }
-
-    .assigned-Dad {
-      border-color: #10b981;
-      box-shadow: inset 0 0 0 1px rgba(16, 185, 129, 0.12);
-      background: linear-gradient(to right, #ecfdf5, #ffffff);
+    .item-content {
+      flex: 1;
     }
 
     .item-title {
       font-weight: 700;
-      font-size: 1rem;
       line-height: 1.4;
     }
 
     .item-subtext {
       color: #64748b;
-      font-size: 0.92rem;
+      font-size: 0.88rem;
       margin-top: 4px;
     }
 
-    .item-meta {
+    .meta {
       display: flex;
       flex-wrap: wrap;
       gap: 8px;
@@ -285,35 +204,44 @@
     }
 
     .pill {
-      display: inline-flex;
-      align-items: center;
-      padding: 6px 10px;
-      border-radius: 999px;
-      font-size: 0.84rem;
-      font-weight: 700;
       background: #eef2ff;
+      border-radius: 999px;
+      padding: 6px 10px;
+      font-size: 0.8rem;
+      font-weight: 700;
       color: #334155;
-    }
-
-    .time-pill {
-      background: #eff6ff;
-      color: #1d4ed8;
     }
 
     .item-actions {
       display: flex;
-      align-items: center;
       gap: 8px;
+      margin-top: 12px;
       flex-wrap: wrap;
-      justify-content: flex-end;
+    }
+
+    input, select, button {
+      width: 100%;
+      padding: 12px;
+      border-radius: 10px;
+      border: 1px solid #d1d5db;
+      font-size: 0.95rem;
+      font-family: Arial, sans-serif;
+      background: white;
+    }
+
+    button {
+      border: none;
+      font-weight: 700;
+      cursor: pointer;
+    }
+
+    .primary-btn {
+      background: #2563eb;
+      color: white;
     }
 
     .toggle-btn {
-      border: none;
-      border-radius: 10px;
-      padding: 10px 12px;
-      font-weight: 700;
-      cursor: pointer;
+      width: auto;
       background: #dcfce7;
       color: #166534;
     }
@@ -324,286 +252,168 @@
     }
 
     .delete-btn {
-      border: none;
-      border-radius: 10px;
-      padding: 10px 12px;
-      font-weight: 700;
-      cursor: pointer;
+      width: auto;
       background: #fee2e2;
       color: #b91c1c;
     }
 
-    .form-grid {
-      display: grid;
-      grid-template-columns: 1.2fr 1fr 1fr 1fr auto;
+    .form-stack {
+      display: flex;
+      flex-direction: column;
       gap: 10px;
-      margin-top: 16px;
+      margin-top: 14px;
     }
 
-    .form-grid input,
-    .form-grid select {
-      width: 100%;
-      border: 1px solid #d1d5db;
-      border-radius: 10px;
-      padding: 12px;
-      font-size: 0.95rem;
-      font-family: Arial, sans-serif;
-      background: white;
+    .empty-message {
+      background: #f8fafc;
+      border: 1px dashed #cbd5e1;
+      border-radius: 14px;
+      padding: 14px;
+      text-align: center;
+      color: #64748b;
+      margin-top: 14px;
     }
 
     .bottom-nav {
-      position: sticky;
+      position: fixed;
       bottom: 0;
-      z-index: 10;
-      background: rgba(255,255,255,0.96);
-      backdrop-filter: blur(8px);
+      left: 50%;
+      transform: translateX(-50%);
+      width: 100%;
+      max-width: 430px;
+      background: rgba(255,255,255,0.98);
       border-top: 1px solid #e5e7eb;
-      margin-top: 24px;
-    }
-
-    .bottom-nav-inner {
-      max-width: 1200px;
-      margin: 0 auto;
       display: grid;
       grid-template-columns: repeat(5, 1fr);
-      gap: 8px;
-      padding: 10px 20px;
+      padding: 8px 6px;
     }
 
     .nav-link {
-      text-align: center;
-      padding: 12px 8px;
-      border-radius: 12px;
+      text-decoration: none;
+      color: #64748b;
+      font-size: 0.76rem;
       font-weight: 700;
-      color: #475569;
+      text-align: center;
+      padding: 8px 4px;
+      border-radius: 10px;
     }
 
     .nav-link.active {
       background: #dbeafe;
       color: #1d4ed8;
     }
-
-    .empty-message {
-      color: #64748b;
-      background: #f8fafc;
-      border: 1px dashed #cbd5e1;
-      border-radius: 14px;
-      padding: 14px;
-      text-align: center;
-    }
-
-    @media (max-width: 900px) {
-      .form-grid {
-        grid-template-columns: 1fr;
-      }
-
-      .calendar-grid {
-        gap: 6px;
-      }
-
-      .calendar-day {
-        min-height: 82px;
-        padding: 8px;
-      }
-    }
-
-    @media (max-width: 700px) {
-      .calendar-grid {
-        grid-template-columns: repeat(2, 1fr);
-      }
-
-      .weekday {
-        display: none;
-      }
-    }
-
-    @media (max-width: 600px) {
-      .container {
-        padding: 14px;
-      }
-
-      .hero h1 {
-        font-size: 1.7rem;
-      }
-
-      .planner-item-top {
-        flex-direction: column;
-      }
-
-      .item-actions {
-        width: 100%;
-        justify-content: flex-start;
-      }
-
-      .bottom-nav-inner {
-        padding: 8px 10px;
-      }
-
-      .nav-link {
-        font-size: 0.82rem;
-        padding: 10px 4px;
-      }
-    }
   </style>
 </head>
 <body>
-  <div class="container">
-    <section class="hero">
-      <div class="logo">FH</div>
-      <h1>Calendar View</h1>
-      <h2>Keep track of family events</h2>
-      <p>
-        View upcoming plans and quickly add new events for the whole household.
-      </p>
+  <div class="app">
+    <div class="header">
+      <h1>Calendar</h1>
+      <p>View upcoming family events and add new ones in a mobile-friendly layout.</p>
+    </div>
 
-      <div class="hero-buttons">
-        <button class="btn btn-primary" onclick="document.getElementById('eventText').focus()">+ Add Event</button>
-        <a class="btn btn-outline" href="index.html">Back Home</a>
-      </div>
-    </section>
+    <div class="section">
+      <div class="card">
+        <span class="section-label">Monthly Calendar</span>
+        <h2>April 2026</h2>
 
-    <section class="card">
-      <div class="section-header">
-        <div>
-          <span class="card-label">Monthly Calendar</span>
-          <h3>April 2026</h3>
-        </div>
-        <button class="btn btn-primary" onclick="document.getElementById('eventText').focus()">Jump to Add Event</button>
-      </div>
+        <div class="calendar-grid">
+          <div class="weekday">S</div>
+          <div class="weekday">M</div>
+          <div class="weekday">T</div>
+          <div class="weekday">W</div>
+          <div class="weekday">T</div>
+          <div class="weekday">F</div>
+          <div class="weekday">S</div>
 
-      <div class="calendar-grid">
-        <div class="weekday">Sun</div>
-        <div class="weekday">Mon</div>
-        <div class="weekday">Tue</div>
-        <div class="weekday">Wed</div>
-        <div class="weekday">Thu</div>
-        <div class="weekday">Fri</div>
-        <div class="weekday">Sat</div>
-
-        <div class="calendar-day"><div class="calendar-number">1</div></div>
-        <div class="calendar-day"><div class="calendar-number">2</div></div>
-        <div class="calendar-day"><div class="calendar-number">3</div></div>
-        <div class="calendar-day"><div class="calendar-number">4</div></div>
-        <div class="calendar-day"><div class="calendar-number">5</div></div>
-        <div class="calendar-day"><div class="calendar-number">6</div></div>
-        <div class="calendar-day"><div class="calendar-number">7</div></div>
-        <div class="calendar-day"><div class="calendar-number">8</div></div>
-        <div class="calendar-day"><div class="calendar-number">9</div></div>
-        <div class="calendar-day"><div class="calendar-number">10</div></div>
-        <div class="calendar-day"><div class="calendar-number">11</div></div>
-        <div class="calendar-day"><div class="calendar-number">12</div></div>
-        <div class="calendar-day"><div class="calendar-number">13</div></div>
-        <div class="calendar-day"><div class="calendar-number">14</div></div>
-        <div class="calendar-day"><div class="calendar-number">15</div></div>
-        <div class="calendar-day"><div class="calendar-number">16</div></div>
-        <div class="calendar-day"><div class="calendar-number">17</div></div>
-        <div class="calendar-day"><div class="calendar-number">18</div></div>
-        <div class="calendar-day"><div class="calendar-number">19</div></div>
-        <div class="calendar-day"><div class="calendar-number">20</div></div>
-        <div class="calendar-day"><div class="calendar-number">21</div></div>
-        <div class="calendar-day"><div class="calendar-number">22</div></div>
-        <div class="calendar-day"><div class="calendar-number">23</div></div>
-        <div class="calendar-day"><div class="calendar-number">24</div></div>
-        <div class="calendar-day"><div class="calendar-number">25</div></div>
-        <div class="calendar-day"><div class="calendar-number">26</div></div>
-        <div class="calendar-day"><div class="calendar-number">27</div></div>
-        <div class="calendar-day"><div class="calendar-number">28</div></div>
-        <div class="calendar-day"><div class="calendar-number">29</div></div>
-        <div class="calendar-day"><div class="calendar-number">30</div></div>
-      </div>
-    </section>
-
-    <section class="card">
-      <div class="section-header">
-        <div>
-          <span class="card-label">Homepage Events</span>
-          <h3>Events from Home Page</h3>
-        </div>
-        <button class="btn btn-primary" onclick="document.getElementById('eventText').focus()">Add New</button>
-      </div>
-
-      <div class="item-list" id="eventsList"></div>
-    </section>
-
-    <section class="card">
-      <div class="section-header">
-        <div>
-          <span class="card-label">Add Event</span>
-          <h3>Create a New Family Event</h3>
+          <div class="calendar-day"><div class="calendar-number">1</div></div>
+          <div class="calendar-day"><div class="calendar-number">2</div></div>
+          <div class="calendar-day"><div class="calendar-number">3</div></div>
+          <div class="calendar-day"><div class="calendar-number">4</div></div>
+          <div class="calendar-day"><div class="calendar-number">5</div></div>
+          <div class="calendar-day"><div class="calendar-number">6</div></div>
+          <div class="calendar-day"><div class="calendar-number">7</div></div>
+          <div class="calendar-day"><div class="calendar-number">8</div></div>
+          <div class="calendar-day"><div class="calendar-number">9</div></div>
+          <div class="calendar-day"><div class="calendar-number">10</div></div>
+          <div class="calendar-day"><div class="calendar-number">11</div></div>
+          <div class="calendar-day"><div class="calendar-number">12</div></div>
+          <div class="calendar-day"><div class="calendar-number">13</div></div>
+          <div class="calendar-day"><div class="calendar-number">14</div></div>
+          <div class="calendar-day"><div class="calendar-number">15</div></div>
+          <div class="calendar-day"><div class="calendar-number">16</div></div>
+          <div class="calendar-day"><div class="calendar-number">17</div></div>
+          <div class="calendar-day"><div class="calendar-number">18</div></div>
+          <div class="calendar-day"><div class="calendar-number">19</div></div>
+          <div class="calendar-day"><div class="calendar-number">20</div></div>
+          <div class="calendar-day"><div class="calendar-number">21</div></div>
+          <div class="calendar-day"><div class="calendar-number">22</div></div>
+          <div class="calendar-day"><div class="calendar-number">23</div></div>
+          <div class="calendar-day"><div class="calendar-number">24</div></div>
+          <div class="calendar-day"><div class="calendar-number">25</div></div>
+          <div class="calendar-day"><div class="calendar-number">26</div></div>
+          <div class="calendar-day"><div class="calendar-number">27</div></div>
+          <div class="calendar-day"><div class="calendar-number">28</div></div>
+          <div class="calendar-day"><div class="calendar-number">29</div></div>
+          <div class="calendar-day"><div class="calendar-number">30</div></div>
         </div>
       </div>
 
-      <div class="form-grid">
-        <input id="eventText" type="text" placeholder="Enter event name" />
-        <select id="eventMember">
-          <option value="William">Assign to family member William</option>
-          <option value="Hailey">Hailey</option>
-          <option value="Mom">Mom</option>
-          <option value="Dad">Dad</option>
-        </select>
-        <select id="eventTime">
-          <option value="7:00 AM">Choose a time</option>
-          <option>7:00 AM</option>
-          <option>8:00 AM</option>
-          <option>9:00 AM</option>
-          <option>12:00 PM</option>
-          <option>3:00 PM</option>
-          <option>4:30 PM</option>
-          <option>5:00 PM</option>
-          <option>6:30 PM</option>
-          <option>7:00 PM</option>
-        </select>
-        <select id="eventDay">
-          <option value="Monday">Choose a day</option>
-          <option>Monday</option>
-          <option>Tuesday</option>
-          <option>Wednesday</option>
-          <option>Thursday</option>
-          <option>Friday</option>
-          <option>Saturday</option>
-          <option>Sunday</option>
-        </select>
-        <button class="btn btn-primary" onclick="addEvent()">+ Add New Event</button>
+      <div class="card">
+        <span class="section-label">Event List</span>
+        <h3>Upcoming Events</h3>
+        <div class="list" id="eventsList"></div>
       </div>
-    </section>
+
+      <div class="card">
+        <span class="section-label">Add Event</span>
+        <h3>Create a New Event</h3>
+
+        <div class="form-stack">
+          <input id="eventText" type="text" placeholder="Enter event name" />
+          <select id="eventMember">
+            <option value="William">William</option>
+            <option value="Hailey">Hailey</option>
+            <option value="Mom">Mom</option>
+            <option value="Dad">Dad</option>
+          </select>
+          <select id="eventTime">
+            <option value="7:00 AM">7:00 AM</option>
+            <option>8:00 AM</option>
+            <option>9:00 AM</option>
+            <option>12:00 PM</option>
+            <option>3:00 PM</option>
+            <option>4:30 PM</option>
+            <option>5:00 PM</option>
+            <option>6:30 PM</option>
+            <option>7:00 PM</option>
+          </select>
+          <select id="eventDay">
+            <option value="Monday">Monday</option>
+            <option>Tuesday</option>
+            <option>Wednesday</option>
+            <option>Thursday</option>
+            <option>Friday</option>
+            <option>Saturday</option>
+            <option>Sunday</option>
+          </select>
+          <button class="primary-btn" onclick="addEvent()">+ Add Event</button>
+        </div>
+      </div>
+    </div>
   </div>
 
   <nav class="bottom-nav">
-    <div class="bottom-nav-inner">
-      <a class="nav-link" href="index.html">Home</a>
-      <a class="nav-link active" href="calendar.html">Calendar</a>
-      <a class="nav-link" href="index.html#choresSection">✅ Chores</a>
-      <a class="nav-link" href="goals.html">Goals</a>
-      <a class="nav-link" href="homework.html">Homework</a>
-    </div>
+    <a class="nav-link" href="index.html">🏠<br>Home</a>
+    <a class="nav-link active" href="calendar.html">📅<br>Calendar</a>
+    <a class="nav-link" href="index.html#choresSection">✅<br>Chores</a>
+    <a class="nav-link" href="goals.html">🎯<br>Goals</a>
+    <a class="nav-link" href="homework.html">📚<br>Homework</a>
   </nav>
 
   <script>
     let events = [
-      {
-        id: Date.now() + 1,
-        text: "Morning school drop off for William",
-        member: "Dad",
-        time: "8:00 AM",
-        day: "Monday",
-        completed: false
-      },
-      {
-        id: Date.now() + 2,
-        text: "Violin Practice",
-        member: "William",
-        time: "4:30 PM",
-        day: "Monday",
-        completed: false
-      },
-      {
-        id: Date.now() + 3,
-        text: "Family Dinner",
-        member: "Mom",
-        time: "6:30 PM",
-        day: "Monday",
-        completed: false
-      }
+      { id: Date.now() + 1, text: "Morning school drop off for William", member: "Dad", time: "8:00 AM", day: "Monday", completed: false },
+      { id: Date.now() + 2, text: "Violin Practice", member: "William", time: "4:30 PM", day: "Monday", completed: false }
     ];
 
     function getInitial(name) {
@@ -616,40 +426,34 @@
 
     function loadEvents() {
       const savedEvents = localStorage.getItem("familyhub_events");
-      if (savedEvents) {
-        events = JSON.parse(savedEvents);
-      }
+      if (savedEvents) events = JSON.parse(savedEvents);
     }
 
     function renderEvents() {
-      const eventsList = document.getElementById("eventsList");
+      const container = document.getElementById("eventsList");
 
       if (events.length === 0) {
-        eventsList.innerHTML = '<div class="empty-message">No events yet — add one to get started.</div>';
+        container.innerHTML = `<div class="empty-message">No events yet — add one to get started.</div>`;
         renderCalendarTags();
         return;
       }
 
-      eventsList.innerHTML = events.map(event => `
-        <div class="planner-item assigned-${event.member} ${event.completed ? 'completed' : ''}">
-          <div class="planner-item-top">
-            <div class="item-left">
-              <div class="avatar avatar-${event.member}">${getInitial(event.member)}</div>
-              <div class="item-content">
-                <div class="item-title">${event.text}</div>
-                <div class="item-subtext">Assigned to ${event.member}</div>
-                <div class="item-meta">
-                  <span class="pill time-pill">${event.time}</span>
-                  <span class="pill">${event.day}</span>
-                </div>
+      container.innerHTML = events.map(item => `
+        <div class="item assigned-${item.member} ${item.completed ? 'completed' : ''}">
+          <div class="item-top">
+            <div class="avatar avatar-${item.member}">${getInitial(item.member)}</div>
+            <div class="item-content">
+              <div class="item-title">${item.text}</div>
+              <div class="item-subtext">Assigned to ${item.member}</div>
+              <div class="meta">
+                <span class="pill">${item.time}</span>
+                <span class="pill">${item.day}</span>
               </div>
             </div>
-            <div class="item-actions">
-              <button class="toggle-btn ${event.completed ? 'done' : ''}" onclick="toggleEvent(${event.id})">
-                ${event.completed ? 'Undo' : 'Complete'}
-              </button>
-              <button class="delete-btn" onclick="deleteEvent(${event.id})">Delete</button>
-            </div>
+          </div>
+          <div class="item-actions">
+            <button class="toggle-btn ${item.completed ? 'done' : ''}" onclick="toggleEvent(${item.id})">${item.completed ? 'Undo' : 'Complete'}</button>
+            <button class="delete-btn" onclick="deleteEvent(${item.id})">Delete</button>
           </div>
         </div>
       `).join("");
@@ -675,30 +479,26 @@
 
       events.forEach(event => {
         const index = dayMap[event.day];
-        const dayCell = document.querySelectorAll(".calendar-day")[index - 1];
-        if (!dayCell) return;
+        const cell = document.querySelectorAll(".calendar-day")[index - 1];
+        if (!cell) return;
 
         const tag = document.createElement("span");
         tag.className = `calendar-tag tag-${event.member}`;
         tag.textContent = event.member;
-        dayCell.appendChild(tag);
+        cell.appendChild(tag);
       });
     }
 
     function addEvent() {
       const text = document.getElementById("eventText").value.trim();
-      const member = document.getElementById("eventMember").value;
-      const time = document.getElementById("eventTime").value;
-      const day = document.getElementById("eventDay").value;
-
       if (!text) return;
 
       events.push({
         id: Date.now(),
         text,
-        member,
-        time,
-        day,
+        member: document.getElementById("eventMember").value,
+        time: document.getElementById("eventTime").value,
+        day: document.getElementById("eventDay").value,
         completed: false
       });
 
@@ -708,15 +508,13 @@
     }
 
     function toggleEvent(id) {
-      events = events.map(event =>
-        event.id === id ? { ...event, completed: !event.completed } : event
-      );
+      events = events.map(item => item.id === id ? { ...item, completed: !item.completed } : item);
       saveEvents();
       renderEvents();
     }
 
     function deleteEvent(id) {
-      events = events.filter(event => event.id !== id);
+      events = events.filter(item => item.id !== id);
       saveEvents();
       renderEvents();
     }
