@@ -4,1076 +4,793 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>FamilyHub - Family Planner</title>
-
   <style>
     * {
       box-sizing: border-box;
-      margin: 0;
-      padding: 0;
-      scroll-behavior: smooth;
-    }
-
-    :root {
-      --bg: #f5f7fb;
-      --card: #ffffff;
-      --text: #1f2937;
-      --muted: #6b7280;
-      --primary: #6c63ff;
-      --primary-dark: #564ee8;
-      --primary-light: #eeecff;
-      --blue-soft: #dfe7ff;
-      --pink-soft: #ffe6ef;
-      --shadow: 0 10px 24px rgba(31, 41, 55, 0.08);
-      --radius-xl: 24px;
-      --radius-lg: 18px;
     }
 
     body {
+      margin: 0;
       font-family: Arial, sans-serif;
-      background: var(--bg);
-      color: var(--text);
-      max-width: 430px;
+      background: #f4f6fb;
+      color: #1f2937;
+    }
+
+    a {
+      text-decoration: none;
+      color: inherit;
+    }
+
+    .container {
+      max-width: 1200px;
       margin: 0 auto;
-      min-height: 100vh;
-      padding-bottom: 100px;
-    }
-
-    .app {
-      padding: 18px 16px 28px;
-    }
-
-    .topbar {
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      margin-bottom: 20px;
-    }
-
-    .brand small {
-      display: block;
-      color: var(--muted);
-      font-size: 0.85rem;
-      margin-bottom: 4px;
-    }
-
-    .brand h1 {
-      font-size: 1.9rem;
-      color: var(--primary);
-      letter-spacing: -0.5px;
-    }
-
-    .avatar {
-      width: 46px;
-      height: 46px;
-      border-radius: 50%;
-      background: linear-gradient(135deg, var(--primary), #8d86ff);
-      color: white;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      font-weight: bold;
-      box-shadow: var(--shadow);
+      padding: 20px;
     }
 
     .hero {
-      background: linear-gradient(135deg, var(--primary), #8e88ff);
+      background: linear-gradient(135deg, #1d4ed8, #2563eb);
       color: white;
-      border-radius: 28px;
-      padding: 22px 20px;
-      box-shadow: 0 14px 30px rgba(108, 99, 255, 0.25);
-      margin-bottom: 20px;
-      position: relative;
-      overflow: hidden;
+      border-radius: 18px;
+      padding: 28px 24px;
+      margin-bottom: 22px;
+      box-shadow: 0 10px 25px rgba(0, 0, 0, 0.12);
+    }
+
+    .hero-top {
       display: flex;
       justify-content: space-between;
-      gap: 14px;
       align-items: center;
-    }
-
-    .hero::after {
-      content: "";
-      position: absolute;
-      width: 130px;
-      height: 130px;
-      border-radius: 50%;
-      background: rgba(255, 255, 255, 0.10);
-      top: -35px;
-      right: -35px;
-    }
-
-    .hero-text {
-      flex: 1;
-      position: relative;
-      z-index: 2;
-    }
-
-    .hero small {
-      display: inline-block;
-      background: rgba(255, 255, 255, 0.18);
-      padding: 6px 10px;
-      border-radius: 999px;
-      font-size: 0.8rem;
-      margin-bottom: 12px;
-    }
-
-    .hero h2 {
-      font-size: 1.35rem;
-      margin-bottom: 8px;
-      line-height: 1.2;
-    }
-
-    .hero p {
-      font-size: 0.92rem;
-      line-height: 1.45;
-      margin-bottom: 16px;
-      max-width: 220px;
-    }
-
-    .hero-actions {
-      display: flex;
-      gap: 10px;
+      gap: 12px;
       flex-wrap: wrap;
     }
 
-    .hero-btn {
-      border: none;
-      border-radius: 999px;
-      padding: 10px 14px;
-      font-weight: bold;
-      cursor: pointer;
-      font-size: 0.88rem;
-      text-decoration: none;
-      display: inline-block;
-    }
-
-    .hero-btn.primary {
-      background: white;
-      color: var(--primary);
-    }
-
-    .hero-btn.secondary {
+    .logo {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      width: 52px;
+      height: 52px;
+      border-radius: 14px;
       background: rgba(255, 255, 255, 0.18);
-      color: white;
-    }
-
-    .hero-illustration {
-      width: 112px;
-      height: 112px;
-      border-radius: 24px;
-      background: rgba(255, 255, 255, 0.14);
-      position: relative;
-      flex-shrink: 0;
-      z-index: 2;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-    }
-
-    .hero-graphic {
-      position: relative;
-      width: 82px;
-      height: 82px;
-    }
-
-    .hero-house {
-      position: absolute;
-      bottom: 8px;
-      left: 19px;
-      width: 44px;
-      height: 32px;
-      background: white;
-      border-radius: 8px;
-    }
-
-    .hero-roof {
-      position: absolute;
-      top: 18px;
-      left: 14px;
-      width: 0;
-      height: 0;
-      border-left: 27px solid transparent;
-      border-right: 27px solid transparent;
-      border-bottom: 24px solid #ffd7e2;
-    }
-
-    .hero-door {
-      position: absolute;
-      bottom: 8px;
-      left: 35px;
-      width: 12px;
-      height: 18px;
-      background: #8e88ff;
-      border-radius: 6px 6px 0 0;
-    }
-
-    .hero-window {
-      position: absolute;
-      bottom: 23px;
-      left: 25px;
-      width: 8px;
-      height: 8px;
-      background: #eeecff;
-      border-radius: 2px;
-    }
-
-    .hero-window.right {
-      left: 49px;
-    }
-
-    .hero-sun {
-      position: absolute;
-      top: 6px;
-      right: 3px;
-      width: 16px;
-      height: 16px;
-      background: #ffe59a;
-      border-radius: 50%;
-    }
-
-    .hero-check {
-      position: absolute;
-      top: 10px;
-      left: 2px;
-      width: 24px;
-      height: 24px;
-      background: white;
-      border-radius: 8px;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      color: var(--primary);
-      font-size: 0.9rem;
       font-weight: bold;
-      box-shadow: 0 8px 18px rgba(0, 0, 0, 0.08);
+      font-size: 1.1rem;
+    }
+
+    .hero h1 {
+      margin: 14px 0 8px;
+      font-size: 2rem;
+    }
+
+    .hero h2 {
+      margin: 0 0 8px;
+      font-size: 1.15rem;
+      font-weight: 600;
+    }
+
+    .hero p {
+      margin: 0;
+      line-height: 1.6;
+      max-width: 780px;
+    }
+
+    .hero-buttons {
+      display: flex;
+      gap: 10px;
+      flex-wrap: wrap;
+      margin-top: 18px;
+    }
+
+    .btn {
+      border: none;
+      border-radius: 10px;
+      padding: 12px 16px;
+      font-size: 0.95rem;
+      cursor: pointer;
+      font-weight: 600;
+      transition: 0.2s ease;
+    }
+
+    .btn-primary {
+      background: white;
+      color: #1d4ed8;
+    }
+
+    .btn-primary:hover {
+      transform: translateY(-1px);
+    }
+
+    .btn-outline {
+      background: transparent;
+      color: white;
+      border: 1px solid rgba(255,255,255,0.5);
+    }
+
+    .btn-outline:hover {
+      background: rgba(255,255,255,0.12);
+    }
+
+    .section-grid {
+      display: grid;
+      grid-template-columns: 1.15fr 1fr;
+      gap: 20px;
+      margin-bottom: 20px;
+    }
+
+    .card {
+      background: white;
+      border-radius: 18px;
+      padding: 20px;
+      box-shadow: 0 8px 24px rgba(15, 23, 42, 0.08);
+    }
+
+    .card h3 {
+      margin: 0;
+      font-size: 1.2rem;
+    }
+
+    .card-label {
+      display: inline-block;
+      font-size: 0.82rem;
+      color: #64748b;
+      font-weight: 700;
+      margin-bottom: 8px;
+      text-transform: uppercase;
+      letter-spacing: 0.04em;
+    }
+
+    .subheading {
+      color: #64748b;
+      margin: 6px 0 0;
+      font-size: 0.95rem;
+    }
+
+    .stats-grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 14px;
+      margin-top: 16px;
+    }
+
+    .stat-box {
+      border-radius: 14px;
+      background: #f8fafc;
+      padding: 16px;
+      border: 1px solid #e5e7eb;
+    }
+
+    .stat-icon {
+      font-size: 1.2rem;
+      margin-bottom: 8px;
+    }
+
+    .stat-number {
+      font-size: 1.6rem;
+      font-weight: 700;
+      margin-bottom: 4px;
+    }
+
+    .stat-text {
+      font-size: 0.92rem;
+      color: #475569;
+    }
+
+    .members-grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 12px;
+      margin-top: 16px;
+    }
+
+    .member-card {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 10px;
+      border-radius: 14px;
+      padding: 14px;
+      border: 2px solid transparent;
+      background: #f8fafc;
+    }
+
+    .member-left {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      min-width: 0;
+    }
+
+    .avatar {
+      width: 42px;
+      height: 42px;
+      border-radius: 50%;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      color: white;
+      font-weight: 700;
+      flex-shrink: 0;
+    }
+
+    .member-name {
+      font-weight: 700;
+    }
+
+    .member-role {
+      color: #64748b;
+      font-size: 0.9rem;
+    }
+
+    .remove-btn {
+      border: none;
+      background: #fee2e2;
+      color: #b91c1c;
+      border-radius: 8px;
+      padding: 8px 10px;
+      cursor: pointer;
+      font-weight: 600;
+    }
+
+    .quick-actions {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 12px;
+      margin-top: 16px;
+    }
+
+    .quick-link {
+      background: #f8fafc;
+      border: 1px solid #e5e7eb;
+      border-radius: 14px;
+      padding: 14px;
+      text-align: center;
+      font-weight: 700;
+    }
+
+    .wide-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 20px;
+      margin-bottom: 20px;
     }
 
     .section-header {
       display: flex;
       justify-content: space-between;
       align-items: center;
-      margin: 18px 0 12px;
-    }
-
-    .section-header h3 {
-      font-size: 1.08rem;
-    }
-
-    .section-header a {
-      text-decoration: none;
-      color: var(--primary);
-      font-size: 0.88rem;
-      font-weight: bold;
-    }
-
-    .summary-grid {
-      display: grid;
-      grid-template-columns: repeat(2, 1fr);
       gap: 12px;
-      margin-bottom: 18px;
+      flex-wrap: wrap;
+      margin-bottom: 16px;
     }
 
-    .summary-card {
-      background: var(--card);
-      border-radius: var(--radius-lg);
-      padding: 16px;
-      box-shadow: var(--shadow);
-    }
-
-    .summary-card .icon {
-      width: 42px;
-      height: 42px;
-      border-radius: 12px;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      font-size: 1.2rem;
-      margin-bottom: 12px;
-    }
-
-    .summary-card h4 {
-      font-size: 1.35rem;
-      margin-bottom: 4px;
-    }
-
-    .summary-card p {
-      color: var(--muted);
-      font-size: 0.86rem;
-      line-height: 1.3;
-    }
-
-    .lavender .icon { background: var(--primary-light); }
-    .peach .icon { background: #ffe9df; }
-    .blue .icon { background: var(--blue-soft); }
-    .pink .icon { background: var(--pink-soft); }
-
-    .card {
-      background: var(--card);
-      border-radius: var(--radius-xl);
-      padding: 16px;
-      box-shadow: var(--shadow);
-      margin-bottom: 14px;
-    }
-
-    .card-title {
-      font-size: 1rem;
-      margin-bottom: 14px;
-    }
-
-    .schedule-item,
-    .todo-item,
-    .goal-item,
-    .homework-item {
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      gap: 12px;
-      padding: 12px 0;
-      border-bottom: 1px solid #eef2f7;
-    }
-
-    .schedule-item:last-child,
-    .todo-item:last-child,
-    .goal-item:last-child,
-    .homework-item:last-child {
-      border-bottom: none;
-      padding-bottom: 0;
-    }
-
-    .left-group {
-      display: flex;
-      align-items: center;
-      gap: 12px;
-      min-width: 0;
-      flex: 1;
-    }
-
-    .time-pill {
-      min-width: 68px;
-      text-align: center;
-      background: var(--primary-light);
-      color: var(--primary);
-      padding: 8px 10px;
-      border-radius: 999px;
-      font-size: 0.8rem;
-      font-weight: bold;
-    }
-
-    .dot-icon {
-      width: 38px;
-      height: 38px;
-      border-radius: 12px;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      font-size: 1rem;
-      flex-shrink: 0;
-    }
-
-    .person-avatar {
-      width: 34px;
-      height: 34px;
-      border-radius: 50%;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      font-size: 0.78rem;
-      font-weight: bold;
-      color: white;
-      flex-shrink: 0;
-      box-shadow: var(--shadow);
-    }
-
-    .william { background: linear-gradient(135deg, #5b8def, #7aa6ff); }
-    .hailey { background: linear-gradient(135deg, #ff8fb1, #ffb3ca); }
-    .mom { background: linear-gradient(135deg, #8f7cff, #b4a8ff); }
-    .dad { background: linear-gradient(135deg, #4fc3a1, #7be0c2); }
-    .default-avatar { background: linear-gradient(135deg, #7f8c8d, #b2bec3); }
-
-    .item-text {
-      min-width: 0;
-      flex: 1;
-    }
-
-    .item-text strong {
-      display: block;
+    .mini-link {
+      color: #2563eb;
+      font-weight: 700;
       font-size: 0.95rem;
-      margin-bottom: 3px;
     }
 
-    .item-text span {
-      color: var(--muted);
-      font-size: 0.84rem;
-      line-height: 1.3;
+    .item-list {
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
     }
 
-    .check {
-      width: 20px;
-      height: 20px;
-      accent-color: var(--primary);
-      flex-shrink: 0;
-      cursor: pointer;
+    .planner-item {
+      border-radius: 16px;
+      border: 2px solid #e5e7eb;
+      padding: 14px;
+      background: white;
+      transition: 0.2s ease;
     }
 
-    .tag {
-      font-size: 0.78rem;
-      padding: 6px 10px;
-      border-radius: 999px;
-      background: #eef2ff;
-      color: var(--primary);
-      font-weight: bold;
-      white-space: nowrap;
+    .planner-item.completed {
+      opacity: 0.72;
+      background: #f8fafc;
     }
 
-    .progress-wrap {
-      width: 100%;
+    .planner-item.completed .item-title {
+      text-decoration: line-through;
+    }
+
+    .planner-item-top {
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-start;
+      gap: 12px;
+    }
+
+    .item-left {
+      display: flex;
+      align-items: flex-start;
+      gap: 12px;
+      min-width: 0;
+      flex: 1;
+    }
+
+    .item-content {
+      min-width: 0;
+      flex: 1;
+    }
+
+    .item-meta {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
       margin-top: 8px;
     }
 
-    .progress-bar {
-      width: 100%;
-      height: 10px;
-      background: #edf1f7;
+    .pill {
+      display: inline-flex;
+      align-items: center;
+      padding: 6px 10px;
       border-radius: 999px;
-      overflow: hidden;
-      margin-top: 6px;
+      font-size: 0.84rem;
+      font-weight: 700;
+      background: #eef2ff;
+      color: #334155;
     }
 
-    .progress-fill {
-      height: 100%;
-      border-radius: 999px;
-      background: linear-gradient(90deg, var(--primary), #8e88ff);
+    .time-pill {
+      background: #eff6ff;
+      color: #1d4ed8;
     }
 
-    .quick-buttons {
-      display: grid;
-      grid-template-columns: repeat(4, 1fr);
-      gap: 10px;
-      margin-bottom: 18px;
+    .item-title {
+      font-weight: 700;
+      font-size: 1rem;
+      line-height: 1.4;
     }
 
-    .quick-btn {
-      background: white;
-      border: none;
-      border-radius: 18px;
-      padding: 14px 8px;
-      box-shadow: var(--shadow);
-      cursor: pointer;
-      font-size: 0.82rem;
-      color: var(--text);
-      text-align: center;
-      text-decoration: none;
-      display: block;
-    }
-
-    .quick-btn span {
-      display: block;
-      font-size: 1.2rem;
-      margin-bottom: 8px;
-    }
-
-    .main-button {
-      width: 100%;
-      border: none;
-      background: var(--primary);
-      color: white;
-      padding: 13px;
-      border-radius: 16px;
-      font-size: 0.95rem;
-      font-weight: bold;
-      cursor: pointer;
-      margin-top: 12px;
-    }
-
-    .main-button:hover {
-      background: var(--primary-dark);
-    }
-
-    .input-row {
-      display: grid;
-      gap: 10px;
-      margin-top: 12px;
-    }
-
-    .input-row input,
-    .input-row select,
-    .ai-box textarea {
-      width: 100%;
-      border: 1px solid #dde3ef;
-      border-radius: 14px;
-      padding: 12px;
+    .item-subtext {
+      color: #64748b;
       font-size: 0.92rem;
-      outline: none;
-      background: #fff;
+      margin-top: 4px;
     }
 
-    .input-row input:focus,
-    .input-row select:focus,
-    .ai-box textarea:focus {
-      border-color: var(--primary);
+    .item-actions {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      flex-wrap: wrap;
+      justify-content: flex-end;
+    }
+
+    .toggle-btn {
+      border: none;
+      border-radius: 10px;
+      padding: 10px 12px;
+      font-weight: 700;
+      cursor: pointer;
+      background: #dcfce7;
+      color: #166534;
+    }
+
+    .toggle-btn.done {
+      background: #dbeafe;
+      color: #1d4ed8;
     }
 
     .delete-btn {
       border: none;
-      background: #ffe7e7;
-      color: #c0392b;
-      padding: 8px 10px;
       border-radius: 10px;
+      padding: 10px 12px;
+      font-weight: 700;
       cursor: pointer;
-      font-size: 0.8rem;
-      flex-shrink: 0;
+      background: #fee2e2;
+      color: #b91c1c;
     }
 
-    .completed .item-text strong,
-    .completed .item-text span {
-      text-decoration: line-through;
-      opacity: 0.6;
-    }
-
-    .ai-box {
-      margin-top: 10px;
-    }
-
-    .ai-actions {
-      display: flex;
-      gap: 10px;
-      margin-top: 10px;
-      flex-wrap: wrap;
-    }
-
-    .ai-results {
-      margin-top: 14px;
-    }
-
-    .empty-text {
-      color: var(--muted);
-      font-size: 0.9rem;
-      line-height: 1.4;
-    }
-
-    .copy-box {
-      margin-top: 14px;
-      background: #f7f8ff;
-      border: 1px solid #dde3ef;
-      border-radius: 14px;
-      padding: 12px;
-      font-size: 0.9rem;
-      line-height: 1.45;
-      color: var(--text);
-      word-break: break-word;
-    }
-
-    .copy-label {
-      color: var(--muted);
-      font-size: 0.82rem;
-      margin-bottom: 6px;
-      display: block;
-    }
-
-    .family-grid {
+    .form-grid {
       display: grid;
-      grid-template-columns: repeat(2, 1fr);
-      gap: 12px;
+      grid-template-columns: 1.2fr 1fr 1fr auto;
+      gap: 10px;
+      margin-top: 16px;
     }
 
-    .family-member-card {
-      background: #f8f9ff;
-      border: 1px solid #eef2f7;
-      border-radius: 18px;
+    .form-grid.homework-grid {
+      grid-template-columns: 1.2fr 1fr 1fr 1fr auto;
+    }
+
+    .form-grid input,
+    .form-grid select,
+    .chat-box textarea {
+      width: 100%;
+      border: 1px solid #d1d5db;
+      border-radius: 10px;
+      padding: 12px;
+      font-size: 0.95rem;
+      font-family: Arial, sans-serif;
+      background: white;
+    }
+
+    .chat-box textarea {
+      min-height: 90px;
+      resize: vertical;
+      margin: 12px 0;
+    }
+
+    .goal-list {
+      display: grid;
+      gap: 12px;
+      margin-top: 16px;
+    }
+
+    .goal-card {
+      border: 1px solid #e5e7eb;
+      background: #f8fafc;
+      border-radius: 14px;
+      padding: 14px;
+    }
+
+    .goal-title {
+      font-weight: 700;
+      margin-bottom: 6px;
+    }
+
+    .goal-desc {
+      color: #475569;
+      font-size: 0.94rem;
+    }
+
+    .bottom-nav {
+      position: sticky;
+      bottom: 0;
+      z-index: 10;
+      background: rgba(255,255,255,0.96);
+      backdrop-filter: blur(8px);
+      border-top: 1px solid #e5e7eb;
+      margin-top: 24px;
+    }
+
+    .bottom-nav-inner {
+      max-width: 1200px;
+      margin: 0 auto;
+      display: grid;
+      grid-template-columns: repeat(5, 1fr);
+      gap: 8px;
+      padding: 10px 20px;
+    }
+
+    .nav-link {
+      text-align: center;
+      padding: 12px 8px;
+      border-radius: 12px;
+      font-weight: 700;
+      color: #475569;
+    }
+
+    .nav-link.active {
+      background: #dbeafe;
+      color: #1d4ed8;
+    }
+
+    .empty-message {
+      color: #64748b;
+      background: #f8fafc;
+      border: 1px dashed #cbd5e1;
+      border-radius: 14px;
       padding: 14px;
       text-align: center;
     }
 
-    .family-member-card .person-avatar {
-      margin: 0 auto 10px;
-      width: 42px;
-      height: 42px;
-      font-size: 0.9rem;
+    .member-William {
+      border-color: #3b82f6;
+      background: #eff6ff;
     }
 
-    .family-member-card strong {
-      display: block;
-      font-size: 0.95rem;
-      margin-bottom: 4px;
+    .member-Hailey {
+      border-color: #ec4899;
+      background: #fdf2f8;
     }
 
-    .family-member-card span {
-      display: block;
-      color: var(--muted);
-      font-size: 0.82rem;
-      margin-bottom: 10px;
+    .member-Mom {
+      border-color: #8b5cf6;
+      background: #f5f3ff;
     }
 
-    .remove-member-btn {
-      border: none;
-      background: #ffe7e7;
-      color: #c0392b;
-      padding: 8px 10px;
-      border-radius: 10px;
-      cursor: pointer;
-      font-size: 0.8rem;
-      width: 100%;
+    .member-Dad {
+      border-color: #10b981;
+      background: #ecfdf5;
     }
 
-    .bottom-nav {
-      position: fixed;
-      bottom: 0;
-      left: 50%;
-      transform: translateX(-50%);
-      width: 100%;
-      max-width: 430px;
-      background: rgba(255, 255, 255, 0.96);
-      border-top: 1px solid #e5e7eb;
-      display: flex;
-      justify-content: space-around;
-      padding: 10px 8px 14px;
-      backdrop-filter: blur(8px);
+    .avatar-William { background: #3b82f6; }
+    .avatar-Hailey { background: #ec4899; }
+    .avatar-Mom { background: #8b5cf6; }
+    .avatar-Dad { background: #10b981; }
+
+    .assigned-William {
+      border-color: #3b82f6;
+      box-shadow: inset 0 0 0 1px rgba(59, 130, 246, 0.12);
+      background: linear-gradient(to right, #eff6ff, #ffffff);
     }
 
-    .nav-item {
-      text-align: center;
-      color: var(--muted);
-      font-size: 0.75rem;
-      text-decoration: none;
+    .assigned-Hailey {
+      border-color: #ec4899;
+      box-shadow: inset 0 0 0 1px rgba(236, 72, 153, 0.12);
+      background: linear-gradient(to right, #fdf2f8, #ffffff);
     }
 
-    .nav-item span {
-      display: block;
-      font-size: 1.2rem;
-      margin-bottom: 4px;
+    .assigned-Mom {
+      border-color: #8b5cf6;
+      box-shadow: inset 0 0 0 1px rgba(139, 92, 246, 0.12);
+      background: linear-gradient(to right, #f5f3ff, #ffffff);
     }
 
-    .nav-item.active {
-      color: var(--primary);
-      font-weight: bold;
+    .assigned-Dad {
+      border-color: #10b981;
+      box-shadow: inset 0 0 0 1px rgba(16, 185, 129, 0.12);
+      background: linear-gradient(to right, #ecfdf5, #ffffff);
     }
 
-    @media (max-width: 380px) {
-      .quick-buttons,
-      .family-grid {
-        grid-template-columns: repeat(2, 1fr);
-      }
-
-      .summary-grid {
+    @media (max-width: 900px) {
+      .section-grid,
+      .wide-grid {
         grid-template-columns: 1fr;
       }
 
-      .hero {
-        flex-direction: column;
-        align-items: flex-start;
+      .quick-actions,
+      .stats-grid,
+      .members-grid {
+        grid-template-columns: 1fr 1fr;
       }
 
-      .hero-illustration {
-        width: 92px;
-        height: 92px;
+      .form-grid,
+      .form-grid.homework-grid {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    @media (max-width: 600px) {
+      .container {
+        padding: 14px;
+      }
+
+      .hero h1 {
+        font-size: 1.7rem;
+      }
+
+      .quick-actions,
+      .stats-grid,
+      .members-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .bottom-nav-inner {
+        grid-template-columns: repeat(5, 1fr);
+        padding: 8px 10px;
+      }
+
+      .nav-link {
+        font-size: 0.82rem;
+        padding: 10px 4px;
+      }
+
+      .planner-item-top {
+        flex-direction: column;
+      }
+
+      .item-actions {
+        width: 100%;
+        justify-content: flex-start;
       }
     }
   </style>
 </head>
 <body>
-  <div class="app">
-
-    <header class="topbar">
-      <div class="brand">
-        <small>Family Planner</small>
-        <h1>FamilyHub</h1>
-      </div>
-      <div class="avatar">FH</div>
-    </header>
-
+  <div class="container">
     <section class="hero">
-      <div class="hero-text">
-        <small>Organize your home life</small>
-        <h2>Keep chores, events, and goals in one place</h2>
-        <p>
-          Stay on top of the family schedule with a simple dashboard built for busy days,
-          shared responsibilities, and better routines.
-        </p>
-        <div class="hero-actions">
-          <a href="calendar.html#add-event-section" class="hero-btn primary">+ Add Event</a>
-          <a href="#add-chore-section" class="hero-btn secondary">+ Add Chore</a>
-        </div>
+      <div class="hero-top">
+        <div class="logo">FH</div>
       </div>
 
-      <div class="hero-illustration">
-        <div class="hero-graphic">
-          <div class="hero-check">✓</div>
-          <div class="hero-sun"></div>
-          <div class="hero-roof"></div>
-          <div class="hero-house"></div>
-          <div class="hero-window"></div>
-          <div class="hero-window right"></div>
-          <div class="hero-door"></div>
-        </div>
-      </div>
-    </section>
-
-    <div class="section-header">
-      <h3>Today at a glance</h3>
-      <a href="#">Live Counts</a>
-    </div>
-
-    <section class="summary-grid">
-      <div class="summary-card lavender">
-        <div class="icon">📅</div>
-        <h4 id="eventsCount">0</h4>
-        <p>Upcoming events today</p>
-      </div>
-
-      <div class="summary-card peach">
-        <div class="icon">✅</div>
-        <h4 id="choresCount">0</h4>
-        <p>Chores still to finish</p>
-      </div>
-
-      <div class="summary-card blue">
-        <div class="icon">🎯</div>
-        <h4 id="goalsCount">0</h4>
-        <p>Family goals in progress</p>
-      </div>
-
-      <div class="summary-card pink">
-        <div class="icon">📚</div>
-        <h4 id="homeworkCount">0</h4>
-        <p>Homework items due soon</p>
-      </div>
-    </section>
-
-    <div class="section-header">
-      <h3>Family Members</h3>
-      <a href="#">Household</a>
-    </div>
-
-    <section class="card">
-      <h4 class="card-title">Your Family Unit</h4>
-
-      <div id="familyMembersList" class="family-grid">
-        <div class="family-member-card" data-name="William">
-          <div class="person-avatar william">W</div>
-          <strong>William</strong>
-          <span>Family Member</span>
-          <button class="remove-member-btn">Remove</button>
-        </div>
-
-        <div class="family-member-card" data-name="Hailey">
-          <div class="person-avatar hailey">H</div>
-          <strong>Hailey</strong>
-          <span>Family Member</span>
-          <button class="remove-member-btn">Remove</button>
-        </div>
-
-        <div class="family-member-card" data-name="Mom">
-          <div class="person-avatar mom">M</div>
-          <strong>Mom</strong>
-          <span>Family Member</span>
-          <button class="remove-member-btn">Remove</button>
-        </div>
-
-        <div class="family-member-card" data-name="Dad">
-          <div class="person-avatar dad">D</div>
-          <strong>Dad</strong>
-          <span>Family Member</span>
-          <button class="remove-member-btn">Remove</button>
-        </div>
-      </div>
-
-      <div class="input-row">
-        <input type="text" id="familyMemberName" placeholder="Enter a family member name" />
-      </div>
-
-      <button class="main-button" id="addFamilyMemberBtn">+ Add Family Member</button>
-    </section>
-
-    <div class="section-header">
-      <h3>Quick Actions</h3>
-    </div>
-
-    <section class="quick-buttons">
-      <a href="calendar.html" class="quick-btn"><span>📅</span>Events</a>
-      <a href="#add-chore-section" class="quick-btn"><span>✅</span>Chores</a>
-      <a href="goals.html" class="quick-btn"><span>🎯</span>Goals</a>
-      <a href="homework.html" class="quick-btn"><span>📚</span>Homework</a>
-    </section>
-
-    <div class="section-header">
-      <h3>Today’s Schedule</h3>
-      <a href="calendar.html">Calendar</a>
-    </div>
-
-    <section class="card">
-      <h4 class="card-title">Family Schedule</h4>
-
-      <div id="eventsList">
-        <div class="schedule-item">
-          <div class="left-group">
-            <div class="time-pill">8:00 AM</div>
-            <div class="person-avatar dad">D</div>
-            <div class="item-text">
-              <strong>Morning school drop off for William</strong>
-              <span>Assigned to Dad</span>
-            </div>
-          </div>
-          <div style="display:flex; gap:8px; align-items:center;">
-            <div class="tag">Monday</div>
-            <button class="delete-btn">Delete</button>
-          </div>
-        </div>
-
-        <div class="schedule-item">
-          <div class="left-group">
-            <div class="time-pill">4:30 PM</div>
-            <div class="person-avatar william">W</div>
-            <div class="item-text">
-              <strong>Violin Practice</strong>
-              <span>Assigned to William</span>
-            </div>
-          </div>
-          <div style="display:flex; gap:8px; align-items:center;">
-            <div class="tag">Monday</div>
-            <button class="delete-btn">Delete</button>
-          </div>
-        </div>
-
-        <div class="schedule-item">
-          <div class="left-group">
-            <div class="time-pill">6:30 PM</div>
-            <div class="person-avatar mom">M</div>
-            <div class="item-text">
-              <strong>Family Dinner</strong>
-              <span>Assigned to Mom</span>
-            </div>
-          </div>
-          <div style="display:flex; gap:8px; align-items:center;">
-            <div class="tag">Monday</div>
-            <button class="delete-btn">Delete</button>
-          </div>
-        </div>
-      </div>
-
-      <div class="input-row">
-        <input type="text" id="eventName" placeholder="Enter a new event" />
-        <select id="eventPerson">
-          <option value="">Assign to family member</option>
-          <option>William</option>
-          <option>Hailey</option>
-          <option>Mom</option>
-          <option>Dad</option>
-        </select>
-        <select id="eventTime">
-          <option value="">Choose a time</option>
-          <option>7:00 AM</option>
-          <option>8:00 AM</option>
-          <option>9:00 AM</option>
-          <option>12:00 PM</option>
-          <option>3:00 PM</option>
-          <option>4:30 PM</option>
-          <option>5:00 PM</option>
-          <option>6:30 PM</option>
-          <option>7:00 PM</option>
-        </select>
-        <select id="eventDay">
-          <option value="">Choose a day</option>
-          <option>Monday</option>
-          <option>Tuesday</option>
-          <option>Wednesday</option>
-          <option>Thursday</option>
-          <option>Friday</option>
-          <option>Saturday</option>
-          <option>Sunday</option>
-        </select>
-      </div>
-
-      <button class="main-button" id="addEventBtn">+ Add New Event</button>
-    </section>
-
-    <div class="section-header">
-      <h3>Chores</h3>
-      <a href="#">Interactive</a>
-    </div>
-
-    <section class="card" id="add-chore-section">
-      <h4 class="card-title">Assigned for Today</h4>
-
-      <div id="choresList">
-        <div class="todo-item" data-completed="false">
-          <div class="left-group">
-            <input class="check" type="checkbox" />
-            <div class="person-avatar dad">D</div>
-            <div class="item-text">
-              <strong>Take out trash</strong>
-              <span>Assigned to Dad</span>
-            </div>
-          </div>
-          <div style="display:flex; gap:8px; align-items:center;">
-            <div class="tag">Today</div>
-            <button class="delete-btn">Delete</button>
-          </div>
-        </div>
-
-        <div class="todo-item" data-completed="false">
-          <div class="left-group">
-            <input class="check" type="checkbox" />
-            <div class="person-avatar hailey">H</div>
-            <div class="item-text">
-              <strong>Feed the dog</strong>
-              <span>Assigned to Hailey</span>
-            </div>
-          </div>
-          <div style="display:flex; gap:8px; align-items:center;">
-            <div class="tag">Today</div>
-            <button class="delete-btn">Delete</button>
-          </div>
-        </div>
-
-        <div class="todo-item" data-completed="false">
-          <div class="left-group">
-            <input class="check" type="checkbox" />
-            <div class="person-avatar mom">M</div>
-            <div class="item-text">
-              <strong>Unload dishwasher</strong>
-              <span>Assigned to Mom</span>
-            </div>
-          </div>
-          <div style="display:flex; gap:8px; align-items:center;">
-            <div class="tag">Tonight</div>
-            <button class="delete-btn">Delete</button>
-          </div>
-        </div>
-      </div>
-
-      <div class="input-row">
-        <input type="text" id="choreName" placeholder="Enter a new chore" />
-        <select id="chorePerson">
-          <option value="">Assign to family member</option>
-          <option>William</option>
-          <option>Hailey</option>
-          <option>Mom</option>
-          <option>Dad</option>
-        </select>
-        <select id="choreTime">
-          <option value="Today">Today</option>
-          <option value="Morning">Morning</option>
-          <option value="After School">After School</option>
-          <option value="Tonight">Tonight</option>
-        </select>
-      </div>
-
-      <button class="main-button" id="addChoreBtn">+ Assign Chore</button>
-    </section>
-
-    <div class="section-header">
-      <h3>Ask ChatGPT</h3>
-      <a href="#">Handoff</a>
-    </div>
-
-    <section class="card">
-      <h4 class="card-title">Open your question in ChatGPT</h4>
-      <p class="empty-text">
-        Type a question below. This will open ChatGPT in a new tab and show your question here so you can copy and paste it.
+      <h1>FamilyHub</h1>
+      <h2>Keep chores, events, and goals in one place</h2>
+      <p>
+        Stay on top of the family schedule with a simple dashboard built for busy days,
+        shared responsibilities, and better routines.
       </p>
 
-      <div class="ai-box">
-        <textarea id="chatgptPrompt" rows="3" placeholder="Example: Create a weekly family schedule for two kids with chores, homework, and dinner planning"></textarea>
-      </div>
-
-      <div class="ai-actions">
-        <button class="main-button" id="openChatgptBtn" style="margin-top:0;">Ask in ChatGPT</button>
-      </div>
-
-      <div class="ai-results" id="handoffMessage">
-        <p class="empty-text">Your question will appear here after you click the button.</p>
+      <div class="hero-buttons">
+        <button class="btn btn-primary" onclick="document.getElementById('eventText').focus()">+ Add Event</button>
+        <button class="btn btn-outline" onclick="document.getElementById('choreText').focus()">+ Add Chore</button>
       </div>
     </section>
 
-    <div class="section-header">
-      <h3>Family Goals</h3>
-      <a href="goals.html">Progress</a>
+    <div class="section-grid">
+      <section class="card">
+        <span class="card-label">Today at a glance</span>
+        <h3>Live Counts</h3>
+        <p class="subheading">A quick snapshot of what is happening across the family today.</p>
+
+        <div class="stats-grid">
+          <div class="stat-box">
+            <div class="stat-icon">📅</div>
+            <div class="stat-number" id="eventsCount">0</div>
+            <div class="stat-text">Upcoming events today</div>
+          </div>
+
+          <div class="stat-box">
+            <div class="stat-icon">✅</div>
+            <div class="stat-number" id="choresCount">0</div>
+            <div class="stat-text">Chores still to finish</div>
+          </div>
+
+          <div class="stat-box">
+            <div class="stat-icon">🎯</div>
+            <div class="stat-number">2</div>
+            <div class="stat-text">Family goals in progress</div>
+          </div>
+
+          <div class="stat-box">
+            <div class="stat-icon">📚</div>
+            <div class="stat-number" id="homeworkCount">0</div>
+            <div class="stat-text">Homework items due soon</div>
+          </div>
+        </div>
+      </section>
+
+      <section class="card">
+        <span class="card-label">Family Members</span>
+        <h3>Your Family Unit</h3>
+        <p class="subheading">Each member is color-coded so assignments are easier to scan.</p>
+
+        <div class="members-grid" id="membersList"></div>
+      </section>
     </div>
 
-    <section class="card">
-      <h4 class="card-title">Weekly Goals</h4>
+    <section class="card" style="margin-bottom: 20px;">
+      <span class="card-label">Quick Actions</span>
+      <h3>Jump to a section</h3>
 
-      <div class="goal-item">
-        <div class="left-group">
-          <div class="dot-icon" style="background:#eeecff;">🎯</div>
-          <div class="item-text">
-            <strong>Finish all chores before Sunday</strong>
-            <span>4 of 6 tasks completed</span>
-            <div class="progress-wrap">
-              <div class="progress-bar">
-                <div class="progress-fill" style="width: 67%;"></div>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-
-      <div class="goal-item">
-        <div class="left-group">
-          <div class="dot-icon" style="background:#ffe9df;">🏡</div>
-          <div class="item-text">
-            <strong>Keep the house organized</strong>
-            <span>Daily cleanup streak: 5 days</span>
-            <div class="progress-wrap">
-              <div class="progress-bar">
-                <div class="progress-fill" style="width: 72%;"></div>
-              </div>
-            </div>
-          </div>
-        </div>
+      <div class="quick-actions">
+        <a class="quick-link" href="calendar.html">📅 Events</a>
+        <a class="quick-link" href="#choresSection">✅ Chores</a>
+        <a class="quick-link" href="goals.html">🎯 Goals</a>
+        <a class="quick-link" href="homework.html">📚 Homework</a>
       </div>
     </section>
 
-    <div class="section-header">
-      <h3>Homework</h3>
-      <a href="homework.html">School</a>
+    <div class="wide-grid">
+      <section class="card">
+        <div class="section-header">
+          <div>
+            <span class="card-label">Today’s Schedule</span>
+            <h3>Family Schedule</h3>
+          </div>
+          <a class="mini-link" href="calendar.html">Calendar</a>
+        </div>
+
+        <div class="item-list" id="eventsList"></div>
+
+        <div class="form-grid">
+          <input id="eventText" type="text" placeholder="Enter event name" />
+          <select id="eventMember">
+            <option value="William">Assign to family member William</option>
+            <option value="Hailey">Hailey</option>
+            <option value="Mom">Mom</option>
+            <option value="Dad">Dad</option>
+          </select>
+          <select id="eventTime">
+            <option value="7:00 AM">Choose a time</option>
+            <option>7:00 AM</option>
+            <option>8:00 AM</option>
+            <option>9:00 AM</option>
+            <option>12:00 PM</option>
+            <option>3:00 PM</option>
+            <option>4:30 PM</option>
+            <option>5:00 PM</option>
+            <option>6:30 PM</option>
+            <option>7:00 PM</option>
+          </select>
+          <select id="eventDay">
+            <option value="Monday">Choose a day</option>
+            <option>Monday</option>
+            <option>Tuesday</option>
+            <option>Wednesday</option>
+            <option>Thursday</option>
+            <option>Friday</option>
+            <option>Saturday</option>
+            <option>Sunday</option>
+          </select>
+          <button class="btn btn-primary" onclick="addEvent()">+ Add New Event</button>
+        </div>
+      </section>
+
+      <section class="card" id="choresSection">
+        <div class="section-header">
+          <div>
+            <span class="card-label">Chores</span>
+            <h3>Assigned for Today</h3>
+          </div>
+          <span class="mini-link">Interactive</span>
+        </div>
+
+        <div class="item-list" id="choresList"></div>
+
+        <div class="form-grid">
+          <input id="choreText" type="text" placeholder="Enter chore" />
+          <select id="choreMember">
+            <option value="William">Assign to family member William</option>
+            <option value="Hailey">Hailey</option>
+            <option value="Mom">Mom</option>
+            <option value="Dad">Dad</option>
+          </select>
+          <select id="choreTime">
+            <option value="Today">Today</option>
+            <option>Morning</option>
+            <option>After School</option>
+            <option>Tonight</option>
+          </select>
+          <button class="btn btn-primary" onclick="addChore()">+ Assign Chore</button>
+        </div>
+      </section>
     </div>
 
-    <section class="card">
-      <h4 class="card-title">Due Soon</h4>
-
-      <div id="homeworkList">
-        <div class="homework-item" data-completed="false">
-          <div class="left-group">
-            <input class="check homework-check" type="checkbox" />
-            <div class="person-avatar william">W</div>
-            <div class="item-text">
-              <strong>Math worksheet</strong>
-              <span>Assigned to William</span>
-            </div>
+    <div class="wide-grid">
+      <section class="card">
+        <div class="section-header">
+          <div>
+            <span class="card-label">Ask ChatGPT</span>
+            <h3>Open your question in ChatGPT</h3>
           </div>
-          <div style="display:flex; gap:8px; align-items:center;">
-            <div class="tag">Math • Monday</div>
-            <button class="delete-btn">Delete</button>
-          </div>
+          <span class="mini-link">Handoff</span>
         </div>
 
-        <div class="homework-item" data-completed="false">
-          <div class="left-group">
-            <input class="check homework-check" type="checkbox" />
-            <div class="person-avatar william">W</div>
-            <div class="item-text">
-              <strong>Science reading</strong>
-              <span>Assigned to William</span>
-            </div>
+        <div class="chat-box">
+          <p class="subheading">
+            Type a question below. This will open ChatGPT in a new tab and show your question here so you can copy and paste it.
+          </p>
+          <textarea id="chatQuestion" placeholder="Example: Help me plan our family meals for this week."></textarea>
+          <button class="btn btn-primary" onclick="openChatGPT()">Ask in ChatGPT</button>
+          <p class="subheading" id="chatPreview" style="margin-top: 12px;">
+            Your question will appear here after you click the button.
+          </p>
+        </div>
+      </section>
+
+      <section class="card">
+        <div class="section-header">
+          <div>
+            <span class="card-label">Family Goals</span>
+            <h3>Weekly Goals</h3>
           </div>
-          <div style="display:flex; gap:8px; align-items:center;">
-            <div class="tag">Science • Tuesday</div>
-            <button class="delete-btn">Delete</button>
+          <a class="mini-link" href="goals.html">Progress</a>
+        </div>
+
+        <div class="goal-list">
+          <div class="goal-card">
+            <div class="goal-title">Finish all chores before Sunday</div>
+            <div class="goal-desc">4 of 6 tasks completed</div>
+          </div>
+
+          <div class="goal-card">
+            <div class="goal-title">Keep the house organized</div>
+            <div class="goal-desc">Daily cleanup streak: 5 days</div>
           </div>
         </div>
+      </section>
+    </div>
+
+    <section class="card" style="margin-bottom: 20px;">
+      <div class="section-header">
+        <div>
+          <span class="card-label">Homework</span>
+          <h3>Due Soon</h3>
+        </div>
+        <a class="mini-link" href="homework.html">School</a>
       </div>
 
-      <div class="input-row">
-        <input type="text" id="homeworkName" placeholder="Enter a homework task" />
-        <select id="homeworkPerson">
-          <option value="">Assign to family member</option>
-          <option>William</option>
-          <option>Hailey</option>
-          <option>Mom</option>
-          <option>Dad</option>
+      <div class="item-list" id="homeworkList"></div>
+
+      <div class="form-grid homework-grid">
+        <input id="homeworkText" type="text" placeholder="Enter homework item" />
+        <select id="homeworkMember">
+          <option value="William">Assign to family member William</option>
+          <option value="Hailey">Hailey</option>
+          <option value="Mom">Mom</option>
+          <option value="Dad">Dad</option>
         </select>
         <select id="homeworkSubject">
-          <option value="">Choose a subject</option>
+          <option value="Math">Choose a subject</option>
           <option>Math</option>
           <option>Science</option>
           <option>Reading</option>
@@ -1082,7 +799,7 @@
           <option>Homework</option>
         </select>
         <select id="homeworkDay">
-          <option value="">Choose a due day</option>
+          <option value="Monday">Choose a due day</option>
           <option>Monday</option>
           <option>Tuesday</option>
           <option>Wednesday</option>
@@ -1091,343 +808,357 @@
           <option>Saturday</option>
           <option>Sunday</option>
         </select>
+        <button class="btn btn-primary" onclick="addHomework()">+ Add Homework</button>
       </div>
-
-      <button class="main-button" id="addHomeworkBtn">+ Add Homework</button>
     </section>
-
   </div>
 
   <nav class="bottom-nav">
-    <a href="index.html" class="nav-item active"><span>🏠</span>Home</a>
-    <a href="calendar.html" class="nav-item"><span>📅</span>Calendar</a>
-    <a href="#add-chore-section" class="nav-item"><span>✅</span>Chores</a>
-    <a href="goals.html" class="nav-item"><span>🎯</span>Goals</a>
-    <a href="homework.html" class="nav-item"><span>📚</span>Homework</a>
+    <div class="bottom-nav-inner">
+      <a class="nav-link active" href="index.html">🏠 Home</a>
+      <a class="nav-link" href="calendar.html">📅 Calendar</a>
+      <a class="nav-link" href="#choresSection">✅ Chores</a>
+      <a class="nav-link" href="goals.html">🎯 Goals</a>
+      <a class="nav-link" href="homework.html">📚 Homework</a>
+    </div>
   </nav>
 
   <script>
-    const familyMembersList = document.getElementById("familyMembersList");
-    const addFamilyMemberBtn = document.getElementById("addFamilyMemberBtn");
-    const familyMemberNameInput = document.getElementById("familyMemberName");
+    const familyMembers = [
+      { name: "William", role: "Family Member" },
+      { name: "Hailey", role: "Family Member" },
+      { name: "Mom", role: "Family Member" },
+      { name: "Dad", role: "Family Member" }
+    ];
 
-    const eventsList = document.getElementById("eventsList");
-    const addEventBtn = document.getElementById("addEventBtn");
-    const eventNameInput = document.getElementById("eventName");
-    const eventPersonInput = document.getElementById("eventPerson");
-    const eventTimeInput = document.getElementById("eventTime");
-    const eventDayInput = document.getElementById("eventDay");
+    let events = [
+      {
+        id: Date.now() + 1,
+        text: "Morning school drop off for William",
+        member: "Dad",
+        time: "8:00 AM",
+        day: "Monday",
+        completed: false
+      },
+      {
+        id: Date.now() + 2,
+        text: "Violin Practice",
+        member: "William",
+        time: "4:30 PM",
+        day: "Monday",
+        completed: false
+      },
+      {
+        id: Date.now() + 3,
+        text: "Family Dinner",
+        member: "Mom",
+        time: "6:30 PM",
+        day: "Monday",
+        completed: false
+      }
+    ];
 
-    const choresList = document.getElementById("choresList");
-    const addChoreBtn = document.getElementById("addChoreBtn");
-    const choreNameInput = document.getElementById("choreName");
-    const chorePersonInput = document.getElementById("chorePerson");
-    const choreTimeInput = document.getElementById("choreTime");
+    let chores = [
+      {
+        id: Date.now() + 4,
+        text: "Take out trash",
+        member: "Dad",
+        time: "Today",
+        completed: false
+      },
+      {
+        id: Date.now() + 5,
+        text: "Feed the dog",
+        member: "Hailey",
+        time: "Today",
+        completed: false
+      },
+      {
+        id: Date.now() + 6,
+        text: "Unload dishwasher",
+        member: "Mom",
+        time: "Tonight",
+        completed: false
+      }
+    ];
 
-    const homeworkList = document.getElementById("homeworkList");
-    const addHomeworkBtn = document.getElementById("addHomeworkBtn");
-    const homeworkNameInput = document.getElementById("homeworkName");
-    const homeworkPersonInput = document.getElementById("homeworkPerson");
-    const homeworkSubjectInput = document.getElementById("homeworkSubject");
-    const homeworkDayInput = document.getElementById("homeworkDay");
+    let homework = [
+      {
+        id: Date.now() + 7,
+        text: "Math worksheet",
+        member: "William",
+        subject: "Math",
+        day: "Monday",
+        completed: false
+      },
+      {
+        id: Date.now() + 8,
+        text: "Science reading",
+        member: "William",
+        subject: "Science",
+        day: "Tuesday",
+        completed: false
+      }
+    ];
 
-    const chatgptPrompt = document.getElementById("chatgptPrompt");
-    const openChatgptBtn = document.getElementById("openChatgptBtn");
-    const handoffMessage = document.getElementById("handoffMessage");
-
-    const eventsCount = document.getElementById("eventsCount");
-    const choresCount = document.getElementById("choresCount");
-    const goalsCount = document.getElementById("goalsCount");
-    const homeworkCount = document.getElementById("homeworkCount");
-
-    function getAvatarClass(person) {
-      const name = person.toLowerCase();
-      if (name === "william") return "william";
-      if (name === "hailey") return "hailey";
-      if (name === "mom") return "mom";
-      if (name === "dad") return "dad";
-      return "default-avatar";
+    function getInitial(name) {
+      return name.charAt(0).toUpperCase();
     }
 
-    function getAvatarInitial(person) {
-      return person.charAt(0).toUpperCase();
+    function saveData() {
+      localStorage.setItem("familyhub_events", JSON.stringify(events));
+      localStorage.setItem("familyhub_chores", JSON.stringify(chores));
+      localStorage.setItem("familyhub_homework", JSON.stringify(homework));
     }
 
-    function createFamilyMemberCard(name) {
-      const avatarClass = getAvatarClass(name);
-      const avatarInitial = getAvatarInitial(name);
+    function loadData() {
+      const savedEvents = localStorage.getItem("familyhub_events");
+      const savedChores = localStorage.getItem("familyhub_chores");
+      const savedHomework = localStorage.getItem("familyhub_homework");
 
-      const memberCard = document.createElement("div");
-      memberCard.className = "family-member-card";
-      memberCard.dataset.name = name;
-
-      memberCard.innerHTML = `
-        <div class="person-avatar ${avatarClass}">${avatarInitial}</div>
-        <strong>${name}</strong>
-        <span>Family Member</span>
-        <button class="remove-member-btn">Remove</button>
-      `;
-
-      attachFamilyMemberEvents(memberCard);
-      return memberCard;
+      if (savedEvents) events = JSON.parse(savedEvents);
+      if (savedChores) chores = JSON.parse(savedChores);
+      if (savedHomework) homework = JSON.parse(savedHomework);
     }
 
-    function attachFamilyMemberEvents(memberCard) {
-      const removeBtn = memberCard.querySelector(".remove-member-btn");
-      removeBtn.addEventListener("click", function () {
-        memberCard.remove();
-      });
+    function renderMembers() {
+      const membersList = document.getElementById("membersList");
+
+      membersList.innerHTML = familyMembers.map(member => `
+        <div class="member-card member-${member.name}">
+          <div class="member-left">
+            <div class="avatar avatar-${member.name}">${getInitial(member.name)}</div>
+            <div>
+              <div class="member-name">${member.name}</div>
+              <div class="member-role">${member.role}</div>
+            </div>
+          </div>
+          <button class="remove-btn" onclick="alert('You can keep this simple for class and leave family members fixed.')">Remove</button>
+        </div>
+      `).join("");
     }
 
-    function createEventElement(name, person, time, day) {
-      const avatarClass = getAvatarClass(person);
-      const avatarInitial = getAvatarInitial(person);
+    function renderEvents() {
+      const eventsList = document.getElementById("eventsList");
 
-      const eventItem = document.createElement("div");
-      eventItem.className = "schedule-item";
+      if (events.length === 0) {
+        eventsList.innerHTML = `<div class="empty-message">No events yet — add one to get started.</div>`;
+        return;
+      }
 
-      eventItem.innerHTML = `
-        <div class="left-group">
-          <div class="time-pill">${time}</div>
-          <div class="person-avatar ${avatarClass}">${avatarInitial}</div>
-          <div class="item-text">
-            <strong>${name}</strong>
-            <span>Assigned to ${person}</span>
+      eventsList.innerHTML = events.map(event => `
+        <div class="planner-item assigned-${event.member} ${event.completed ? 'completed' : ''}">
+          <div class="planner-item-top">
+            <div class="item-left">
+              <div class="avatar avatar-${event.member}">${getInitial(event.member)}</div>
+              <div class="item-content">
+                <div class="item-title">${event.text}</div>
+                <div class="item-subtext">Assigned to ${event.member}</div>
+                <div class="item-meta">
+                  <span class="pill time-pill">${event.time}</span>
+                  <span class="pill">${event.day}</span>
+                </div>
+              </div>
+            </div>
+            <div class="item-actions">
+              <button class="toggle-btn ${event.completed ? 'done' : ''}" onclick="toggleEvent(${event.id})">
+                ${event.completed ? 'Undo' : 'Complete'}
+              </button>
+              <button class="delete-btn" onclick="deleteEvent(${event.id})">Delete</button>
+            </div>
           </div>
         </div>
-        <div style="display:flex; gap:8px; align-items:center;">
-          <div class="tag">${day}</div>
-          <button class="delete-btn">Delete</button>
-        </div>
-      `;
-
-      attachEventEvents(eventItem);
-      return eventItem;
+      `).join("");
     }
 
-    function attachEventEvents(eventItem) {
-      const deleteBtn = eventItem.querySelector(".delete-btn");
-      deleteBtn.addEventListener("click", function () {
-        eventItem.remove();
-        updateCounts();
-      });
-    }
+    function renderChores() {
+      const choresList = document.getElementById("choresList");
 
-    function createChoreElement(name, person, time, completed = false) {
-      const avatarClass = getAvatarClass(person);
-      const avatarInitial = getAvatarInitial(person);
+      if (chores.length === 0) {
+        choresList.innerHTML = `<div class="empty-message">No chores yet — add one to get started.</div>`;
+        return;
+      }
 
-      const choreItem = document.createElement("div");
-      choreItem.className = "todo-item";
-      choreItem.dataset.completed = completed ? "true" : "false";
-      if (completed) choreItem.classList.add("completed");
-
-      choreItem.innerHTML = `
-        <div class="left-group">
-          <input class="check" type="checkbox" ${completed ? "checked" : ""} />
-          <div class="person-avatar ${avatarClass}">${avatarInitial}</div>
-          <div class="item-text">
-            <strong>${name}</strong>
-            <span>Assigned to ${person}</span>
+      choresList.innerHTML = chores.map(chore => `
+        <div class="planner-item assigned-${chore.member} ${chore.completed ? 'completed' : ''}">
+          <div class="planner-item-top">
+            <div class="item-left">
+              <div class="avatar avatar-${chore.member}">${getInitial(chore.member)}</div>
+              <div class="item-content">
+                <div class="item-title">${chore.text}</div>
+                <div class="item-subtext">Assigned to ${chore.member}</div>
+                <div class="item-meta">
+                  <span class="pill">${chore.time}</span>
+                </div>
+              </div>
+            </div>
+            <div class="item-actions">
+              <button class="toggle-btn ${chore.completed ? 'done' : ''}" onclick="toggleChore(${chore.id})">
+                ${chore.completed ? 'Undo' : 'Complete'}
+              </button>
+              <button class="delete-btn" onclick="deleteChore(${chore.id})">Delete</button>
+            </div>
           </div>
         </div>
-        <div style="display:flex; gap:8px; align-items:center;">
-          <div class="tag">${time}</div>
-          <button class="delete-btn">Delete</button>
-        </div>
-      `;
-
-      attachChoreEvents(choreItem);
-      return choreItem;
+      `).join("");
     }
 
-    function attachChoreEvents(choreItem) {
-      const checkbox = choreItem.querySelector(".check");
-      const deleteBtn = choreItem.querySelector(".delete-btn");
+    function renderHomework() {
+      const homeworkList = document.getElementById("homeworkList");
 
-      checkbox.addEventListener("change", function () {
-        if (checkbox.checked) {
-          choreItem.classList.add("completed");
-          choreItem.dataset.completed = "true";
-        } else {
-          choreItem.classList.remove("completed");
-          choreItem.dataset.completed = "false";
-        }
-        updateCounts();
-      });
+      if (homework.length === 0) {
+        homeworkList.innerHTML = `<div class="empty-message">No homework items yet — add one to get started.</div>`;
+        return;
+      }
 
-      deleteBtn.addEventListener("click", function () {
-        choreItem.remove();
-        updateCounts();
-      });
-    }
-
-    function createHomeworkElement(name, person, subject, day, completed = false) {
-      const avatarClass = getAvatarClass(person);
-      const avatarInitial = getAvatarInitial(person);
-
-      const homeworkItem = document.createElement("div");
-      homeworkItem.className = "homework-item";
-      homeworkItem.dataset.completed = completed ? "true" : "false";
-      if (completed) homeworkItem.classList.add("completed");
-
-      homeworkItem.innerHTML = `
-        <div class="left-group">
-          <input class="check homework-check" type="checkbox" ${completed ? "checked" : ""} />
-          <div class="person-avatar ${avatarClass}">${avatarInitial}</div>
-          <div class="item-text">
-            <strong>${name}</strong>
-            <span>Assigned to ${person}</span>
+      homeworkList.innerHTML = homework.map(item => `
+        <div class="planner-item assigned-${item.member} ${item.completed ? 'completed' : ''}">
+          <div class="planner-item-top">
+            <div class="item-left">
+              <div class="avatar avatar-${item.member}">${getInitial(item.member)}</div>
+              <div class="item-content">
+                <div class="item-title">${item.text}</div>
+                <div class="item-subtext">Assigned to ${item.member}</div>
+                <div class="item-meta">
+                  <span class="pill">${item.subject}</span>
+                  <span class="pill">${item.day}</span>
+                </div>
+              </div>
+            </div>
+            <div class="item-actions">
+              <button class="toggle-btn ${item.completed ? 'done' : ''}" onclick="toggleHomework(${item.id})">
+                ${item.completed ? 'Undo' : 'Complete'}
+              </button>
+              <button class="delete-btn" onclick="deleteHomework(${item.id})">Delete</button>
+            </div>
           </div>
         </div>
-        <div style="display:flex; gap:8px; align-items:center;">
-          <div class="tag">${subject} • ${day}</div>
-          <button class="delete-btn">Delete</button>
-        </div>
-      `;
-
-      attachHomeworkItemEvents(homeworkItem);
-      return homeworkItem;
-    }
-
-    function attachHomeworkItemEvents(homeworkItem) {
-      const checkbox = homeworkItem.querySelector(".homework-check");
-      const deleteBtn = homeworkItem.querySelector(".delete-btn");
-
-      checkbox.addEventListener("change", function () {
-        if (checkbox.checked) {
-          homeworkItem.classList.add("completed");
-          homeworkItem.dataset.completed = "true";
-        } else {
-          homeworkItem.classList.remove("completed");
-          homeworkItem.dataset.completed = "false";
-        }
-        updateCounts();
-      });
-
-      deleteBtn.addEventListener("click", function () {
-        homeworkItem.remove();
-        updateCounts();
-      });
+      `).join("");
     }
 
     function updateCounts() {
-      const eventItems = document.querySelectorAll("#eventsList .schedule-item").length;
-      const goalItems = document.querySelectorAll(".goal-item").length;
-
-      const allChores = document.querySelectorAll("#choresList .todo-item");
-      const unfinishedChores = Array.from(allChores).filter(
-        item => item.dataset.completed !== "true"
-      ).length;
-
-      const allHomework = document.querySelectorAll("#homeworkList .homework-item");
-      const unfinishedHomework = Array.from(allHomework).filter(
-        item => item.dataset.completed !== "true"
-      ).length;
-
-      eventsCount.textContent = eventItems;
-      choresCount.textContent = unfinishedChores;
-      goalsCount.textContent = goalItems;
-      homeworkCount.textContent = unfinishedHomework;
+      document.getElementById("eventsCount").textContent = events.filter(item => !item.completed).length;
+      document.getElementById("choresCount").textContent = chores.filter(item => !item.completed).length;
+      document.getElementById("homeworkCount").textContent = homework.filter(item => !item.completed).length;
     }
 
-    addFamilyMemberBtn.addEventListener("click", function () {
-      const memberName = familyMemberNameInput.value.trim();
-      if (!memberName) {
-        alert("Please enter a family member name.");
-        return;
-      }
-
-      const newMember = createFamilyMemberCard(memberName);
-      familyMembersList.appendChild(newMember);
-      familyMemberNameInput.value = "";
-    });
-
-    addEventBtn.addEventListener("click", function () {
-      const eventName = eventNameInput.value.trim();
-      const person = eventPersonInput.value;
-      const time = eventTimeInput.value;
-      const day = eventDayInput.value;
-
-      if (!eventName || !person || !time || !day) {
-        alert("Please enter an event name, choose a family member, time, and day.");
-        return;
-      }
-
-      const newEvent = createEventElement(eventName, person, time, day);
-      eventsList.appendChild(newEvent);
-
-      eventNameInput.value = "";
-      eventPersonInput.value = "";
-      eventTimeInput.value = "";
-      eventDayInput.value = "";
-
+    function refreshUI() {
+      renderMembers();
+      renderEvents();
+      renderChores();
+      renderHomework();
       updateCounts();
-    });
+      saveData();
+    }
 
-    addChoreBtn.addEventListener("click", function () {
-      const choreName = choreNameInput.value.trim();
-      const person = chorePersonInput.value;
-      const time = choreTimeInput.value;
+    function addEvent() {
+      const text = document.getElementById("eventText").value.trim();
+      const member = document.getElementById("eventMember").value;
+      const time = document.getElementById("eventTime").value;
+      const day = document.getElementById("eventDay").value;
 
-      if (!choreName || !person) {
-        alert("Please enter a chore name and choose a family member.");
-        return;
-      }
+      if (!text) return;
 
-      const newChore = createChoreElement(choreName, person, time, false);
-      choresList.appendChild(newChore);
+      events.push({
+        id: Date.now(),
+        text,
+        member,
+        time,
+        day,
+        completed: false
+      });
 
-      choreNameInput.value = "";
-      chorePersonInput.value = "";
-      choreTimeInput.value = "Today";
+      document.getElementById("eventText").value = "";
+      refreshUI();
+    }
 
-      updateCounts();
-    });
+    function addChore() {
+      const text = document.getElementById("choreText").value.trim();
+      const member = document.getElementById("choreMember").value;
+      const time = document.getElementById("choreTime").value;
 
-    addHomeworkBtn.addEventListener("click", function () {
-      const homeworkName = homeworkNameInput.value.trim();
-      const person = homeworkPersonInput.value;
-      const subject = homeworkSubjectInput.value;
-      const day = homeworkDayInput.value;
+      if (!text) return;
 
-      if (!homeworkName || !person || !subject || !day) {
-        alert("Please enter a homework task, choose a family member, subject, and due day.");
-        return;
-      }
+      chores.push({
+        id: Date.now(),
+        text,
+        member,
+        time,
+        completed: false
+      });
 
-      const newHomework = createHomeworkElement(homeworkName, person, subject, day, false);
-      homeworkList.appendChild(newHomework);
+      document.getElementById("choreText").value = "";
+      refreshUI();
+    }
 
-      homeworkNameInput.value = "";
-      homeworkPersonInput.value = "";
-      homeworkSubjectInput.value = "";
-      homeworkDayInput.value = "";
+    function addHomework() {
+      const text = document.getElementById("homeworkText").value.trim();
+      const member = document.getElementById("homeworkMember").value;
+      const subject = document.getElementById("homeworkSubject").value;
+      const day = document.getElementById("homeworkDay").value;
 
-      updateCounts();
-    });
+      if (!text) return;
 
-    openChatgptBtn.addEventListener("click", function () {
-      const promptText = chatgptPrompt.value.trim();
+      homework.push({
+        id: Date.now(),
+        text,
+        member,
+        subject,
+        day,
+        completed: false
+      });
 
-      if (!promptText) {
-        alert("Please type a question first.");
-        return;
-      }
+      document.getElementById("homeworkText").value = "";
+      refreshUI();
+    }
 
-      handoffMessage.innerHTML = `
-        <span class="copy-label">Copy this into ChatGPT:</span>
-        <div class="copy-box">${promptText}</div>
-      `;
+    function toggleEvent(id) {
+      events = events.map(event =>
+        event.id === id ? { ...event, completed: !event.completed } : event
+      );
+      refreshUI();
+    }
 
-      window.open("https://chatgpt.com", "_blank");
-    });
+    function toggleChore(id) {
+      chores = chores.map(chore =>
+        chore.id === id ? { ...chore, completed: !chore.completed } : chore
+      );
+      refreshUI();
+    }
 
-    document.querySelectorAll(".family-member-card").forEach(attachFamilyMemberEvents);
-    document.querySelectorAll("#eventsList .schedule-item").forEach(attachEventEvents);
-    document.querySelectorAll("#choresList .todo-item").forEach(attachChoreEvents);
-    document.querySelectorAll("#homeworkList .homework-item").forEach(attachHomeworkItemEvents);
-    updateCounts();
+    function toggleHomework(id) {
+      homework = homework.map(item =>
+        item.id === id ? { ...item, completed: !item.completed } : item
+      );
+      refreshUI();
+    }
+
+    function deleteEvent(id) {
+      events = events.filter(event => event.id !== id);
+      refreshUI();
+    }
+
+    function deleteChore(id) {
+      chores = chores.filter(chore => chore.id !== id);
+      refreshUI();
+    }
+
+    function deleteHomework(id) {
+      homework = homework.filter(item => item.id !== id);
+      refreshUI();
+    }
+
+    function openChatGPT() {
+      const question = document.getElementById("chatQuestion").value.trim();
+
+      if (!question) return;
+
+      document.getElementById("chatPreview").textContent = question;
+      window.open("https://chatgpt.com/", "_blank");
+    }
+
+    loadData();
+    refreshUI();
   </script>
 </body>
 </html>
