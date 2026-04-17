@@ -12,7 +12,7 @@
     body {
       margin: 0;
       font-family: Arial, sans-serif;
-      background: #f4f6fb;
+      background: #efeff6;
       color: #1f2937;
     }
 
@@ -20,99 +20,150 @@
       max-width: 430px;
       margin: 0 auto;
       min-height: 100vh;
-      background: #f4f6fb;
-      padding-bottom: 90px;
+      background: #efeff6;
+      padding: 18px 16px 90px;
     }
 
-    .header {
-      background: linear-gradient(135deg, #2563eb, #1d4ed8);
+    .top-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-start;
+      margin-bottom: 18px;
+    }
+
+    .brand-small {
+      font-size: 0.9rem;
+      color: #5b6475;
+      margin-bottom: 6px;
+    }
+
+    .brand-title {
+      font-size: 2.2rem;
+      font-weight: 700;
+      color: #635bff;
+      line-height: 1.1;
+    }
+
+    .fh-badge {
+      width: 58px;
+      height: 58px;
+      border-radius: 50%;
+      background: #6b63ff;
       color: white;
-      padding: 22px 18px;
-      border-bottom-left-radius: 22px;
-      border-bottom-right-radius: 22px;
-    }
-
-    .header-brand {
-      font-size: 0.95rem;
-      font-weight: 600;
-      margin-bottom: 14px;
-    }
-
-    .logo {
-      width: 46px;
-      height: 46px;
-      border-radius: 12px;
-      background: rgba(255,255,255,0.2);
       display: flex;
       align-items: center;
       justify-content: center;
-      font-weight: bold;
-      margin-bottom: 12px;
-    }
-
-    .page-kicker {
-      font-size: 1rem;
       font-weight: 700;
-      margin: 0 0 4px;
+      font-size: 1.4rem;
+      flex-shrink: 0;
+      margin-top: 2px;
     }
 
-    .header h1 {
+    .hero-card {
+      background: linear-gradient(135deg, #645cf3, #8a81f2);
+      border-radius: 34px;
+      padding: 26px;
+      color: white;
+      margin-bottom: 18px;
+      box-shadow: 0 8px 20px rgba(99, 91, 255, 0.18);
+    }
+
+    .hero-pill {
+      display: inline-block;
+      background: rgba(255,255,255,0.18);
+      color: white;
+      padding: 10px 14px;
+      border-radius: 999px;
+      font-size: 0.9rem;
+      font-weight: 600;
+      margin-bottom: 18px;
+    }
+
+    .hero-card h1 {
       margin: 0;
-      font-size: 1.35rem;
-      line-height: 1.3;
+      font-size: 1.05rem;
+      font-weight: 700;
+      line-height: 1.35;
     }
 
-    .header p {
-      margin: 8px 0 0;
-      font-size: 0.95rem;
-      line-height: 1.5;
+    .hero-card .hero-title-large {
+      font-size: 1.05rem;
+      margin-top: 0;
     }
 
-    .header-buttons {
-      display: flex;
-      gap: 10px;
-      margin-top: 16px;
+    .hero-card .hero-main-title {
+      font-size: 1.05rem;
+      margin: 0 0 12px;
+      font-weight: 700;
     }
 
-    .header-btn {
-      border: none;
-      border-radius: 10px;
-      padding: 10px 12px;
+    .hero-card .hero-big {
+      font-size: 1.05rem;
+      margin: 0 0 12px;
+      font-weight: 700;
+    }
+
+    .hero-card .hero-heading {
+      font-size: 0.98rem;
+      margin: 0 0 12px;
+      font-weight: 700;
+    }
+
+    .hero-title {
+      font-size: 1.05rem;
+      font-weight: 700;
+      line-height: 1.35;
+      margin: 0 0 12px;
+    }
+
+    .hero-desc {
+      margin: 0;
       font-size: 0.92rem;
+      line-height: 1.5;
+      color: rgba(255,255,255,0.95);
+      max-width: 280px;
+    }
+
+    .hero-buttons {
+      display: flex;
+      gap: 12px;
+      margin-top: 22px;
+      flex-wrap: wrap;
+    }
+
+    .hero-btn {
+      border: none;
+      border-radius: 999px;
+      padding: 12px 18px;
+      font-size: 0.95rem;
       font-weight: 700;
       cursor: pointer;
       text-decoration: none;
       display: inline-block;
-      text-align: center;
     }
 
-    .header-btn.primary {
+    .hero-btn.primary {
       background: white;
-      color: #1d4ed8;
+      color: #635bff;
     }
 
-    .header-btn.secondary {
-      background: transparent;
+    .hero-btn.secondary {
+      background: rgba(255,255,255,0.18);
       color: white;
-      border: 1px solid rgba(255,255,255,0.55);
-    }
-
-    .section {
-      padding: 16px;
     }
 
     .card {
       background: white;
-      border-radius: 18px;
+      border-radius: 22px;
       padding: 16px;
       margin-bottom: 16px;
-      box-shadow: 0 6px 18px rgba(15, 23, 42, 0.08);
+      box-shadow: 0 4px 14px rgba(15, 23, 42, 0.06);
     }
 
     .section-label {
-      font-size: 0.8rem;
+      font-size: 0.78rem;
       font-weight: 700;
-      color: #64748b;
+      color: #7b8498;
       text-transform: uppercase;
       letter-spacing: 0.04em;
       margin-bottom: 8px;
@@ -121,12 +172,13 @@
 
     .card h2, .card h3 {
       margin: 0;
-      font-size: 1.15rem;
+      font-size: 1.08rem;
+      color: #1f2937;
     }
 
     .subtext {
-      color: #64748b;
-      font-size: 0.92rem;
+      color: #6b7280;
+      font-size: 0.9rem;
       margin-top: 6px;
       line-height: 1.4;
     }
@@ -139,34 +191,35 @@
     }
 
     .stat-box {
-      background: #f8fafc;
-      border: 1px solid #e5e7eb;
-      border-radius: 14px;
+      background: #f8f8fc;
+      border-radius: 18px;
       padding: 14px;
       text-align: center;
     }
 
     .stat-number {
-      font-size: 1.4rem;
+      font-size: 1.35rem;
       font-weight: 700;
       margin-top: 6px;
+      color: #3d4460;
     }
 
     .stat-text {
-      font-size: 0.85rem;
-      color: #64748b;
+      font-size: 0.82rem;
+      color: #7b8498;
       margin-top: 4px;
     }
 
-    .member-list {
+    .member-list,
+    .list {
       display: flex;
       flex-direction: column;
-      gap: 10px;
+      gap: 12px;
       margin-top: 14px;
     }
 
     .member-card {
-      border-radius: 14px;
+      border-radius: 18px;
       padding: 12px;
       display: flex;
       align-items: center;
@@ -176,22 +229,22 @@
 
     .member-William {
       background: #eff6ff;
-      border-color: #3b82f6;
+      border-color: #60a5fa;
     }
 
     .member-Hailey {
       background: #fdf2f8;
-      border-color: #ec4899;
+      border-color: #f472b6;
     }
 
     .member-Mom {
       background: #f5f3ff;
-      border-color: #8b5cf6;
+      border-color: #a78bfa;
     }
 
     .member-Dad {
       background: #ecfdf5;
-      border-color: #10b981;
+      border-color: #34d399;
     }
 
     .avatar {
@@ -206,18 +259,19 @@
       flex-shrink: 0;
     }
 
-    .avatar-William { background: #3b82f6; }
-    .avatar-Hailey { background: #ec4899; }
-    .avatar-Mom { background: #8b5cf6; }
-    .avatar-Dad { background: #10b981; }
+    .avatar-William { background: #60a5fa; }
+    .avatar-Hailey { background: #f472b6; }
+    .avatar-Mom { background: #a78bfa; }
+    .avatar-Dad { background: #34d399; }
 
     .member-name {
       font-weight: 700;
+      color: #334155;
     }
 
     .member-role {
-      font-size: 0.88rem;
-      color: #64748b;
+      font-size: 0.87rem;
+      color: #6b7280;
       margin-top: 2px;
     }
 
@@ -229,33 +283,24 @@
     }
 
     .quick-link {
-      background: #f8fafc;
-      border: 1px solid #e5e7eb;
-      border-radius: 14px;
+      background: #f8f8fc;
+      border-radius: 18px;
       padding: 14px;
       text-align: center;
       font-weight: 700;
       text-decoration: none;
-      color: #1f2937;
-    }
-
-    .list {
-      display: flex;
-      flex-direction: column;
-      gap: 12px;
-      margin-top: 14px;
+      color: #3d4460;
     }
 
     .item {
-      border-radius: 16px;
+      border-radius: 20px;
       padding: 14px;
-      border: 2px solid #e5e7eb;
-      background: white;
+      background: #fbfbfe;
+      border: 2px solid #ececf5;
     }
 
     .item.completed {
       opacity: 0.72;
-      background: #f8fafc;
     }
 
     .item.completed .item-title {
@@ -263,22 +308,22 @@
     }
 
     .assigned-William {
-      border-color: #3b82f6;
+      border-color: #60a5fa;
       background: linear-gradient(to right, #eff6ff, #ffffff);
     }
 
     .assigned-Hailey {
-      border-color: #ec4899;
+      border-color: #f472b6;
       background: linear-gradient(to right, #fdf2f8, #ffffff);
     }
 
     .assigned-Mom {
-      border-color: #8b5cf6;
+      border-color: #a78bfa;
       background: linear-gradient(to right, #f5f3ff, #ffffff);
     }
 
     .assigned-Dad {
-      border-color: #10b981;
+      border-color: #34d399;
       background: linear-gradient(to right, #ecfdf5, #ffffff);
     }
 
@@ -296,11 +341,12 @@
     .item-title {
       font-weight: 700;
       line-height: 1.4;
+      color: #334155;
     }
 
     .item-subtext {
-      color: #64748b;
-      font-size: 0.88rem;
+      color: #6b7280;
+      font-size: 0.87rem;
       margin-top: 4px;
     }
 
@@ -312,12 +358,12 @@
     }
 
     .pill {
-      background: #eef2ff;
+      background: #efeffc;
       border-radius: 999px;
       padding: 6px 10px;
-      font-size: 0.8rem;
+      font-size: 0.78rem;
       font-weight: 700;
-      color: #334155;
+      color: #5b6475;
     }
 
     .item-actions {
@@ -327,21 +373,21 @@
       flex-wrap: wrap;
     }
 
-    button,
-    .action-btn {
+    button {
       border: none;
-      border-radius: 10px;
+      border-radius: 14px;
       padding: 10px 12px;
-      font-size: 0.92rem;
+      font-size: 0.9rem;
       font-weight: 700;
       cursor: pointer;
     }
 
     .primary-btn {
-      background: #2563eb;
+      background: #635bff;
       color: white;
       width: 100%;
       margin-top: 12px;
+      border-radius: 16px;
     }
 
     .toggle-btn {
@@ -369,11 +415,12 @@
     input, select, textarea {
       width: 100%;
       padding: 12px;
-      border-radius: 10px;
-      border: 1px solid #d1d5db;
+      border-radius: 16px;
+      border: none;
       font-size: 0.95rem;
       font-family: Arial, sans-serif;
-      background: white;
+      background: #f7f7fb;
+      color: #334155;
     }
 
     textarea {
@@ -382,12 +429,11 @@
     }
 
     .empty-message {
-      background: #f8fafc;
-      border: 1px dashed #cbd5e1;
-      border-radius: 14px;
+      background: #f8f8fc;
+      border-radius: 18px;
       padding: 14px;
       text-align: center;
-      color: #64748b;
+      color: #7b8498;
       margin-top: 14px;
     }
 
@@ -399,7 +445,7 @@
       width: 100%;
       max-width: 430px;
       background: rgba(255,255,255,0.98);
-      border-top: 1px solid #e5e7eb;
+      border-top: 1px solid #ececf5;
       display: grid;
       grid-template-columns: repeat(5, 1fr);
       padding: 8px 6px;
@@ -408,201 +454,189 @@
 
     .nav-link {
       text-decoration: none;
-      color: #64748b;
+      color: #7b8498;
       font-size: 0.76rem;
       font-weight: 700;
       text-align: center;
       padding: 8px 4px;
-      border-radius: 10px;
+      border-radius: 12px;
     }
 
     .nav-link.active {
-      background: #dbeafe;
-      color: #1d4ed8;
+      background: #efeffc;
+      color: #635bff;
     }
   </style>
 </head>
 <body>
   <div class="app">
-    <div class="header">
-      <div class="header-brand">Family Planner</div>
-      <div class="logo">FH</div>
-      <div class="page-kicker">FamilyHub</div>
-      <h1>Home Dashboard</h1>
-      <p>Keep chores, homework, and family events organized in one simple place.</p>
+    <div class="top-header">
+      <div>
+        <div class="brand-small">Family Planner</div>
+        <div class="brand-title">FamilyHub</div>
+      </div>
+      <div class="fh-badge">FH</div>
+    </div>
 
-      <div class="header-buttons">
-        <button class="header-btn primary" onclick="document.getElementById('eventText').focus()">+ Add Event</button>
-        <a class="header-btn secondary" href="goals.html">Goals</a>
+    <div class="hero-card">
+      <div class="hero-pill">Home Dashboard</div>
+      <div class="hero-title">Keep family plans, chores, and homework organized</div>
+      <p class="hero-desc">Stay on top of the family schedule by keeping daily tasks, events, and school items easy to update.</p>
+
+      <div class="hero-buttons">
+        <button class="hero-btn primary" onclick="document.getElementById('eventText').focus()">+ Add Event</button>
+        <a class="hero-btn secondary" href="goals.html">Goals</a>
       </div>
     </div>
 
-    <div class="section">
-      <div class="card">
-        <span class="section-label">Today at a glance</span>
-        <h2>Live Counts</h2>
-        <p class="subtext">A quick look at what still needs attention.</p>
+    <div class="card">
+      <span class="section-label">Today at a glance</span>
+      <h2>Live Counts</h2>
+      <p class="subtext">A quick look at what still needs attention.</p>
 
-        <div class="stats-grid">
-          <div class="stat-box">
-            <div>📅</div>
-            <div class="stat-number" id="eventsCount">0</div>
-            <div class="stat-text">Events</div>
-          </div>
-          <div class="stat-box">
-            <div>✅</div>
-            <div class="stat-number" id="choresCount">0</div>
-            <div class="stat-text">Chores Left</div>
-          </div>
-          <div class="stat-box">
-            <div>🎯</div>
-            <div class="stat-number">2</div>
-            <div class="stat-text">Goals</div>
-          </div>
-          <div class="stat-box">
-            <div>📚</div>
-            <div class="stat-number" id="homeworkCount">0</div>
-            <div class="stat-text">Homework</div>
-          </div>
+      <div class="stats-grid">
+        <div class="stat-box">
+          <div>📅</div>
+          <div class="stat-number" id="eventsCount">0</div>
+          <div class="stat-text">Events</div>
+        </div>
+        <div class="stat-box">
+          <div>✅</div>
+          <div class="stat-number" id="choresCount">0</div>
+          <div class="stat-text">Chores Left</div>
+        </div>
+        <div class="stat-box">
+          <div>🎯</div>
+          <div class="stat-number">2</div>
+          <div class="stat-text">Goals</div>
+        </div>
+        <div class="stat-box">
+          <div>📚</div>
+          <div class="stat-number" id="homeworkCount">0</div>
+          <div class="stat-text">Homework</div>
         </div>
       </div>
+    </div>
 
-      <div class="card">
-        <span class="section-label">Family Members</span>
-        <h3>Your Family</h3>
-        <div class="member-list" id="membersList"></div>
+    <div class="card">
+      <span class="section-label">Family Members</span>
+      <h3>Your Family</h3>
+      <div class="member-list" id="membersList"></div>
+    </div>
+
+    <div class="card">
+      <span class="section-label">Quick Actions</span>
+      <h3>Jump to a section</h3>
+      <div class="quick-links">
+        <a class="quick-link" href="calendar.html">📅 Calendar</a>
+        <a class="quick-link" href="#choresSection">✅ Chores</a>
+        <a class="quick-link" href="goals.html">🎯 Goals</a>
+        <a class="quick-link" href="homework.html">📚 Homework</a>
       </div>
+    </div>
 
-      <div class="card">
-        <span class="section-label">Quick Actions</span>
-        <h3>Jump to a section</h3>
-        <div class="quick-links">
-          <a class="quick-link" href="calendar.html">📅 Calendar</a>
-          <a class="quick-link" href="#choresSection">✅ Chores</a>
-          <a class="quick-link" href="goals.html">🎯 Goals</a>
-          <a class="quick-link" href="homework.html">📚 Homework</a>
-        </div>
+    <div class="card">
+      <span class="section-label">Schedule</span>
+      <h3>Family Events</h3>
+      <div class="list" id="eventsList"></div>
+
+      <div class="form-stack">
+        <input id="eventText" type="text" placeholder="Enter event name" />
+        <select id="eventMember">
+          <option value="William">William</option>
+          <option value="Hailey">Hailey</option>
+          <option value="Mom">Mom</option>
+          <option value="Dad">Dad</option>
+        </select>
+        <select id="eventTime">
+          <option value="7:00 AM">Choose a time</option>
+          <option>7:00 AM</option>
+          <option>8:00 AM</option>
+          <option>9:00 AM</option>
+          <option>12:00 PM</option>
+          <option>3:00 PM</option>
+          <option>4:30 PM</option>
+          <option>5:00 PM</option>
+          <option>6:30 PM</option>
+          <option>7:00 PM</option>
+        </select>
+        <select id="eventDay">
+          <option value="Monday">Monday</option>
+          <option>Tuesday</option>
+          <option>Wednesday</option>
+          <option>Thursday</option>
+          <option>Friday</option>
+          <option>Saturday</option>
+          <option>Sunday</option>
+        </select>
+        <button class="primary-btn" onclick="addEvent()">+ Add Event</button>
       </div>
+    </div>
 
-      <div class="card">
-        <span class="section-label">Schedule</span>
-        <h3>Family Events</h3>
-        <div class="list" id="eventsList"></div>
+    <div class="card" id="choresSection">
+      <span class="section-label">Chores</span>
+      <h3>Assigned Chores</h3>
+      <div class="list" id="choresList"></div>
 
-        <div class="form-stack">
-          <input id="eventText" type="text" placeholder="Enter event name" />
-          <select id="eventMember">
-            <option value="William">William</option>
-            <option value="Hailey">Hailey</option>
-            <option value="Mom">Mom</option>
-            <option value="Dad">Dad</option>
-          </select>
-          <select id="eventTime">
-            <option value="7:00 AM">Choose a time</option>
-            <option>7:00 AM</option>
-            <option>8:00 AM</option>
-            <option>9:00 AM</option>
-            <option>12:00 PM</option>
-            <option>3:00 PM</option>
-            <option>4:30 PM</option>
-            <option>5:00 PM</option>
-            <option>6:30 PM</option>
-            <option>7:00 PM</option>
-          </select>
-          <select id="eventDay">
-            <option value="Monday">Monday</option>
-            <option>Tuesday</option>
-            <option>Wednesday</option>
-            <option>Thursday</option>
-            <option>Friday</option>
-            <option>Saturday</option>
-            <option>Sunday</option>
-          </select>
-          <button class="primary-btn" onclick="addEvent()">+ Add Event</button>
-        </div>
+      <div class="form-stack">
+        <input id="choreText" type="text" placeholder="Enter chore" />
+        <select id="choreMember">
+          <option value="William">William</option>
+          <option value="Hailey">Hailey</option>
+          <option value="Mom">Mom</option>
+          <option value="Dad">Dad</option>
+        </select>
+        <select id="choreTime">
+          <option value="Today">Today</option>
+          <option>Morning</option>
+          <option>After School</option>
+          <option>Tonight</option>
+        </select>
+        <button class="primary-btn" onclick="addChore()">+ Add Chore</button>
       </div>
+    </div>
 
-      <div class="card" id="choresSection">
-        <span class="section-label">Chores</span>
-        <h3>Assigned Chores</h3>
-        <div class="list" id="choresList"></div>
+    <div class="card">
+      <span class="section-label">Homework</span>
+      <h3>Due Soon</h3>
+      <div class="list" id="homeworkList"></div>
 
-        <div class="form-stack">
-          <input id="choreText" type="text" placeholder="Enter chore" />
-          <select id="choreMember">
-            <option value="William">William</option>
-            <option value="Hailey">Hailey</option>
-            <option value="Mom">Mom</option>
-            <option value="Dad">Dad</option>
-          </select>
-          <select id="choreTime">
-            <option value="Today">Today</option>
-            <option>Morning</option>
-            <option>After School</option>
-            <option>Tonight</option>
-          </select>
-          <button class="primary-btn" onclick="addChore()">+ Add Chore</button>
-        </div>
+      <div class="form-stack">
+        <input id="homeworkText" type="text" placeholder="Enter homework item" />
+        <select id="homeworkMember">
+          <option value="William">William</option>
+          <option value="Hailey">Hailey</option>
+          <option value="Mom">Mom</option>
+          <option value="Dad">Dad</option>
+        </select>
+        <select id="homeworkSubject">
+          <option value="Math">Math</option>
+          <option>Science</option>
+          <option>Reading</option>
+          <option>History</option>
+          <option>English</option>
+          <option>Homework</option>
+        </select>
+        <select id="homeworkDay">
+          <option value="Monday">Monday</option>
+          <option>Tuesday</option>
+          <option>Wednesday</option>
+          <option>Thursday</option>
+          <option>Friday</option>
+          <option>Saturday</option>
+          <option>Sunday</option>
+        </select>
+        <button class="primary-btn" onclick="addHomework()">+ Add Homework</button>
       </div>
+    </div>
 
-      <div class="card">
-        <span class="section-label">Homework</span>
-        <h3>Due Soon</h3>
-        <div class="list" id="homeworkList"></div>
-
-        <div class="form-stack">
-          <input id="homeworkText" type="text" placeholder="Enter homework item" />
-          <select id="homeworkMember">
-            <option value="William">William</option>
-            <option value="Hailey">Hailey</option>
-            <option value="Mom">Mom</option>
-            <option value="Dad">Dad</option>
-          </select>
-          <select id="homeworkSubject">
-            <option value="Math">Math</option>
-            <option>Science</option>
-            <option>Reading</option>
-            <option>History</option>
-            <option>English</option>
-            <option>Homework</option>
-          </select>
-          <select id="homeworkDay">
-            <option value="Monday">Monday</option>
-            <option>Tuesday</option>
-            <option>Wednesday</option>
-            <option>Thursday</option>
-            <option>Friday</option>
-            <option>Saturday</option>
-            <option>Sunday</option>
-          </select>
-          <button class="primary-btn" onclick="addHomework()">+ Add Homework</button>
-        </div>
-      </div>
-
-      <div class="card">
-        <span class="section-label">Family Goals</span>
-        <h3>Weekly Goals</h3>
-        <p class="subtext">Track bigger family priorities throughout the week.</p>
-        <div class="list">
-          <div class="item">
-            <div class="item-title">Finish all chores before Sunday</div>
-            <div class="item-subtext">4 of 6 tasks completed</div>
-          </div>
-          <div class="item">
-            <div class="item-title">Keep the house organized</div>
-            <div class="item-subtext">Daily cleanup streak: 5 days</div>
-          </div>
-        </div>
-      </div>
-
-      <div class="card">
-        <span class="section-label">Ask ChatGPT</span>
-        <h3>Open a family planning question</h3>
-        <div class="form-stack">
-          <textarea id="chatQuestion" placeholder="Example: Help me plan our family meals for this week."></textarea>
-          <button class="primary-btn" onclick="openChatGPT()">Ask in ChatGPT</button>
-          <div class="subtext" id="chatPreview">Your question will appear here after you click the button.</div>
-        </div>
+    <div class="card">
+      <span class="section-label">Ask ChatGPT</span>
+      <h3>Open a family planning question</h3>
+      <div class="form-stack">
+        <textarea id="chatQuestion" placeholder="Example: Help me plan our family meals for this week."></textarea>
+        <button class="primary-btn" onclick="openChatGPT()">Ask in ChatGPT</button>
+        <div class="subtext" id="chatPreview">Your question will appear here after you click the button.</div>
       </div>
     </div>
   </div>
