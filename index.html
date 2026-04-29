@@ -5,9 +5,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>FamilyHub - Home</title>
   <style>
-    * {
-      box-sizing: border-box;
-    }
+    * { box-sizing: border-box; }
 
     body {
       margin: 0;
@@ -77,36 +75,6 @@
       font-size: 0.9rem;
       font-weight: 600;
       margin-bottom: 18px;
-    }
-
-    .hero-card h1 {
-      margin: 0;
-      font-size: 1.05rem;
-      font-weight: 700;
-      line-height: 1.35;
-    }
-
-    .hero-card .hero-title-large {
-      font-size: 1.05rem;
-      margin-top: 0;
-    }
-
-    .hero-card .hero-main-title {
-      font-size: 1.05rem;
-      margin: 0 0 12px;
-      font-weight: 700;
-    }
-
-    .hero-card .hero-big {
-      font-size: 1.05rem;
-      margin: 0 0 12px;
-      font-weight: 700;
-    }
-
-    .hero-card .hero-heading {
-      font-size: 0.98rem;
-      margin: 0 0 12px;
-      font-weight: 700;
     }
 
     .hero-title {
@@ -210,8 +178,7 @@
       margin-top: 4px;
     }
 
-    .member-list,
-    .list {
+    .member-list, .list {
       display: flex;
       flex-direction: column;
       gap: 12px;
@@ -227,25 +194,10 @@
       border: 2px solid transparent;
     }
 
-    .member-William {
-      background: #eff6ff;
-      border-color: #60a5fa;
-    }
-
-    .member-Hailey {
-      background: #fdf2f8;
-      border-color: #f472b6;
-    }
-
-    .member-Mom {
-      background: #f5f3ff;
-      border-color: #a78bfa;
-    }
-
-    .member-Dad {
-      background: #ecfdf5;
-      border-color: #34d399;
-    }
+    .member-William { background: #eff6ff; border-color: #60a5fa; }
+    .member-Hailey { background: #fdf2f8; border-color: #f472b6; }
+    .member-Mom { background: #f5f3ff; border-color: #a78bfa; }
+    .member-Dad { background: #ecfdf5; border-color: #34d399; }
 
     .avatar {
       width: 42px;
@@ -468,6 +420,7 @@
     }
   </style>
 </head>
+
 <body>
   <div class="app">
     <div class="top-header">
@@ -649,7 +602,23 @@
     <a class="nav-link" href="homework.html">📚<br>Homework</a>
   </nav>
 
-  <script>
+  <script type="module">
+    import { initializeApp } from "https://www.gstatic.com/firebasejs/12.12.1/firebase-app.js";
+    import { getDatabase, ref, push, onValue, remove, update } from "https://www.gstatic.com/firebasejs/12.12.1/firebase-database.js";
+
+    const firebaseConfig = {
+      apiKey: "AIzaSyD9fBW4oE-QcaWZXT1dCZvE_mj5b6q3Gq8",
+      authDomain: "familyhub--family-planner.firebaseapp.com",
+      databaseURL: "https://familyhub--family-planner-default-rtdb.firebaseio.com",
+      projectId: "familyhub--family-planner",
+      storageBucket: "familyhub--family-planner.firebasestorage.app",
+      messagingSenderId: "795242861154",
+      appId: "1:795242861154:web:c42168a8530bcec264373b"
+    };
+
+    const app = initializeApp(firebaseConfig);
+    const db = getDatabase(app);
+
     const familyMembers = [
       { name: "William", role: "Family Member" },
       { name: "Hailey", role: "Family Member" },
@@ -657,37 +626,18 @@
       { name: "Dad", role: "Family Member" }
     ];
 
-    let events = [
-      { id: Date.now() + 1, text: "Morning school drop off for William", member: "Dad", time: "8:00 AM", day: "Monday", completed: false },
-      { id: Date.now() + 2, text: "Violin Practice", member: "William", time: "4:30 PM", day: "Monday", completed: false }
-    ];
+    const refs = {
+      events: ref(db, "familyhub/events"),
+      chores: ref(db, "familyhub/chores"),
+      homework: ref(db, "familyhub/homework")
+    };
 
-    let chores = [
-      { id: Date.now() + 3, text: "Take out trash", member: "Dad", time: "Today", completed: false },
-      { id: Date.now() + 4, text: "Feed the dog", member: "Hailey", time: "Today", completed: false }
-    ];
-
-    let homework = [
-      { id: Date.now() + 5, text: "Math worksheet", member: "William", subject: "Math", day: "Monday", completed: false }
-    ];
+    let events = [];
+    let chores = [];
+    let homework = [];
 
     function getInitial(name) {
       return name.charAt(0).toUpperCase();
-    }
-
-    function saveData() {
-      localStorage.setItem("familyhub_events", JSON.stringify(events));
-      localStorage.setItem("familyhub_chores", JSON.stringify(chores));
-      localStorage.setItem("familyhub_homework", JSON.stringify(homework));
-    }
-
-    function loadData() {
-      const savedEvents = localStorage.getItem("familyhub_events");
-      const savedChores = localStorage.getItem("familyhub_chores");
-      const savedHomework = localStorage.getItem("familyhub_homework");
-      if (savedEvents) events = JSON.parse(savedEvents);
-      if (savedChores) chores = JSON.parse(savedChores);
-      if (savedHomework) homework = JSON.parse(savedHomework);
     }
 
     function renderMembers() {
@@ -704,6 +654,7 @@
 
     function renderList(listId, items, type) {
       const container = document.getElementById(listId);
+
       if (items.length === 0) {
         container.innerHTML = `<div class="empty-message">No items yet — add one to get started.</div>`;
         return;
@@ -724,8 +675,10 @@
             </div>
           </div>
           <div class="item-actions">
-            <button class="toggle-btn ${item.completed ? 'done' : ''}" onclick="toggleItem('${type}', ${item.id})">${item.completed ? 'Undo' : 'Complete'}</button>
-            <button class="delete-btn" onclick="deleteItem('${type}', ${item.id})">Delete</button>
+            <button class="toggle-btn ${item.completed ? 'done' : ''}" onclick="toggleItem('${type}', '${item.id}', ${item.completed})">
+              ${item.completed ? 'Undo' : 'Complete'}
+            </button>
+            <button class="delete-btn" onclick="deleteItem('${type}', '${item.id}')">Delete</button>
           </div>
         </div>
       `).join("");
@@ -743,81 +696,104 @@
       renderList("choresList", chores, "chores");
       renderList("homeworkList", homework, "homework");
       updateCounts();
-      saveData();
     }
 
-    function addEvent() {
+    function sortByCreatedAt(items) {
+      return items.sort((a, b) => (a.createdAt || 0) - (b.createdAt || 0));
+    }
+
+    onValue(refs.events, (snapshot) => {
+      events = [];
+      snapshot.forEach(child => {
+        events.push({ id: child.key, ...child.val() });
+      });
+      events = sortByCreatedAt(events);
+      refreshUI();
+    });
+
+    onValue(refs.chores, (snapshot) => {
+      chores = [];
+      snapshot.forEach(child => {
+        chores.push({ id: child.key, ...child.val() });
+      });
+      chores = sortByCreatedAt(chores);
+      refreshUI();
+    });
+
+    onValue(refs.homework, (snapshot) => {
+      homework = [];
+      snapshot.forEach(child => {
+        homework.push({ id: child.key, ...child.val() });
+      });
+      homework = sortByCreatedAt(homework);
+      refreshUI();
+    });
+
+    window.addEvent = function () {
       const text = document.getElementById("eventText").value.trim();
       if (!text) return;
-      events.push({
-        id: Date.now(),
+
+      push(refs.events, {
         text,
         member: document.getElementById("eventMember").value,
         time: document.getElementById("eventTime").value,
         day: document.getElementById("eventDay").value,
-        completed: false
+        completed: false,
+        createdAt: Date.now()
       });
-      document.getElementById("eventText").value = "";
-      refreshUI();
-    }
 
-    function addChore() {
+      document.getElementById("eventText").value = "";
+    };
+
+    window.addChore = function () {
       const text = document.getElementById("choreText").value.trim();
       if (!text) return;
-      chores.push({
-        id: Date.now(),
+
+      push(refs.chores, {
         text,
         member: document.getElementById("choreMember").value,
         time: document.getElementById("choreTime").value,
-        completed: false
+        completed: false,
+        createdAt: Date.now()
       });
-      document.getElementById("choreText").value = "";
-      refreshUI();
-    }
 
-    function addHomework() {
+      document.getElementById("choreText").value = "";
+    };
+
+    window.addHomework = function () {
       const text = document.getElementById("homeworkText").value.trim();
       if (!text) return;
-      homework.push({
-        id: Date.now(),
+
+      push(refs.homework, {
         text,
         member: document.getElementById("homeworkMember").value,
         subject: document.getElementById("homeworkSubject").value,
         day: document.getElementById("homeworkDay").value,
-        completed: false
+        completed: false,
+        createdAt: Date.now()
       });
+
       document.getElementById("homeworkText").value = "";
-      refreshUI();
-    }
+    };
 
-    function toggleItem(type, id) {
-      if (type === "events") {
-        events = events.map(item => item.id === id ? { ...item, completed: !item.completed } : item);
-      }
-      if (type === "chores") {
-        chores = chores.map(item => item.id === id ? { ...item, completed: !item.completed } : item);
-      }
-      if (type === "homework") {
-        homework = homework.map(item => item.id === id ? { ...item, completed: !item.completed } : item);
-      }
-      refreshUI();
-    }
+    window.toggleItem = function (type, id, completed) {
+      update(ref(db, `familyhub/${type}/${id}`), {
+        completed: !completed
+      });
+    };
 
-    function deleteItem(type, id) {
-      if (type === "events") events = events.filter(item => item.id !== id);
-      if (type === "chores") chores = chores.filter(item => item.id !== id);
-      if (type === "homework") homework = homework.filter(item => item.id !== id);
-      refreshUI();
-    }
+    window.deleteItem = function (type, id) {
+      remove(ref(db, `familyhub/${type}/${id}`));
+    };
 
-    function openChatGPT() {
+    window.openChatGPT = function () {
       const question = document.getElementById("chatQuestion").value.trim();
       if (!question) return;
+
       document.getElementById("chatPreview").textContent = question;
       window.open("https://chatgpt.com/", "_blank");
-    }
+    };
 
-    loadData();
     refreshUI();
   </script>
 </body>
