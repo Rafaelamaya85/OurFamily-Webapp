@@ -179,6 +179,7 @@
       border-radius: 14px;
       min-height: 62px;
       padding: 6px;
+      overflow: hidden;
     }
 
     .calendar-number {
@@ -189,16 +190,17 @@
     }
 
     .calendar-tag {
-      display: block;
-      font-size: 0.62rem;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      width: 18px;
+      height: 18px;
+      font-size: 0.58rem;
       font-weight: 700;
-      padding: 2px 6px;
-      border-radius: 999px;
-      margin-top: 2px;
+      border-radius: 50%;
+      margin: 2px 2px 0 0;
       color: white;
-      white-space: nowrap;
       overflow: hidden;
-      text-overflow: ellipsis;
     }
 
     .tag-William { background: #60a5fa; }
@@ -547,7 +549,8 @@
         dayEvents.forEach(event => {
           const tag = document.createElement("span");
           tag.className = `calendar-tag tag-${event.member}`;
-          tag.textContent = event.text || event.member || "Event";
+          tag.textContent = getInitial(event.member);
+          tag.title = event.text || "Event";
           dayBox.appendChild(tag);
         });
 
