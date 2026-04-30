@@ -518,19 +518,27 @@
   <option>7:00 PM</option>
 </select>
 
-<button class="primary-btn" onclick="addEvent()">+ Add Event</button>
-        <select id="eventDay">
-          <option value="Monday">Monday</option>
-          <option>Tuesday</option>
-          <option>Wednesday</option>
-          <option>Thursday</option>
-          <option>Friday</option>
-          <option>Saturday</option>
-          <option>Sunday</option>
-        </select>
-        <button class="primary-btn" onclick="addEvent()">+ Add Event</button>
-      </div>
-    </div>
+window.addEvent = function () {
+  const text = document.getElementById("eventText").value.trim();
+  const date = document.getElementById("eventDate").value;
+
+  if (!text || !date) {
+    alert("Please enter event name and date");
+    return;
+  }
+
+  push(refs.events, {
+    text,
+    member: document.getElementById("eventMember").value,
+    time: document.getElementById("eventTime").value,
+    date: date, // 🔥 THIS IS THE KEY CHANGE
+    completed: false,
+    createdAt: Date.now()
+  });
+
+  document.getElementById("eventText").value = "";
+  document.getElementById("eventDate").value = "";
+};
 
     <div class="card" id="choresSection">
       <span class="section-label">Chores</span>
