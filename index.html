@@ -110,15 +110,8 @@
       display: inline-block;
     }
 
-    .hero-btn.primary {
-      background: white;
-      color: #635bff;
-    }
-
-    .hero-btn.secondary {
-      background: rgba(255,255,255,0.18);
-      color: white;
-    }
+    .hero-btn.primary { background: white; color: #635bff; }
+    .hero-btn.secondary { background: rgba(255,255,255,0.18); color: white; }
 
     .card {
       background: white;
@@ -138,11 +131,7 @@
       display: block;
     }
 
-    .card h2, .card h3 {
-      margin: 0;
-      font-size: 1.08rem;
-      color: #1f2937;
-    }
+    .card h2, .card h3 { margin: 0; font-size: 1.08rem; color: #1f2937; }
 
     .subtext {
       color: #6b7280;
@@ -172,11 +161,7 @@
       color: #3d4460;
     }
 
-    .stat-text {
-      font-size: 0.82rem;
-      color: #7b8498;
-      margin-top: 4px;
-    }
+    .stat-text { font-size: 0.82rem; color: #7b8498; margin-top: 4px; }
 
     .member-list, .list {
       display: flex;
@@ -216,16 +201,8 @@
     .avatar-Mom { background: #a78bfa; }
     .avatar-Dad { background: #34d399; }
 
-    .member-name {
-      font-weight: 700;
-      color: #334155;
-    }
-
-    .member-role {
-      font-size: 0.87rem;
-      color: #6b7280;
-      margin-top: 2px;
-    }
+    .member-name { font-weight: 700; color: #334155; }
+    .member-role { font-size: 0.87rem; color: #6b7280; margin-top: 2px; }
 
     .quick-links {
       display: grid;
@@ -251,63 +228,20 @@
       border: 2px solid #ececf5;
     }
 
-    .item.completed {
-      opacity: 0.72;
-    }
+    .item.completed { opacity: 0.72; }
+    .item.completed .item-title { text-decoration: line-through; }
 
-    .item.completed .item-title {
-      text-decoration: line-through;
-    }
+    .assigned-William { border-color: #60a5fa; background: linear-gradient(to right, #eff6ff, #ffffff); }
+    .assigned-Hailey { border-color: #f472b6; background: linear-gradient(to right, #fdf2f8, #ffffff); }
+    .assigned-Mom { border-color: #a78bfa; background: linear-gradient(to right, #f5f3ff, #ffffff); }
+    .assigned-Dad { border-color: #34d399; background: linear-gradient(to right, #ecfdf5, #ffffff); }
 
-    .assigned-William {
-      border-color: #60a5fa;
-      background: linear-gradient(to right, #eff6ff, #ffffff);
-    }
+    .item-top { display: flex; gap: 12px; align-items: flex-start; }
+    .item-content { flex: 1; min-width: 0; }
+    .item-title { font-weight: 700; line-height: 1.4; color: #334155; }
+    .item-subtext { color: #6b7280; font-size: 0.87rem; margin-top: 4px; }
 
-    .assigned-Hailey {
-      border-color: #f472b6;
-      background: linear-gradient(to right, #fdf2f8, #ffffff);
-    }
-
-    .assigned-Mom {
-      border-color: #a78bfa;
-      background: linear-gradient(to right, #f5f3ff, #ffffff);
-    }
-
-    .assigned-Dad {
-      border-color: #34d399;
-      background: linear-gradient(to right, #ecfdf5, #ffffff);
-    }
-
-    .item-top {
-      display: flex;
-      gap: 12px;
-      align-items: flex-start;
-    }
-
-    .item-content {
-      flex: 1;
-      min-width: 0;
-    }
-
-    .item-title {
-      font-weight: 700;
-      line-height: 1.4;
-      color: #334155;
-    }
-
-    .item-subtext {
-      color: #6b7280;
-      font-size: 0.87rem;
-      margin-top: 4px;
-    }
-
-    .meta {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 8px;
-      margin-top: 8px;
-    }
+    .meta { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 8px; }
 
     .pill {
       background: #efeffc;
@@ -318,12 +252,7 @@
       color: #5b6475;
     }
 
-    .item-actions {
-      display: flex;
-      gap: 8px;
-      margin-top: 12px;
-      flex-wrap: wrap;
-    }
+    .item-actions { display: flex; gap: 8px; margin-top: 12px; flex-wrap: wrap; }
 
     button {
       border: none;
@@ -342,20 +271,9 @@
       border-radius: 16px;
     }
 
-    .toggle-btn {
-      background: #dcfce7;
-      color: #166534;
-    }
-
-    .toggle-btn.done {
-      background: #dbeafe;
-      color: #1d4ed8;
-    }
-
-    .delete-btn {
-      background: #fee2e2;
-      color: #b91c1c;
-    }
+    .toggle-btn { background: #dcfce7; color: #166534; }
+    .toggle-btn.done { background: #dbeafe; color: #1d4ed8; }
+    .delete-btn { background: #fee2e2; color: #b91c1c; }
 
     .form-stack {
       display: flex;
@@ -375,10 +293,7 @@
       color: #334155;
     }
 
-    textarea {
-      min-height: 90px;
-      resize: vertical;
-    }
+    textarea { min-height: 90px; resize: vertical; }
 
     .empty-message {
       background: #f8f8fc;
@@ -414,10 +329,7 @@
       border-radius: 12px;
     }
 
-    .nav-link.active {
-      background: #efeffc;
-      color: #635bff;
-    }
+    .nav-link.active { background: #efeffc; color: #635bff; }
   </style>
 </head>
 
@@ -494,51 +406,29 @@
       <div class="list" id="eventsList"></div>
 
       <div class="form-stack">
-<input id="eventText" type="text" placeholder="Enter event name" />
-
-<select id="eventMember">
-  <option value="William">William</option>
-  <option value="Hailey">Hailey</option>
-  <option value="Mom">Mom</option>
-  <option value="Dad">Dad</option>
-</select>
-
-<input id="eventDate" type="date" />
-
-<select id="eventTime">
-  <option value="7:00 AM">Choose a time</option>
-  <option>7:00 AM</option>
-  <option>8:00 AM</option>
-  <option>9:00 AM</option>
-  <option>12:00 PM</option>
-  <option>3:00 PM</option>
-  <option>4:30 PM</option>
-  <option>5:00 PM</option>
-  <option>6:30 PM</option>
-  <option>7:00 PM</option>
-</select>
-
-window.addEvent = function () {
-  const text = document.getElementById("eventText").value.trim();
-  const date = document.getElementById("eventDate").value;
-
-  if (!text || !date) {
-    alert("Please enter event name and date");
-    return;
-  }
-
-  push(refs.events, {
-    text,
-    member: document.getElementById("eventMember").value,
-    time: document.getElementById("eventTime").value,
-    date: date, // 🔥 THIS IS THE KEY CHANGE
-    completed: false,
-    createdAt: Date.now()
-  });
-
-  document.getElementById("eventText").value = "";
-  document.getElementById("eventDate").value = "";
-};
+        <input id="eventText" type="text" placeholder="Enter event name" />
+        <input id="eventDate" type="date" />
+        <select id="eventMember">
+          <option value="William">William</option>
+          <option value="Hailey">Hailey</option>
+          <option value="Mom">Mom</option>
+          <option value="Dad">Dad</option>
+        </select>
+        <select id="eventTime">
+          <option value="7:00 AM">Choose a time</option>
+          <option>7:00 AM</option>
+          <option>8:00 AM</option>
+          <option>9:00 AM</option>
+          <option>12:00 PM</option>
+          <option>3:00 PM</option>
+          <option>4:30 PM</option>
+          <option>5:00 PM</option>
+          <option>6:30 PM</option>
+          <option>7:00 PM</option>
+        </select>
+        <button class="primary-btn" onclick="addEvent()">+ Add Event</button>
+      </div>
+    </div>
 
     <div class="card" id="choresSection">
       <span class="section-label">Chores</span>
@@ -651,7 +541,13 @@ window.addEvent = function () {
     let homework = [];
 
     function getInitial(name) {
-      return name.charAt(0).toUpperCase();
+      return (name || "?").charAt(0).toUpperCase();
+    }
+
+    function formatDate(dateValue) {
+      if (!dateValue) return "No date";
+      const date = new Date(dateValue + "T00:00:00");
+      return date.toLocaleDateString(undefined, { month: "short", day: "numeric", year: "numeric" });
     }
 
     function renderMembers() {
@@ -682,6 +578,7 @@ window.addEvent = function () {
               <div class="item-title">${item.text}</div>
               <div class="item-subtext">Assigned to ${item.member}</div>
               <div class="meta">
+                ${item.date ? `<span class="pill">${formatDate(item.date)}</span>` : ''}
                 ${item.time ? `<span class="pill">${item.time}</span>` : ''}
                 ${item.day ? `<span class="pill">${item.day}</span>` : ''}
                 ${item.subject ? `<span class="pill">${item.subject}</span>` : ''}
@@ -712,8 +609,11 @@ window.addEvent = function () {
       updateCounts();
     }
 
-    function sortByCreatedAt(items) {
-      return items.sort((a, b) => (a.createdAt || 0) - (b.createdAt || 0));
+    function sortItems(items) {
+      return items.sort((a, b) => {
+        if (a.date && b.date) return a.date.localeCompare(b.date);
+        return (a.createdAt || 0) - (b.createdAt || 0);
+      });
     }
 
     onValue(refs.events, (snapshot) => {
@@ -721,7 +621,7 @@ window.addEvent = function () {
       snapshot.forEach(child => {
         events.push({ id: child.key, ...child.val() });
       });
-      events = sortByCreatedAt(events);
+      events = sortItems(events);
       refreshUI();
     });
 
@@ -730,7 +630,7 @@ window.addEvent = function () {
       snapshot.forEach(child => {
         chores.push({ id: child.key, ...child.val() });
       });
-      chores = sortByCreatedAt(chores);
+      chores = sortItems(chores);
       refreshUI();
     });
 
@@ -739,24 +639,30 @@ window.addEvent = function () {
       snapshot.forEach(child => {
         homework.push({ id: child.key, ...child.val() });
       });
-      homework = sortByCreatedAt(homework);
+      homework = sortItems(homework);
       refreshUI();
     });
 
     window.addEvent = function () {
       const text = document.getElementById("eventText").value.trim();
-      if (!text) return;
+      const date = document.getElementById("eventDate").value;
+
+      if (!text || !date) {
+        alert("Please enter an event name and date.");
+        return;
+      }
 
       push(refs.events, {
         text,
+        date,
         member: document.getElementById("eventMember").value,
         time: document.getElementById("eventTime").value,
-        day: document.getElementById("eventDay").value,
         completed: false,
         createdAt: Date.now()
       });
 
       document.getElementById("eventText").value = "";
+      document.getElementById("eventDate").value = "";
     };
 
     window.addChore = function () {
