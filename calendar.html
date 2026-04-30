@@ -144,6 +144,22 @@
       color: #1f2937;
     }
 
+    .calendar-controls {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 10px;
+      margin-top: 12px;
+    }
+
+    .month-btn {
+      background: #635bff;
+      color: white;
+      border-radius: 14px;
+      padding: 9px 12px;
+      font-size: 0.82rem;
+    }
+
     .calendar-grid {
       display: grid;
       grid-template-columns: repeat(7, 1fr);
@@ -173,13 +189,16 @@
     }
 
     .calendar-tag {
-      display: inline-block;
+      display: block;
       font-size: 0.62rem;
       font-weight: 700;
       padding: 2px 6px;
       border-radius: 999px;
       margin-top: 2px;
       color: white;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
     }
 
     .tag-William { background: #60a5fa; }
@@ -403,48 +422,14 @@
 
     <div class="card">
       <span class="section-label">Monthly Calendar</span>
-      <h2>April 2026</h2>
+      <h2 id="monthTitle">April 2026</h2>
 
-      <div class="calendar-grid">
-        <div class="weekday">S</div>
-        <div class="weekday">M</div>
-        <div class="weekday">T</div>
-        <div class="weekday">W</div>
-        <div class="weekday">T</div>
-        <div class="weekday">F</div>
-        <div class="weekday">S</div>
-
-        <div class="calendar-day"><div class="calendar-number">1</div></div>
-        <div class="calendar-day"><div class="calendar-number">2</div></div>
-        <div class="calendar-day"><div class="calendar-number">3</div></div>
-        <div class="calendar-day"><div class="calendar-number">4</div></div>
-        <div class="calendar-day"><div class="calendar-number">5</div></div>
-        <div class="calendar-day"><div class="calendar-number">6</div></div>
-        <div class="calendar-day"><div class="calendar-number">7</div></div>
-        <div class="calendar-day"><div class="calendar-number">8</div></div>
-        <div class="calendar-day"><div class="calendar-number">9</div></div>
-        <div class="calendar-day"><div class="calendar-number">10</div></div>
-        <div class="calendar-day"><div class="calendar-number">11</div></div>
-        <div class="calendar-day"><div class="calendar-number">12</div></div>
-        <div class="calendar-day"><div class="calendar-number">13</div></div>
-        <div class="calendar-day"><div class="calendar-number">14</div></div>
-        <div class="calendar-day"><div class="calendar-number">15</div></div>
-        <div class="calendar-day"><div class="calendar-number">16</div></div>
-        <div class="calendar-day"><div class="calendar-number">17</div></div>
-        <div class="calendar-day"><div class="calendar-number">18</div></div>
-        <div class="calendar-day"><div class="calendar-number">19</div></div>
-        <div class="calendar-day"><div class="calendar-number">20</div></div>
-        <div class="calendar-day"><div class="calendar-number">21</div></div>
-        <div class="calendar-day"><div class="calendar-number">22</div></div>
-        <div class="calendar-day"><div class="calendar-number">23</div></div>
-        <div class="calendar-day"><div class="calendar-number">24</div></div>
-        <div class="calendar-day"><div class="calendar-number">25</div></div>
-        <div class="calendar-day"><div class="calendar-number">26</div></div>
-        <div class="calendar-day"><div class="calendar-number">27</div></div>
-        <div class="calendar-day"><div class="calendar-number">28</div></div>
-        <div class="calendar-day"><div class="calendar-number">29</div></div>
-        <div class="calendar-day"><div class="calendar-number">30</div></div>
+      <div class="calendar-controls">
+        <button class="month-btn" onclick="prevMonth()">← Previous</button>
+        <button class="month-btn" onclick="nextMonth()">Next →</button>
       </div>
+
+      <div class="calendar-grid" id="calendarGrid"></div>
     </div>
 
     <div class="card">
@@ -459,12 +444,15 @@
 
       <div class="form-stack">
         <input id="eventText" type="text" placeholder="Enter event name" />
+        <input id="eventDate" type="date" />
+
         <select id="eventMember">
           <option value="William">William</option>
           <option value="Hailey">Hailey</option>
           <option value="Mom">Mom</option>
           <option value="Dad">Dad</option>
         </select>
+
         <select id="eventTime">
           <option value="7:00 AM">7:00 AM</option>
           <option>8:00 AM</option>
@@ -476,15 +464,7 @@
           <option>6:30 PM</option>
           <option>7:00 PM</option>
         </select>
-        <select id="eventDay">
-          <option value="Monday">Monday</option>
-          <option>Tuesday</option>
-          <option>Wednesday</option>
-          <option>Thursday</option>
-          <option>Friday</option>
-          <option>Saturday</option>
-          <option>Sunday</option>
-        </select>
+
         <button class="primary-btn" onclick="addEvent()">+ Add Event</button>
       </div>
     </div>
@@ -498,90 +478,185 @@
     <a class="nav-link" href="homework.html">📚<br>Homework</a>
   </nav>
 
- <script type="module">
-import { initializeApp } from "https://www.gstatic.com/firebasejs/12.12.1/firebase-app.js";
-import { getDatabase, ref, push, onValue } from "https://www.gstatic.com/firebasejs/12.12.1/firebase-database.js";
+  <script type="module">
+    import { initializeApp } from "https://www.gstatic.com/firebasejs/12.12.1/firebase-app.js";
+    import { getDatabase, ref, push, onValue, remove, update } from "https://www.gstatic.com/firebasejs/12.12.1/firebase-database.js";
 
-const firebaseConfig = {
-  apiKey: "AIzaSyD9fBW4oE-QcaWZXT1dCZvE_mj5b6q3Gq8",
-  authDomain: "familyhub--family-planner.firebaseapp.com",
-  databaseURL: "https://familyhub--family-planner-default-rtdb.firebaseio.com",
-  projectId: "familyhub--family-planner",
-  storageBucket: "familyhub--family-planner.firebasestorage.app",
-  messagingSenderId: "795242861154",
-  appId: "1:795242861154:web:c42168a8530bcec264373b"
-};
+    const firebaseConfig = {
+      apiKey: "AIzaSyD9fBW4oE-QcaWZXT1dCZvE_mj5b6q3Gq8",
+      authDomain: "familyhub--family-planner.firebaseapp.com",
+      databaseURL: "https://familyhub--family-planner-default-rtdb.firebaseio.com",
+      projectId: "familyhub--family-planner",
+      storageBucket: "familyhub--family-planner.firebasestorage.app",
+      messagingSenderId: "795242861154",
+      appId: "1:795242861154:web:c42168a8530bcec264373b"
+    };
 
-const app = initializeApp(firebaseConfig);
-const db = getDatabase(app);
-const eventsRef = ref(db, "familyhub/events");
+    const app = initializeApp(firebaseConfig);
+    const db = getDatabase(app);
+    const eventsRef = ref(db, "familyhub/events");
 
-let events = [];
-let currentMonth = new Date().getMonth();
-let currentYear = new Date().getFullYear();
+    let events = [];
+    let currentMonth = new Date().getMonth();
+    let currentYear = new Date().getFullYear();
 
-onValue(eventsRef, snapshot => {
-  events = [];
-  snapshot.forEach(child => {
-    events.push(child.val());
-  });
-  renderCalendar();
-});
+    function getInitial(name) {
+      return (name || "?").charAt(0).toUpperCase();
+    }
 
-function renderCalendar() {
-  const grid = document.querySelector(".calendar-grid");
-  grid.innerHTML = "";
+    function formatDate(dateValue) {
+      if (!dateValue) return "No date";
+      const date = new Date(dateValue + "T00:00:00");
+      return date.toLocaleDateString(undefined, { month: "short", day: "numeric", year: "numeric" });
+    }
 
-  const firstDay = new Date(currentYear, currentMonth, 1).getDay();
-  const daysInMonth = new Date(currentYear, currentMonth + 1, 0).getDate();
+    function renderCalendar() {
+      const grid = document.getElementById("calendarGrid");
+      grid.innerHTML = "";
 
-  document.querySelector("h2").innerText =
-    new Date(currentYear, currentMonth).toLocaleString("default", { month: "long", year: "numeric" });
+      const weekdays = ["S", "M", "T", "W", "T", "F", "S"];
+      weekdays.forEach(day => {
+        const weekday = document.createElement("div");
+        weekday.className = "weekday";
+        weekday.textContent = day;
+        grid.appendChild(weekday);
+      });
 
-  for (let i = 0; i < firstDay; i++) {
-    grid.innerHTML += `<div></div>`;
-  }
+      const firstDay = new Date(currentYear, currentMonth, 1).getDay();
+      const daysInMonth = new Date(currentYear, currentMonth + 1, 0).getDate();
 
-  for (let d = 1; d <= daysInMonth; d++) {
-    const fullDate = `${currentYear}-${String(currentMonth + 1).padStart(2, "0")}-${String(d).padStart(2, "0")}`;
+      document.getElementById("monthTitle").textContent =
+        new Date(currentYear, currentMonth).toLocaleString("default", {
+          month: "long",
+          year: "numeric"
+        });
 
-    const dayBox = document.createElement("div");
-    dayBox.className = "calendar-day";
-    dayBox.innerHTML = `<div class="calendar-number">${d}</div>`;
+      for (let i = 0; i < firstDay; i++) {
+        grid.appendChild(document.createElement("div"));
+      }
 
-    // 🔥 REAL DATE MATCHING
-    const dayEvents = events.filter(e => e.date === fullDate);
+      for (let d = 1; d <= daysInMonth; d++) {
+        const fullDate = `${currentYear}-${String(currentMonth + 1).padStart(2, "0")}-${String(d).padStart(2, "0")}`;
 
-    dayEvents.forEach(e => {
-      const tag = document.createElement("span");
-      tag.className = `calendar-tag tag-${e.member}`;
-      tag.innerText = e.member;
-      dayBox.appendChild(tag);
+        const dayBox = document.createElement("div");
+        dayBox.className = "calendar-day";
+        dayBox.innerHTML = `<div class="calendar-number">${d}</div>`;
+
+        const dayEvents = events.filter(event => event.date === fullDate);
+
+        dayEvents.forEach(event => {
+          const tag = document.createElement("span");
+          tag.className = `calendar-tag tag-${event.member}`;
+          tag.textContent = event.text || event.member || "Event";
+          dayBox.appendChild(tag);
+        });
+
+        grid.appendChild(dayBox);
+      }
+    }
+
+    function renderEventsList() {
+      const container = document.getElementById("eventsList");
+
+      const sortedEvents = [...events].sort((a, b) => {
+        if (a.date && b.date) return a.date.localeCompare(b.date);
+        return (a.createdAt || 0) - (b.createdAt || 0);
+      });
+
+      if (sortedEvents.length === 0) {
+        container.innerHTML = `<div class="empty-message">No events yet — add one to get started.</div>`;
+        return;
+      }
+
+      container.innerHTML = sortedEvents.map(item => `
+        <div class="item assigned-${item.member} ${item.completed ? 'completed' : ''}">
+          <div class="item-top">
+            <div class="avatar avatar-${item.member}">${getInitial(item.member)}</div>
+            <div class="item-content">
+              <div class="item-title">${item.text || ""}</div>
+              <div class="item-subtext">Assigned to ${item.member || "Family"}</div>
+              <div class="meta">
+                <span class="pill">${formatDate(item.date)}</span>
+                <span class="pill">${item.time || "No time"}</span>
+              </div>
+            </div>
+          </div>
+
+          <div class="item-actions">
+            <button class="toggle-btn ${item.completed ? 'done' : ''}" onclick="toggleEvent('${item.id}', ${item.completed ? 'true' : 'false'})">
+              ${item.completed ? 'Undo' : 'Complete'}
+            </button>
+            <button class="delete-btn" onclick="deleteEvent('${item.id}')">Delete</button>
+          </div>
+        </div>
+      `).join("");
+    }
+
+    onValue(eventsRef, snapshot => {
+      events = [];
+
+      snapshot.forEach(child => {
+        events.push({
+          id: child.key,
+          ...child.val()
+        });
+      });
+
+      renderCalendar();
+      renderEventsList();
     });
 
-    grid.appendChild(dayBox);
-  }
-}
+    window.addEvent = function () {
+      const text = document.getElementById("eventText").value.trim();
+      const date = document.getElementById("eventDate").value;
 
-window.nextMonth = function () {
-  currentMonth++;
-  if (currentMonth > 11) {
-    currentMonth = 0;
-    currentYear++;
-  }
-  renderCalendar();
-};
+      if (!text || !date) {
+        alert("Please enter an event name and date.");
+        return;
+      }
 
-window.prevMonth = function () {
-  currentMonth--;
-  if (currentMonth < 0) {
-    currentMonth = 11;
-    currentYear--;
-  }
-  renderCalendar();
-};
+      push(eventsRef, {
+        text,
+        date,
+        member: document.getElementById("eventMember").value,
+        time: document.getElementById("eventTime").value,
+        completed: false,
+        createdAt: Date.now()
+      });
 
-renderCalendar();
-</script>
+      document.getElementById("eventText").value = "";
+      document.getElementById("eventDate").value = "";
+    };
+
+    window.toggleEvent = function (id, completed) {
+      update(ref(db, "familyhub/events/" + id), {
+        completed: !completed
+      });
+    };
+
+    window.deleteEvent = function (id) {
+      remove(ref(db, "familyhub/events/" + id));
+    };
+
+    window.nextMonth = function () {
+      currentMonth++;
+      if (currentMonth > 11) {
+        currentMonth = 0;
+        currentYear++;
+      }
+      renderCalendar();
+    };
+
+    window.prevMonth = function () {
+      currentMonth--;
+      if (currentMonth < 0) {
+        currentMonth = 11;
+        currentYear--;
+      }
+      renderCalendar();
+    };
+
+    renderCalendar();
+  </script>
 </body>
 </html>
