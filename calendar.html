@@ -5,9 +5,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>FamilyHub - Calendar</title>
   <style>
-    * {
-      box-sizing: border-box;
-    }
+    * { box-sizing: border-box; }
 
     body {
       margin: 0;
@@ -254,9 +252,7 @@
       align-items: flex-start;
     }
 
-    .item-content {
-      flex: 1;
-    }
+    .item-content { flex: 1; }
 
     .item-title {
       font-weight: 700;
@@ -383,6 +379,7 @@
     }
   </style>
 </head>
+
 <body>
   <div class="app">
     <div class="top-header">
@@ -396,7 +393,7 @@
     <div class="hero-card">
       <div class="hero-pill">Calendar Tracker</div>
       <div class="hero-title">Keep family events visible and easy to update</div>
-      <p class="hero-desc">Stay organized by keeping appointments, routines, and family events all in one place.</p>
+      <p class="hero-desc">Events added from the homepage or calendar update across all devices using Firebase.</p>
 
       <div class="hero-buttons">
         <button class="hero-btn primary" onclick="document.getElementById('eventText').focus()">+ Add Event</button>
@@ -501,24 +498,43 @@
     <a class="nav-link" href="homework.html">📚<br>Homework</a>
   </nav>
 
-  <script>
-    let events = [
-      { id: Date.now() + 1, text: "Morning school drop off for William", member: "Dad", time: "8:00 AM", day: "Monday", completed: false },
-      { id: Date.now() + 2, text: "Violin Practice", member: "William", time: "4:30 PM", day: "Monday", completed: false }
-    ];
+  <script type="module">
+    import { initializeApp } from "https://www.gstatic.com/firebasejs/12.12.1/firebase-app.js";
+    import { getDatabase, ref, push, onValue, remove, update } from "https://www.gstatic.com/firebasejs/12.12.1/firebase-database.js";
+
+    const firebaseConfig = {
+      apiKey: "AIzaSyD9fBW4oE-QcaWZXT1dCZvE_mj5b6q3Gq8",
+      authDomain: "familyhub--family-planner.firebaseapp.com",
+      databaseURL: "https://familyhub--family-planner-default-rtdb.firebaseio.com",
+      projectId: "familyhub--family-planner",
+      storageBucket: "familyhub--family-planner.firebasestorage.app",
+      messagingSenderId: "795242861154",
+      appId: "1:795242861154:web:c42168a8530bcec264373b"
+    };
+
+    const app = initializeApp(firebaseConfig);
+    const db = getDatabase(app);
+    const eventsRef = ref(db, "familyhub/events");
+
+    let events = [];
 
     function getInitial(name) {
       return name.charAt(0).toUpperCase();
     }
 
-    function saveEvents() {
-      localStorage.setItem("familyhub_events", JSON.stringify(events));
-    }
+    onValue(eventsRef, (snapshot) => {
+      events = [];
 
-    function loadEvents() {
-      const savedEvents = localStorage.getItem("familyhub_events");
-      if (savedEvents) events = JSON.parse(savedEvents);
-    }
+      snapshot.forEach((child) => {
+        events.push({
+          id: child.key,
+          ...child.val()
+        });
+      });
+
+      events.sort((a, b) => (a.createdAt || 0) - (b.createdAt || 0));
+      renderEvents();
+    });
 
     function renderEvents() {
       const container = document.getElementById("eventsList");
@@ -532,19 +548,21 @@
       container.innerHTML = events.map(item => `
         <div class="item assigned-${item.member} ${item.completed ? 'completed' : ''}">
           <div class="item-top">
-            <div class="avatar avatar-${item.member}">${getInitial(item.member)}</div>
+            <div class="avatar avatar-${item.member}">${getInitial(item.member || "?")}</div>
             <div class="item-content">
-              <div class="item-title">${item.text}</div>
-              <div class="item-subtext">Assigned to ${item.member}</div>
+              <div class="item-title">${item.text || ""}</div>
+              <div class="item-subtext">Assigned to ${item.member || "Family"}</div>
               <div class="meta">
-                <span class="pill">${item.time}</span>
-                <span class="pill">${item.day}</span>
+                <span class="pill">${item.time || "No time"}</span>
+                <span class="pill">${item.day || "No day"}</span>
               </div>
             </div>
           </div>
           <div class="item-actions">
-            <button class="toggle-btn ${item.completed ? 'done' : ''}" onclick="toggleEvent(${item.id})">${item.completed ? 'Undo' : 'Complete'}</button>
-            <button class="delete-btn" onclick="deleteEvent(${item.id})">Delete</button>
+            <button class="toggle-btn ${item.completed ? 'done' : ''}" onclick="toggleEvent('${item.id}', ${item.completed ? 'true' : 'false'})">
+              ${item.completed ? 'Undo' : 'Complete'}
+            </button>
+            <button class="delete-btn" onclick="deleteEvent('${item.id}')">Delete</button>
           </div>
         </div>
       `).join("");
@@ -571,47 +589,41 @@
       events.forEach(event => {
         const index = dayMap[event.day];
         const cell = document.querySelectorAll(".calendar-day")[index - 1];
+
         if (!cell) return;
 
         const tag = document.createElement("span");
         tag.className = `calendar-tag tag-${event.member}`;
-        tag.textContent = event.member;
+        tag.textContent = event.member || "Event";
         cell.appendChild(tag);
       });
     }
 
-    function addEvent() {
+    window.addEvent = function () {
       const text = document.getElementById("eventText").value.trim();
       if (!text) return;
 
-      events.push({
-        id: Date.now(),
+      push(eventsRef, {
         text,
         member: document.getElementById("eventMember").value,
         time: document.getElementById("eventTime").value,
         day: document.getElementById("eventDay").value,
-        completed: false
+        completed: false,
+        createdAt: Date.now()
       });
 
       document.getElementById("eventText").value = "";
-      saveEvents();
-      renderEvents();
-    }
+    };
 
-    function toggleEvent(id) {
-      events = events.map(item => item.id === id ? { ...item, completed: !item.completed } : item);
-      saveEvents();
-      renderEvents();
-    }
+    window.toggleEvent = function (id, completed) {
+      update(ref(db, "familyhub/events/" + id), {
+        completed: !completed
+      });
+    };
 
-    function deleteEvent(id) {
-      events = events.filter(item => item.id !== id);
-      saveEvents();
-      renderEvents();
-    }
-
-    loadEvents();
-    renderEvents();
+    window.deleteEvent = function (id) {
+      remove(ref(db, "familyhub/events/" + id));
+    };
   </script>
 </body>
 </html>
