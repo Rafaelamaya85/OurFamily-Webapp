@@ -498,132 +498,90 @@
     <a class="nav-link" href="homework.html">📚<br>Homework</a>
   </nav>
 
-  <script type="module">
-    import { initializeApp } from "https://www.gstatic.com/firebasejs/12.12.1/firebase-app.js";
-    import { getDatabase, ref, push, onValue, remove, update } from "https://www.gstatic.com/firebasejs/12.12.1/firebase-database.js";
+ <script type="module">
+import { initializeApp } from "https://www.gstatic.com/firebasejs/12.12.1/firebase-app.js";
+import { getDatabase, ref, push, onValue } from "https://www.gstatic.com/firebasejs/12.12.1/firebase-database.js";
 
-    const firebaseConfig = {
-      apiKey: "AIzaSyD9fBW4oE-QcaWZXT1dCZvE_mj5b6q3Gq8",
-      authDomain: "familyhub--family-planner.firebaseapp.com",
-      databaseURL: "https://familyhub--family-planner-default-rtdb.firebaseio.com",
-      projectId: "familyhub--family-planner",
-      storageBucket: "familyhub--family-planner.firebasestorage.app",
-      messagingSenderId: "795242861154",
-      appId: "1:795242861154:web:c42168a8530bcec264373b"
-    };
+const firebaseConfig = {
+  apiKey: "AIzaSyD9fBW4oE-QcaWZXT1dCZvE_mj5b6q3Gq8",
+  authDomain: "familyhub--family-planner.firebaseapp.com",
+  databaseURL: "https://familyhub--family-planner-default-rtdb.firebaseio.com",
+  projectId: "familyhub--family-planner",
+  storageBucket: "familyhub--family-planner.firebasestorage.app",
+  messagingSenderId: "795242861154",
+  appId: "1:795242861154:web:c42168a8530bcec264373b"
+};
 
-    const app = initializeApp(firebaseConfig);
-    const db = getDatabase(app);
-    const eventsRef = ref(db, "familyhub/events");
+const app = initializeApp(firebaseConfig);
+const db = getDatabase(app);
+const eventsRef = ref(db, "familyhub/events");
 
-    let events = [];
+let events = [];
+let currentMonth = new Date().getMonth();
+let currentYear = new Date().getFullYear();
 
-    function getInitial(name) {
-      return name.charAt(0).toUpperCase();
-    }
+onValue(eventsRef, snapshot => {
+  events = [];
+  snapshot.forEach(child => {
+    events.push(child.val());
+  });
+  renderCalendar();
+});
 
-    onValue(eventsRef, (snapshot) => {
-      events = [];
+function renderCalendar() {
+  const grid = document.querySelector(".calendar-grid");
+  grid.innerHTML = "";
 
-      snapshot.forEach((child) => {
-        events.push({
-          id: child.key,
-          ...child.val()
-        });
-      });
+  const firstDay = new Date(currentYear, currentMonth, 1).getDay();
+  const daysInMonth = new Date(currentYear, currentMonth + 1, 0).getDate();
 
-      events.sort((a, b) => (a.createdAt || 0) - (b.createdAt || 0));
-      renderEvents();
+  document.querySelector("h2").innerText =
+    new Date(currentYear, currentMonth).toLocaleString("default", { month: "long", year: "numeric" });
+
+  for (let i = 0; i < firstDay; i++) {
+    grid.innerHTML += `<div></div>`;
+  }
+
+  for (let d = 1; d <= daysInMonth; d++) {
+    const fullDate = `${currentYear}-${String(currentMonth + 1).padStart(2, "0")}-${String(d).padStart(2, "0")}`;
+
+    const dayBox = document.createElement("div");
+    dayBox.className = "calendar-day";
+    dayBox.innerHTML = `<div class="calendar-number">${d}</div>`;
+
+    // 🔥 REAL DATE MATCHING
+    const dayEvents = events.filter(e => e.date === fullDate);
+
+    dayEvents.forEach(e => {
+      const tag = document.createElement("span");
+      tag.className = `calendar-tag tag-${e.member}`;
+      tag.innerText = e.member;
+      dayBox.appendChild(tag);
     });
 
-    function renderEvents() {
-      const container = document.getElementById("eventsList");
+    grid.appendChild(dayBox);
+  }
+}
 
-      if (events.length === 0) {
-        container.innerHTML = `<div class="empty-message">No events yet — add one to get started.</div>`;
-        renderCalendarTags();
-        return;
-      }
+window.nextMonth = function () {
+  currentMonth++;
+  if (currentMonth > 11) {
+    currentMonth = 0;
+    currentYear++;
+  }
+  renderCalendar();
+};
 
-      container.innerHTML = events.map(item => `
-        <div class="item assigned-${item.member} ${item.completed ? 'completed' : ''}">
-          <div class="item-top">
-            <div class="avatar avatar-${item.member}">${getInitial(item.member || "?")}</div>
-            <div class="item-content">
-              <div class="item-title">${item.text || ""}</div>
-              <div class="item-subtext">Assigned to ${item.member || "Family"}</div>
-              <div class="meta">
-                <span class="pill">${item.time || "No time"}</span>
-                <span class="pill">${item.day || "No day"}</span>
-              </div>
-            </div>
-          </div>
-          <div class="item-actions">
-            <button class="toggle-btn ${item.completed ? 'done' : ''}" onclick="toggleEvent('${item.id}', ${item.completed ? 'true' : 'false'})">
-              ${item.completed ? 'Undo' : 'Complete'}
-            </button>
-            <button class="delete-btn" onclick="deleteEvent('${item.id}')">Delete</button>
-          </div>
-        </div>
-      `).join("");
+window.prevMonth = function () {
+  currentMonth--;
+  if (currentMonth < 0) {
+    currentMonth = 11;
+    currentYear--;
+  }
+  renderCalendar();
+};
 
-      renderCalendarTags();
-    }
-
-    function renderCalendarTags() {
-      const dayMap = {
-        "Monday": 14,
-        "Tuesday": 15,
-        "Wednesday": 16,
-        "Thursday": 17,
-        "Friday": 18,
-        "Saturday": 19,
-        "Sunday": 20
-      };
-
-      document.querySelectorAll(".calendar-day").forEach(day => {
-        const number = day.querySelector(".calendar-number").textContent;
-        day.innerHTML = `<div class="calendar-number">${number}</div>`;
-      });
-
-      events.forEach(event => {
-        const index = dayMap[event.day];
-        const cell = document.querySelectorAll(".calendar-day")[index - 1];
-
-        if (!cell) return;
-
-        const tag = document.createElement("span");
-        tag.className = `calendar-tag tag-${event.member}`;
-        tag.textContent = event.member || "Event";
-        cell.appendChild(tag);
-      });
-    }
-
-    window.addEvent = function () {
-      const text = document.getElementById("eventText").value.trim();
-      if (!text) return;
-
-      push(eventsRef, {
-        text,
-        member: document.getElementById("eventMember").value,
-        time: document.getElementById("eventTime").value,
-        day: document.getElementById("eventDay").value,
-        completed: false,
-        createdAt: Date.now()
-      });
-
-      document.getElementById("eventText").value = "";
-    };
-
-    window.toggleEvent = function (id, completed) {
-      update(ref(db, "familyhub/events/" + id), {
-        completed: !completed
-      });
-    };
-
-    window.deleteEvent = function (id) {
-      remove(ref(db, "familyhub/events/" + id));
-    };
-  </script>
+renderCalendar();
+</script>
 </body>
 </html>
