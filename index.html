@@ -494,25 +494,31 @@
       <div class="list" id="eventsList"></div>
 
       <div class="form-stack">
-        <input id="eventText" type="text" placeholder="Enter event name" />
-        <select id="eventMember">
-          <option value="William">William</option>
-          <option value="Hailey">Hailey</option>
-          <option value="Mom">Mom</option>
-          <option value="Dad">Dad</option>
-        </select>
-        <select id="eventTime">
-          <option value="7:00 AM">Choose a time</option>
-          <option>7:00 AM</option>
-          <option>8:00 AM</option>
-          <option>9:00 AM</option>
-          <option>12:00 PM</option>
-          <option>3:00 PM</option>
-          <option>4:30 PM</option>
-          <option>5:00 PM</option>
-          <option>6:30 PM</option>
-          <option>7:00 PM</option>
-        </select>
+<input id="eventText" type="text" placeholder="Enter event name" />
+
+<select id="eventMember">
+  <option value="William">William</option>
+  <option value="Hailey">Hailey</option>
+  <option value="Mom">Mom</option>
+  <option value="Dad">Dad</option>
+</select>
+
+<input id="eventDate" type="date" />
+
+<select id="eventTime">
+  <option value="7:00 AM">Choose a time</option>
+  <option>7:00 AM</option>
+  <option>8:00 AM</option>
+  <option>9:00 AM</option>
+  <option>12:00 PM</option>
+  <option>3:00 PM</option>
+  <option>4:30 PM</option>
+  <option>5:00 PM</option>
+  <option>6:30 PM</option>
+  <option>7:00 PM</option>
+</select>
+
+<button class="primary-btn" onclick="addEvent()">+ Add Event</button>
         <select id="eventDay">
           <option value="Monday">Monday</option>
           <option>Tuesday</option>
